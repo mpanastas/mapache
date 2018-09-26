@@ -8,6 +8,29 @@ grammar Mapache;
  program                : ;
  nose                   : ;
 
+asignacion          : ID OPEN_BRACKET exp CLOSE_BRACKET ASSIGN expresion;
+condicion           : IF OPEN_PAREN expresion CLOSE_PAREN bloque (ELSE bloque)?;
+variable            : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo;
+funcion             : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloque;
+bloque              : OPEN_CURLY estatuto* CLOSE_CURLY;
+estatuto            : (asignacion | condicion | imprimir | ciclo | funcion );
+expresion           : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL | AND | OR) exp)?;
+exp                 : termino ((PLUS | MINUS) termino)? :
+termino             : factor ((MULTIPLY | DIVISION) factor)?;
+// we can change all the factors to this single factor:
+//factor              : (OPEN_PAREN exp CLOSE_PAREN | (PLUS | MINUS) const | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
+factor              : (factor1 | factor2 | factor3);
+factor1             : OPEN_PAREN exp CLOSE_PAREN ;
+factor2             : (PLUS | MINUS) const ;
+factor3             : ID (factor31 | factor32)? ;
+factor31            : OPEN_BRACKET exp CLOSE_BRACKET ;
+factor32            : OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN;
+ciclo               : (cicloWhile | cicloFor);
+cicloWhile          : WHILE expresion bloque;
+cicloFor            : FOR ID IN exp DOTS exp BY exp bloque;
+imprimir            : OPEN_PAREN (exp | ) CLOSE_PAREN;
+tipo                : INT | FLOAT | BOOL | CHAR;
+const               : CONST_B | CONST_C | CONST_F | CONST_I;
 
  /*
  * Lexer Rules
@@ -54,6 +77,7 @@ INT                 : I N T ;
 CHAR                : C H A R ;
 FLOAT               : F L O A T ;
 BOOL                : B O O L ;
+VOID                : V O I D ;
 
 FUNC                : F U N C ;
 RETURN              : R E T U R N ;
@@ -92,7 +116,7 @@ CLOSE_CURLY         : ('}') ;
 COMMA               : (',') ;
 COLON               : (':') ;
 DOT                 : ('.') ;
-SEMICOLON           : (':') ;
+SEMICOLON           : (';') ;
 
 ARROW               : ('->') ;
 
@@ -102,7 +126,7 @@ LETRERO             : QUOTE .*? QUOTE;
 CONST_I             : DIGIT+;
 CONST_F             : DIGIT+ DOT DIGIT+;
 CONST_B             : (TRUE|FALSE) ;
-CONST_C             : APOS APOS; // to do
+CONST_C             : APOS [A-Za-z0-9_] APOS; // to do
 
 ID                  : [A-Za-z][A-Za-z0-9_]*;
 
