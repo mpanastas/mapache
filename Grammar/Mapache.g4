@@ -17,12 +17,12 @@ exp         : termino ((PLUS | MINUS) termino)? ;
 termino     : factor ((MULTIPLY | DIVISION) factor)?;
 llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN SEMICOLON;
 // we can change all the factors to this single factor:
-//factor     : (OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
-factor      : (factor1 | cte | factor2);
-factor1     : OPEN_PAREN exp CLOSE_PAREN ;
-factor2     : ID (factor21 | factor22)? ;
-factor21    : OPEN_BRACKET exp CLOSE_BRACKET ;
-factor22    : OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN;
+factor      : (OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
+//factor      : (factor1 | cte | factor2);
+//factor1     : OPEN_PAREN exp CLOSE_PAREN ;
+//factor2     : ID (factor21 | factor22)? ;
+//factor21    : OPEN_BRACKET exp CLOSE_BRACKET ;
+//factor22    : OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN;
 ciclo       : (cicloWhile | cicloFor);
 cicloWhile  : WHILE expresion bloque;
 cicloFor    : FOR ID IN exp DOTS exp BY exp bloque;

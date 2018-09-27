@@ -137,46 +137,6 @@ public interface MapacheListener extends ParseTreeListener {
 	 */
 	void exitFactor(MapacheParser.FactorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#factor1}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor1(MapacheParser.Factor1Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#factor1}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor1(MapacheParser.Factor1Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MapacheParser#factor2}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor2(MapacheParser.Factor2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#factor2}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor2(MapacheParser.Factor2Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MapacheParser#factor21}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor21(MapacheParser.Factor21Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#factor21}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor21(MapacheParser.Factor21Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MapacheParser#factor22}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor22(MapacheParser.Factor22Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#factor22}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor22(MapacheParser.Factor22Context ctx);
-	/**
 	 * Enter a parse tree produced by {@link MapacheParser#ciclo}.
 	 * @param ctx the parse tree
 	 */
