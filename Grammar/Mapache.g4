@@ -5,8 +5,12 @@ grammar Mapache;
  */
  
  mapache                : program+ EOF ;
- program                : ;
- nose                   : ;
+ program                : PROGRAM bloqueprogram;
+ bloqueprogram          : OPEN_CURLY /*bloque1*/ bloque2 bloque3 CLOSE_CURLY;
+ //bloque1              : funcion bloque1;
+ bloque2                : variable bloque2;
+ bloque3                : estatuto bloque3;
+ //nose                 : ;
 
 asignacion          : ID OPEN_BRACKET exp CLOSE_BRACKET ASSIGN expresion;
 condicion           : IF OPEN_PAREN expresion CLOSE_PAREN bloque (ELSE bloque)?;
@@ -15,13 +19,13 @@ funcion             : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)?
 bloque              : OPEN_CURLY estatuto* CLOSE_CURLY;
 estatuto            : (asignacion | condicion | imprimir | ciclo | funcion );
 expresion           : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL | AND | OR) exp)?;
-exp                 : termino ((PLUS | MINUS) termino)? :
+exp                 : termino ((PLUS | MINUS) termino)? ;
 termino             : factor ((MULTIPLY | DIVISION) factor)?;
 // we can change all the factors to this single factor:
 //factor              : (OPEN_PAREN exp CLOSE_PAREN | (PLUS | MINUS) const | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
 factor              : (factor1 | factor2 | factor3);
 factor1             : OPEN_PAREN exp CLOSE_PAREN ;
-factor2             : (PLUS | MINUS) const ;
+factor2             : (PLUS | MINUS) cte ;
 factor3             : ID (factor31 | factor32)? ;
 factor31            : OPEN_BRACKET exp CLOSE_BRACKET ;
 factor32            : OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN;
@@ -30,7 +34,7 @@ cicloWhile          : WHILE expresion bloque;
 cicloFor            : FOR ID IN exp DOTS exp BY exp bloque;
 imprimir            : OPEN_PAREN (exp | ) CLOSE_PAREN;
 tipo                : INT | FLOAT | BOOL | CHAR;
-const               : CONST_B | CONST_C | CONST_F | CONST_I;
+cte               : CONST_B | CONST_C | CONST_F | CONST_I;
 
  /*
  * Lexer Rules

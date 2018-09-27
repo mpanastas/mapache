@@ -1,4 +1,4 @@
-// Generated from /Users/jorgeanastas/Documents/GitHub/mapache/Grammar/Mapache.g4 by ANTLR 4.7.1
+// Generated from Mapache.g4 by ANTLR 4.7.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
