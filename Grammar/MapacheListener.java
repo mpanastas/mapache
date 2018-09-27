@@ -27,36 +27,6 @@ public interface MapacheListener extends ParseTreeListener {
 	 */
 	void exitProgram(MapacheParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#bloqueprogram}.
-	 * @param ctx the parse tree
-	 */
-	void enterBloqueprogram(MapacheParser.BloqueprogramContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#bloqueprogram}.
-	 * @param ctx the parse tree
-	 */
-	void exitBloqueprogram(MapacheParser.BloqueprogramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MapacheParser#bloque2}.
-	 * @param ctx the parse tree
-	 */
-	void enterBloque2(MapacheParser.Bloque2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#bloque2}.
-	 * @param ctx the parse tree
-	 */
-	void exitBloque2(MapacheParser.Bloque2Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MapacheParser#bloque3}.
-	 * @param ctx the parse tree
-	 */
-	void enterBloque3(MapacheParser.Bloque3Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#bloque3}.
-	 * @param ctx the parse tree
-	 */
-	void exitBloque3(MapacheParser.Bloque3Context ctx);
-	/**
 	 * Enter a parse tree produced by {@link MapacheParser#asignacion}.
 	 * @param ctx the parse tree
 	 */
@@ -147,6 +117,16 @@ public interface MapacheListener extends ParseTreeListener {
 	 */
 	void exitTermino(MapacheParser.TerminoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MapacheParser#llamada}.
+	 * @param ctx the parse tree
+	 */
+	void enterLlamada(MapacheParser.LlamadaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#llamada}.
+	 * @param ctx the parse tree
+	 */
+	void exitLlamada(MapacheParser.LlamadaContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MapacheParser#factor}.
 	 * @param ctx the parse tree
 	 */
@@ -177,35 +157,25 @@ public interface MapacheListener extends ParseTreeListener {
 	 */
 	void exitFactor2(MapacheParser.Factor2Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#factor3}.
+	 * Enter a parse tree produced by {@link MapacheParser#factor21}.
 	 * @param ctx the parse tree
 	 */
-	void enterFactor3(MapacheParser.Factor3Context ctx);
+	void enterFactor21(MapacheParser.Factor21Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link MapacheParser#factor3}.
+	 * Exit a parse tree produced by {@link MapacheParser#factor21}.
 	 * @param ctx the parse tree
 	 */
-	void exitFactor3(MapacheParser.Factor3Context ctx);
+	void exitFactor21(MapacheParser.Factor21Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#factor31}.
+	 * Enter a parse tree produced by {@link MapacheParser#factor22}.
 	 * @param ctx the parse tree
 	 */
-	void enterFactor31(MapacheParser.Factor31Context ctx);
+	void enterFactor22(MapacheParser.Factor22Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link MapacheParser#factor31}.
+	 * Exit a parse tree produced by {@link MapacheParser#factor22}.
 	 * @param ctx the parse tree
 	 */
-	void exitFactor31(MapacheParser.Factor31Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MapacheParser#factor32}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor32(MapacheParser.Factor32Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#factor32}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor32(MapacheParser.Factor32Context ctx);
+	void exitFactor22(MapacheParser.Factor22Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link MapacheParser#ciclo}.
 	 * @param ctx the parse tree
