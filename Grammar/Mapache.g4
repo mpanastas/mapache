@@ -9,7 +9,7 @@ program     : MAPACHE bloque;
 asignacion  : ID (OPEN_BRACKET exp CLOSE_BRACKET)? ASSIGN expresion SEMICOLON;
 condicion   : IF OPEN_PAREN expresion CLOSE_PAREN bloque (ELSE bloque)?;
 variable    : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
-funcion     : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloque;
+funcion     : FUNC ID OPEN_PAREN /*(ID COLON tipo (COMMA ID COLON tipo)*)? */ CLOSE_PAREN ARROW (VOID | tipo) bloque;
 bloque      : OPEN_CURLY estatuto* CLOSE_CURLY;
 estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion );
 expresion   : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL | AND | OR) exp)?;
