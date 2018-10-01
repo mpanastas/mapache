@@ -3,11 +3,11 @@ Mapache compiler
 
 ## Table of contents
 
-* [Setup](#set-up)
-* [Generate grammar](#Generate-Java-grammar)
-* [Generate Swift grammar](#Generate-Swift-Grammar)
+* [Setup](#setup)
+* [Generate grammar](#generate-java-grammar)
+* [Generate Swift grammar](#generate-swift-grammar)
 
-# Set Up
+# Setup
 ```bash
 export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
