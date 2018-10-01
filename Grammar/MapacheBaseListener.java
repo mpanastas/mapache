@@ -171,6 +171,18 @@ public class MapacheBaseListener implements MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVector(MapacheParser.VectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVector(MapacheParser.VectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCiclo(MapacheParser.CicloContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -7,22 +7,18 @@ grammar Mapache;
 mapache     : program+ EOF ;
 program     : MAPACHE bloque;
 asignacion  : ID (OPEN_BRACKET exp CLOSE_BRACKET)? ASSIGN expresion SEMICOLON;
-llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN SEMICOLON;
+llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN ;
 condicion   : IF OPEN_PAREN expresion CLOSE_PAREN bloque (ELSE bloque)?;
 variable    : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
-funcion     : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloque;
+funcion     : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloquefunc;
 bloque      : OPEN_CURLY estatuto* CLOSE_CURLY;
-estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion | llamada );
+bloquefunc  : OPEN_CURLY estatuto* (RETURN expresion)? CLOSE_CURLY;
+estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion | (llamada SEMICOLON) );
 expresion   : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL | AND | OR) exp)?;
 exp         : termino ((PLUS | MINUS) termino)? ;
 termino     : factor ((MULTIPLY | DIVISION) factor)?;
-// we can change all the factors to this single factor:
-factor      : ( OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
-//factor      : (factor1 | cte | factor2);
-//factor1     : OPEN_PAREN exp CLOSE_PAREN ;
-//factor2     : ID (factor21 | factor22)? ;
-//factor21    : OPEN_BRACKET exp CLOSE_BRACKET ;
-//factor22    : OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN;
+factor      : (OPEN_PAREN exp CLOSE_PAREN) | vector | cte | llamada | ID;
+vector      : ID OPEN_BRACKET exp CLOSE_BRACKET ;
 ciclo       : (cicloWhile | cicloFor);
 cicloWhile  : WHILE expresion bloque;
 cicloFor    : FOR ID IN exp DOTS exp BY exp bloque;
@@ -63,7 +59,6 @@ fragment Z          : ('Z'|'z') ;
 
 fragment QUOTE      : ('"') ;
 fragment APOS       : ('\'') ;
-fragment SIGN       : ('+'|'-') ;
 fragment DIGIT      : ('0'..'9');
 
 fragment LOWERCASE  : [a-z] ;
@@ -128,4 +123,4 @@ CONST_C             : APOS [A-Za-z0-9_] APOS; // to do
 
 ID                  : [A-Za-z][A-Za-z0-9_]*;
 
-WS : [ \t\r\n]+ -> skip ;
+WS                  : [ \t\r\n]+ -> skip ;

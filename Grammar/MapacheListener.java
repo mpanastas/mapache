@@ -137,6 +137,16 @@ public interface MapacheListener extends ParseTreeListener {
 	 */
 	void exitFactor(MapacheParser.FactorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MapacheParser#vector}.
+	 * @param ctx the parse tree
+	 */
+	void enterVector(MapacheParser.VectorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#vector}.
+	 * @param ctx the parse tree
+	 */
+	void exitVector(MapacheParser.VectorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MapacheParser#ciclo}.
 	 * @param ctx the parse tree
 	 */
