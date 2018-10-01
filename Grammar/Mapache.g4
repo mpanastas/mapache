@@ -17,7 +17,7 @@ exp         : termino ((PLUS | MINUS) termino)? ;
 termino     : factor ((MULTIPLY | DIVISION) factor)?;
 llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN SEMICOLON;
 // we can change all the factors to this single factor:
-factor      : (OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
+factor      : ( OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
 //factor      : (factor1 | cte | factor2);
 //factor1     : OPEN_PAREN exp CLOSE_PAREN ;
 //factor2     : ID (factor21 | factor22)? ;
@@ -26,7 +26,7 @@ factor      : (OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BRA
 ciclo       : (cicloWhile | cicloFor);
 cicloWhile  : WHILE expresion bloque;
 cicloFor    : FOR ID IN exp DOTS exp BY exp bloque;
-imprimir    : PRINT OPEN_PAREN (exp | ) CLOSE_PAREN SEMICOLON;
+imprimir    : PRINT OPEN_PAREN (LETRERO | exp ) CLOSE_PAREN SEMICOLON;
 tipo        : INT | FLOAT | BOOL | CHAR;
 cte         : CONST_B | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
 
@@ -120,14 +120,12 @@ ARROW               : ('->') ;
 
 TRUE                : T R U E ;
 FALSE               : F A L S E ;
-LETRERO             : QUOTE .*? QUOTE;
+TEXT                : QUOTE .*? QUOTE;
 CONST_I             : DIGIT+;
 CONST_F             : DIGIT+ DOT DIGIT+;
 CONST_B             : (TRUE|FALSE) ;
 CONST_C             : APOS [A-Za-z0-9_] APOS; // to do
 
 ID                  : [A-Za-z][A-Za-z0-9_]*;
-
-TEXT                : ('['|'(') .*? (']'|')');
 
 WS : [ \t\r\n]+ -> skip ;
