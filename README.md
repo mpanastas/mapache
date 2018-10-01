@@ -7,14 +7,14 @@ Mapache compiler
 * [Generate grammar](#generate-java-grammar)
 * [Generate Swift grammar](#generate-swift-grammar)
 
-# Setup
+### Setup
 ```bash
 export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java org.antlr.v4.gui.TestRig'
 ```
 
-# Generate Java grammar
+### Generate Java grammar
 
 ```bash
 antlr4 Mapache.g4
@@ -29,7 +29,7 @@ grun Mapache program -gui
 grun Mapache program -gui input.txt
 ```
 
-# Generate Swift Grammar
+### Generate Swift Grammar
 
 ```bash
 $ antlr4 -Dlanguage=Swift Mapache.g4 
