@@ -21,8 +21,8 @@ public class MapacheParser extends Parser {
 		MINUS=19, MULTIPLY=20, DIVISION=21, ASSIGN=22, EQUAL=23, NOT=24, NOT_EQUAL=25, 
 		LESS_THAN=26, GREATER_THAN=27, AND=28, OR=29, OPEN_BRACKET=30, CLOSE_BRACKET=31, 
 		OPEN_PAREN=32, CLOSE_PAREN=33, OPEN_CURLY=34, CLOSE_CURLY=35, COMMA=36, 
-		COLON=37, DOT=38, SEMICOLON=39, ARROW=40, TRUE=41, FALSE=42, LETRERO=43, 
-		CONST_I=44, CONST_F=45, CONST_B=46, CONST_C=47, ID=48, TEXT=49, WS=50;
+		COLON=37, DOT=38, SEMICOLON=39, ARROW=40, TRUE=41, FALSE=42, TEXT=43, 
+		CONST_I=44, CONST_F=45, CONST_B=46, CONST_C=47, ID=48, WS=49;
 	public static final int
 		RULE_mapache = 0, RULE_program = 1, RULE_asignacion = 2, RULE_condicion = 3, 
 		RULE_variable = 4, RULE_funcion = 5, RULE_bloque = 6, RULE_estatuto = 7, 
@@ -43,8 +43,8 @@ public class MapacheParser extends Parser {
 		"MINUS", "MULTIPLY", "DIVISION", "ASSIGN", "EQUAL", "NOT", "NOT_EQUAL", 
 		"LESS_THAN", "GREATER_THAN", "AND", "OR", "OPEN_BRACKET", "CLOSE_BRACKET", 
 		"OPEN_PAREN", "CLOSE_PAREN", "OPEN_CURLY", "CLOSE_CURLY", "COMMA", "COLON", 
-		"DOT", "SEMICOLON", "ARROW", "TRUE", "FALSE", "LETRERO", "CONST_I", "CONST_F", 
-		"CONST_B", "CONST_C", "ID", "TEXT", "WS"
+		"DOT", "SEMICOLON", "ARROW", "TRUE", "FALSE", "TEXT", "CONST_I", "CONST_F", 
+		"CONST_B", "CONST_C", "ID", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -1289,7 +1289,7 @@ public class MapacheParser extends Parser {
 		public TerminalNode OPEN_PAREN() { return getToken(MapacheParser.OPEN_PAREN, 0); }
 		public TerminalNode CLOSE_PAREN() { return getToken(MapacheParser.CLOSE_PAREN, 0); }
 		public TerminalNode SEMICOLON() { return getToken(MapacheParser.SEMICOLON, 0); }
-		public TerminalNode LETRERO() { return getToken(MapacheParser.LETRERO, 0); }
+		public TerminalNode TEXT() { return getToken(MapacheParser.TEXT, 0); }
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
 		}
@@ -1320,10 +1320,10 @@ public class MapacheParser extends Parser {
 			setState(198);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case LETRERO:
+			case TEXT:
 				{
 				setState(196);
-				match(LETRERO);
+				match(TEXT);
 				}
 				break;
 			case MINUS:
@@ -1501,7 +1501,7 @@ public class MapacheParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\64\u00dc\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\63\u00dc\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\3\2\6\2*\n\2\r\2\16\2+\3\2\3\2\3\3\3\3\3\3\3\4\3"+

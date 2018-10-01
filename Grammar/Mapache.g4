@@ -26,7 +26,7 @@ factor      : ( OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BR
 ciclo       : (cicloWhile | cicloFor);
 cicloWhile  : WHILE expresion bloque;
 cicloFor    : FOR ID IN exp DOTS exp BY exp bloque;
-imprimir    : PRINT OPEN_PAREN (LETRERO | exp ) CLOSE_PAREN SEMICOLON;
+imprimir    : PRINT OPEN_PAREN (TEXT | exp ) CLOSE_PAREN SEMICOLON;
 tipo        : INT | FLOAT | BOOL | CHAR;
 cte         : CONST_B | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
 
