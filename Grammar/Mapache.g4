@@ -7,15 +7,15 @@ grammar Mapache;
 mapache     : program+ EOF ;
 program     : MAPACHE bloque;
 asignacion  : ID (OPEN_BRACKET exp CLOSE_BRACKET)? ASSIGN expresion SEMICOLON;
+llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN SEMICOLON;
 condicion   : IF OPEN_PAREN expresion CLOSE_PAREN bloque (ELSE bloque)?;
 variable    : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
 funcion     : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloque;
 bloque      : OPEN_CURLY estatuto* CLOSE_CURLY;
-estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion );
+estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion | llamada );
 expresion   : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL | AND | OR) exp)?;
 exp         : termino ((PLUS | MINUS) termino)? ;
 termino     : factor ((MULTIPLY | DIVISION) factor)?;
-llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN SEMICOLON;
 // we can change all the factors to this single factor:
 factor      : ( OPEN_PAREN exp CLOSE_PAREN | cte | ID (OPEN_BRACKET exp CLOSE_BRACKET | OPEN_PAREN exp (COMMA exp)* CLOSE_PAREN)?);
 //factor      : (factor1 | cte | factor2);

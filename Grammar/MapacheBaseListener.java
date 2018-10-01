@@ -51,6 +51,18 @@ public class MapacheBaseListener implements MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLlamada(MapacheParser.LlamadaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLlamada(MapacheParser.LlamadaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCondicion(MapacheParser.CondicionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -142,18 +154,6 @@ public class MapacheBaseListener implements MapacheListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTermino(MapacheParser.TerminoContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLlamada(MapacheParser.LlamadaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLlamada(MapacheParser.LlamadaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

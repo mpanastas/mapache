@@ -37,6 +37,16 @@ public interface MapacheListener extends ParseTreeListener {
 	 */
 	void exitAsignacion(MapacheParser.AsignacionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MapacheParser#llamada}.
+	 * @param ctx the parse tree
+	 */
+	void enterLlamada(MapacheParser.LlamadaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#llamada}.
+	 * @param ctx the parse tree
+	 */
+	void exitLlamada(MapacheParser.LlamadaContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MapacheParser#condicion}.
 	 * @param ctx the parse tree
 	 */
@@ -116,16 +126,6 @@ public interface MapacheListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTermino(MapacheParser.TerminoContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MapacheParser#llamada}.
-	 * @param ctx the parse tree
-	 */
-	void enterLlamada(MapacheParser.LlamadaContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#llamada}.
-	 * @param ctx the parse tree
-	 */
-	void exitLlamada(MapacheParser.LlamadaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MapacheParser#factor}.
 	 * @param ctx the parse tree
