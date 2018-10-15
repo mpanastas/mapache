@@ -17,7 +17,8 @@ struct Function {
     var parameters = [Name: Variable]()
     var paramsSecuence = [Type]() // used to know parameters of function
     
-    init(type: Type) {
+    init(type: Type, startAddress: Int) {
         self.type = type
+        self.startAddress = startAddress
     }
 }
