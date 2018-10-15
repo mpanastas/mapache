@@ -17,7 +17,6 @@
 		372E48F9216FEF56007FC25E /* MapacheLexer.tokens in Resources */ = {isa = PBXBuildFile; fileRef = 372E48EF216FEF56007FC25E /* MapacheLexer.tokens */; };
 		372E48FA216FEF56007FC25E /* MapacheParserATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48F0216FEF56007FC25E /* MapacheParserATN.swift */; };
 		372E48FB216FEF56007FC25E /* MapacheListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48F1216FEF56007FC25E /* MapacheListener.swift */; };
-		372E48FF216FEF97007FC25E /* Antlr4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 372E48E2216FEEB5007FC25E /* Antlr4.framework */; };
 		373958252166D7F00030470E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958242166D7F00030470E /* AppDelegate.swift */; };
 		373958272166D7F00030470E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958262166D7F00030470E /* ViewController.swift */; };
 		3739582A2166D7F00030470E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 373958282166D7F00030470E /* Main.storyboard */; };
@@ -28,30 +27,10 @@
 		373958532166D8940030470E /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958522166D8940030470E /* Variable.swift */; };
 		373958552166D89D0030470E /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958542166D89D0030470E /* Function.swift */; };
 		3762D1EA216BBA7600E44B64 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3762D1E9216BBA7600E44B64 /* Tables.swift */; };
+		378FFAB82174294500EC10AE /* Antlr4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378FFAB12174286900EC10AE /* Antlr4.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		372E48E1216FEEB5007FC25E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 372E48DA216FEEB5007FC25E /* Antlr4.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = "Antlr4::Antlr4::Product";
-			remoteInfo = Antlr4;
-		};
-		372E48E3216FEEB5007FC25E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 372E48DA216FEEB5007FC25E /* Antlr4.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = "Antlr4::Antlr4Tests::Product";
-			remoteInfo = Antlr4Tests;
-		};
-		372E48FC216FEF87007FC25E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 372E48DA216FEEB5007FC25E /* Antlr4.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = "Antlr4::Antlr4";
-			remoteInfo = Antlr4;
-		};
 		373958362166D7F10030470E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 373958192166D7F00030470E /* Project object */;
@@ -66,10 +45,30 @@
 			remoteGlobalIDString = 373958202166D7F00030470E;
 			remoteInfo = Mapache;
 		};
+		378FFAB02174286900EC10AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "Antlr4::Antlr4::Product";
+			remoteInfo = Antlr4;
+		};
+		378FFAB22174286900EC10AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "Antlr4::Antlr4Tests::Product";
+			remoteInfo = Antlr4Tests;
+		};
+		378FFAB62174293700EC10AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = "Antlr4::Antlr4";
+			remoteInfo = Antlr4;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		372E48DA216FEEB5007FC25E /* Antlr4.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Antlr4.xcodeproj; path = ../../GitHub/antlr4/runtime/Swift/Antlr4.xcodeproj; sourceTree = "<group>"; };
 		372E48E8216FEF56007FC25E /* MapacheLexerATN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheLexerATN.swift; sourceTree = "<group>"; };
 		372E48E9216FEF56007FC25E /* Mapache.interp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mapache.interp; sourceTree = "<group>"; };
 		372E48EA216FEF56007FC25E /* Mapache.tokens */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mapache.tokens; sourceTree = "<group>"; };
@@ -96,6 +95,7 @@
 		373958522166D8940030470E /* Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
 		373958542166D89D0030470E /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		3762D1E9216BBA7600E44B64 /* Tables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
+		378FFAA92174286900EC10AE /* Antlr4.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Antlr4.xcodeproj; path = ../../antlr4/runtime/Swift/Antlr4.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				372E48FF216FEF97007FC25E /* Antlr4.framework in Frameworks */,
+				378FFAB82174294500EC10AE /* Antlr4.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,15 +124,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		372E48DB216FEEB5007FC25E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				372E48E2216FEEB5007FC25E /* Antlr4.framework */,
-				372E48E4216FEEB5007FC25E /* Antlr4Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		372E48E7216FEF32007FC25E /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,7 +151,7 @@
 		373958182166D7F00030470E = {
 			isa = PBXGroup;
 			children = (
-				372E48DA216FEEB5007FC25E /* Antlr4.xcodeproj */,
+				378FFAA92174286900EC10AE /* Antlr4.xcodeproj */,
 				373958232166D7F00030470E /* Mapache */,
 				373958382166D7F10030470E /* MapacheTests */,
 				373958432166D7F10030470E /* MapacheUITests */,
@@ -214,6 +205,15 @@
 			path = MapacheUITests;
 			sourceTree = "<group>";
 		};
+		378FFAAA2174286900EC10AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				378FFAB12174286900EC10AE /* Antlr4.framework */,
+				378FFAB32174286900EC10AE /* Antlr4Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -228,7 +228,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				372E48FD216FEF87007FC25E /* PBXTargetDependency */,
+				378FFAB72174293700EC10AE /* PBXTargetDependency */,
 			);
 			name = Mapache;
 			productName = Mapache;
@@ -307,8 +307,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 372E48DB216FEEB5007FC25E /* Products */;
-					ProjectRef = 372E48DA216FEEB5007FC25E /* Antlr4.xcodeproj */;
+					ProductGroup = 378FFAAA2174286900EC10AE /* Products */;
+					ProjectRef = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -321,18 +321,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		372E48E2216FEEB5007FC25E /* Antlr4.framework */ = {
+		378FFAB12174286900EC10AE /* Antlr4.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Antlr4.framework;
-			remoteRef = 372E48E1216FEEB5007FC25E /* PBXContainerItemProxy */;
+			remoteRef = 378FFAB02174286900EC10AE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		372E48E4216FEEB5007FC25E /* Antlr4Tests.xctest */ = {
+		378FFAB32174286900EC10AE /* Antlr4Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = file;
 			path = Antlr4Tests.xctest;
-			remoteRef = 372E48E3216FEEB5007FC25E /* PBXContainerItemProxy */;
+			remoteRef = 378FFAB22174286900EC10AE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -406,11 +406,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		372E48FD216FEF87007FC25E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Antlr4;
-			targetProxy = 372E48FC216FEF87007FC25E /* PBXContainerItemProxy */;
-		};
 		373958372166D7F10030470E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 373958202166D7F00030470E /* Mapache */;
@@ -420,6 +415,11 @@
 			isa = PBXTargetDependency;
 			target = 373958202166D7F00030470E /* Mapache */;
 			targetProxy = 373958412166D7F10030470E /* PBXContainerItemProxy */;
+		};
+		378FFAB72174293700EC10AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Antlr4;
+			targetProxy = 378FFAB62174293700EC10AE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -564,6 +564,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9GJY67MQJM;
 				INFOPLIST_FILE = Mapache/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -581,6 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9GJY67MQJM;
 				INFOPLIST_FILE = Mapache/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
