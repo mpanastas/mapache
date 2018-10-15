@@ -1,0 +1,220 @@
+{
+"semanticCube" : {
+    "Int": {
+        "Int": {
+            "+":    "Int",
+            "-":    "Int",
+            "*":    "Int",
+            "/":    "Int",
+            "=":    "Int",
+            "==":   "Bool",
+            "!=":   "Bool",
+            "<":    "Bool",
+            ">":    "Bool",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Float": {
+            "+":    "Float",
+            "-":    "Float",
+            "*":    "Float",
+            "/":    "Float",
+            "=":    "Float",
+            "==":   "Bool",
+            "!=":   "Bool",
+            "<":    "Bool",
+            ">":    "Bool",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Char": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Bool": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        }
+    }, 
+    "Float":{
+        "Int": {
+            "+":    "Float",
+            "-":    "Float",
+            "*":    "Float",
+            "/":    "Float",
+            "=":    "Float",
+            "==":   "Bool",
+            "!=":   "Bool",
+            "<":    "Bool",
+            ">":    "Bool",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Float": {
+            "+":    "Float",
+            "-":    "Float",
+            "*":    "Float",
+            "/":    "Float",
+            "=":    "Float",
+            "==":   "Bool",
+            "!=":   "Bool",
+            "<":    "Bool",
+            ">":    "Bool",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Char": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Bool": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        }
+    }, 
+    "Bool":{
+        "Int": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Float": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Char": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Bool": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "Bool",
+            "==":   "Bool",
+            "!=":   "Bool",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "Bool",
+            "||":   "Bool"
+        }
+    },
+    "Char":{
+        "Int": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Float": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Char": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "Char",
+            "==":   "Bool",
+            "!=":   "Bool",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        },
+        "Bool": {
+            "+":    "ERROR",
+            "-":    "ERROR",
+            "*":    "ERROR",
+            "/":    "ERROR",
+            "=":    "ERROR",
+            "==":   "ERROR",
+            "!=":   "ERROR",
+            "<":    "ERROR",
+            ">":    "ERROR",
+            "&&":   "ERROR",
+            "||":   "ERROR"
+        }
+    }
+}
+}

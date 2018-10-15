@@ -28,6 +28,8 @@
 		373958552166D89D0030470E /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958542166D89D0030470E /* Function.swift */; };
 		3762D1EA216BBA7600E44B64 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3762D1E9216BBA7600E44B64 /* Tables.swift */; };
 		378FFAB82174294500EC10AE /* Antlr4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378FFAB12174286900EC10AE /* Antlr4.framework */; };
+		378FFABA2174311100EC10AE /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378FFAB92174311100EC10AE /* Typealiases.swift */; };
+		378FFABD2174443500EC10AE /* SemanticCube.json in Resources */ = {isa = PBXBuildFile; fileRef = 378FFABC2174443400EC10AE /* SemanticCube.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		373958542166D89D0030470E /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		3762D1E9216BBA7600E44B64 /* Tables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
 		378FFAA92174286900EC10AE /* Antlr4.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Antlr4.xcodeproj; path = ../../antlr4/runtime/Swift/Antlr4.xcodeproj; sourceTree = "<group>"; };
+		378FFAB92174311100EC10AE /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
+		378FFABC2174443400EC10AE /* SemanticCube.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SemanticCube.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +128,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		372E48E7216FEF32007FC25E /* Compiler */ = {
+		372E48E7216FEF32007FC25E /* Grammar */ = {
 			isa = PBXGroup;
 			children = (
 				372E48E9216FEF56007FC25E /* Mapache.interp */,
@@ -138,7 +142,7 @@
 				372E48EB216FEF56007FC25E /* MapacheParser.swift */,
 				372E48F0216FEF56007FC25E /* MapacheParserATN.swift */,
 			);
-			path = Compiler;
+			path = Grammar;
 			sourceTree = "<group>";
 		};
 		372E48FE216FEF97007FC25E /* Frameworks */ = {
@@ -173,11 +177,13 @@
 		373958232166D7F00030470E /* Mapache */ = {
 			isa = PBXGroup;
 			children = (
-				372E48E7216FEF32007FC25E /* Compiler */,
+				372E48E7216FEF32007FC25E /* Grammar */,
 				373958242166D7F00030470E /* AppDelegate.swift */,
 				373958262166D7F00030470E /* ViewController.swift */,
 				373958522166D8940030470E /* Variable.swift */,
 				373958542166D89D0030470E /* Function.swift */,
+				378FFAB92174311100EC10AE /* Typealiases.swift */,
+				378FFABB2174440900EC10AE /* Resources */,
 				3762D1E9216BBA7600E44B64 /* Tables.swift */,
 				373958282166D7F00030470E /* Main.storyboard */,
 				3739582B2166D7F10030470E /* Assets.xcassets */,
@@ -212,6 +218,14 @@
 				378FFAB32174286900EC10AE /* Antlr4Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		378FFABB2174440900EC10AE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				378FFABC2174443400EC10AE /* SemanticCube.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +360,7 @@
 				3739582F2166D7F10030470E /* LaunchScreen.storyboard in Resources */,
 				372E48F3216FEF56007FC25E /* Mapache.interp in Resources */,
 				372E48F9216FEF56007FC25E /* MapacheLexer.tokens in Resources */,
+				378FFABD2174443500EC10AE /* SemanticCube.json in Resources */,
 				372E48F4216FEF56007FC25E /* Mapache.tokens in Resources */,
 				3739582C2166D7F10030470E /* Assets.xcassets in Resources */,
 				3739582A2166D7F00030470E /* Main.storyboard in Resources */,
@@ -381,6 +396,7 @@
 				372E48F6216FEF56007FC25E /* MapacheLexer.swift in Sources */,
 				372E48FB216FEF56007FC25E /* MapacheListener.swift in Sources */,
 				373958252166D7F00030470E /* AppDelegate.swift in Sources */,
+				378FFABA2174311100EC10AE /* Typealiases.swift in Sources */,
 				372E48F5216FEF56007FC25E /* MapacheParser.swift in Sources */,
 				372E48F8216FEF56007FC25E /* MapacheBaseListener.swift in Sources */,
 				373958552166D89D0030470E /* Function.swift in Sources */,
