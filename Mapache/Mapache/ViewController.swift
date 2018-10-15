@@ -8,6 +8,7 @@
 
 import UIKit
 import Antlr4
+import SwiftyJSON
 
 class ViewController: UIViewController {
     
@@ -26,6 +27,11 @@ class ViewController: UIViewController {
         }
         """
         
+        runCode(input: input)
+        
+    }
+    
+    func runCode(input: String){
         do {
             let lexer = MapacheLexer(ANTLRInputStream(input))
             let tokens = CommonTokenStream(lexer)
@@ -38,10 +44,11 @@ class ViewController: UIViewController {
         } catch {
             
         }
-        
     }
     
 }
+
+
 
 class MapacheWalker: MapacheBaseListener {
     override func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) {
