@@ -9,7 +9,7 @@
 import Foundation
 
 class Tables {
-    static let singletone = Tables()
+    static let shared = Tables()
     
-    var funcTable = [String:Function]()
+    var funcTable = [Name:Function]()
 }

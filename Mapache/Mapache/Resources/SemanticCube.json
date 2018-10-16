@@ -19,7 +19,7 @@
             "-":    "Float",
             "*":    "Float",
             "/":    "Float",
-            "=":    "Float",
+            "=":    "Int",
             "==":   "Bool",
             "!=":   "Bool",
             "<":    "Bool",
