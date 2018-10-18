@@ -14,10 +14,21 @@ class Wizard{
     
     static let shared = Wizard()
     
+    // MARK: Variables
+    
+    // Ops
     var semanticCube: JSON!
     
-    func setup(){
-        
+    // Quadruple
+    var quadruples = [Quadruple]()
+    
+    // Function
+    var functionsTable = [Name:Function]()
+    
+    
+    // MARK: Constructor
+    
+    init(){
         if let path = Bundle.main.path(forResource: "SemanticCube", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
@@ -30,8 +41,10 @@ class Wizard{
         } else {
             print("Invalid filename/path.")
         }
-        
     }
+    
+    
+    // MARK: Functions
     
     func runCode(input: String){
         do {
@@ -44,7 +57,7 @@ class Wizard{
             let extractor = MapacheWalker.init()
             try walker.walk(extractor, tree)
         } catch {
-            
+            print("parse error: \(error.localizedDescription)")
         }
     }
 }
