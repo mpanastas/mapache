@@ -35,6 +35,7 @@
 		378FFABD2174443500EC10AE /* SemanticCube.json in Resources */ = {isa = PBXBuildFile; fileRef = 378FFABC2174443400EC10AE /* SemanticCube.json */; };
 		37DBFCD82175803C007433AE /* Walker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFCD72175803C007433AE /* Walker.swift */; };
 		37DBFCDD21758228007433AE /* Wizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFCDC21758228007433AE /* Wizard.swift */; };
+		37DBFD162178378E007433AE /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD152178378E007433AE /* Memory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		378FFABC2174443400EC10AE /* SemanticCube.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SemanticCube.json; sourceTree = "<group>"; };
 		37DBFCD72175803C007433AE /* Walker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walker.swift; sourceTree = "<group>"; };
 		37DBFCDC21758228007433AE /* Wizard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wizard.swift; sourceTree = "<group>"; };
+		37DBFD152178378E007433AE /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		56C0634809D4062989D635B8 /* Pods_MapacheUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapacheUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BAB77F7F67A0CAC129BB25E /* Pods-Mapache.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.debug.xcconfig"; sourceTree = "<group>"; };
 		946B35C98E558FA4F9448482 /* Pods-Mapache.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				373958262166D7F00030470E /* ViewController.swift */,
 				37DBFCD72175803C007433AE /* Walker.swift */,
 				37DBFCDC21758228007433AE /* Wizard.swift */,
+				37DBFD152178378E007433AE /* Memory.swift */,
 				373958522166D8940030470E /* Variable.swift */,
 				373958542166D89D0030470E /* Function.swift */,
 				378FFAB92174311100EC10AE /* Typealiases.swift */,
@@ -524,6 +527,7 @@
 				3762D1EA216BBA7600E44B64 /* Tables.swift in Sources */,
 				373958272166D7F00030470E /* ViewController.swift in Sources */,
 				372E48F2216FEF56007FC25E /* MapacheLexerATN.swift in Sources */,
+				37DBFD162178378E007433AE /* Memory.swift in Sources */,
 				373958532166D8940030470E /* Variable.swift in Sources */,
 				37DBFCD82175803C007433AE /* Walker.swift in Sources */,
 				372E48FA216FEF56007FC25E /* MapacheParserATN.swift in Sources */,

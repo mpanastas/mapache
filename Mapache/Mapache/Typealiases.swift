@@ -9,3 +9,4 @@
 import Foundation
 
 typealias Name = String
+typealias Address = Int
