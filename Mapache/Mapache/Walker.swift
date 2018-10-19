@@ -35,7 +35,6 @@ class MapacheWalker: MapacheBaseListener {
     
     override func enterVariable(_ ctx: MapacheParser.VariableContext) {
         
-        
     }
     
     override func exitVariable(_ ctx: MapacheParser.VariableContext) { }
@@ -55,7 +54,6 @@ class MapacheWalker: MapacheBaseListener {
     override func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) {
         let content = ctx.getText()
         print("Estatuto: \(content)")
-        
         
     }
     

@@ -28,8 +28,8 @@ class ViewController: UIViewController {
         
         }
         """
-        Wizard.shared.setup()
-        //print(semanticCube["Float"]["Int"]["*"])
+        
+        
         
         
         Wizard.shared.runCode(input: input)

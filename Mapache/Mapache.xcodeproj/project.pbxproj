@@ -10,16 +10,6 @@
 		0E4E9EDFD42F96CCF483BE89 /* Pods_MapacheTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7D82985F9FEEE89A6AA51A /* Pods_MapacheTests.framework */; };
 		2C5A32E721D1AEE0B2EDAA48 /* Pods_Mapache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A3A524CA097A8C033F9ACC /* Pods_Mapache.framework */; };
 		318382D1995F795450AE4876 /* Pods_MapacheUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C0634809D4062989D635B8 /* Pods_MapacheUITests.framework */; };
-		372E48F2216FEF56007FC25E /* MapacheLexerATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48E8216FEF56007FC25E /* MapacheLexerATN.swift */; };
-		372E48F3216FEF56007FC25E /* Mapache.interp in Resources */ = {isa = PBXBuildFile; fileRef = 372E48E9216FEF56007FC25E /* Mapache.interp */; };
-		372E48F4216FEF56007FC25E /* Mapache.tokens in Resources */ = {isa = PBXBuildFile; fileRef = 372E48EA216FEF56007FC25E /* Mapache.tokens */; };
-		372E48F5216FEF56007FC25E /* MapacheParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48EB216FEF56007FC25E /* MapacheParser.swift */; };
-		372E48F6216FEF56007FC25E /* MapacheLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48EC216FEF56007FC25E /* MapacheLexer.swift */; };
-		372E48F7216FEF56007FC25E /* MapacheLexer.interp in Resources */ = {isa = PBXBuildFile; fileRef = 372E48ED216FEF56007FC25E /* MapacheLexer.interp */; };
-		372E48F8216FEF56007FC25E /* MapacheBaseListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48EE216FEF56007FC25E /* MapacheBaseListener.swift */; };
-		372E48F9216FEF56007FC25E /* MapacheLexer.tokens in Resources */ = {isa = PBXBuildFile; fileRef = 372E48EF216FEF56007FC25E /* MapacheLexer.tokens */; };
-		372E48FA216FEF56007FC25E /* MapacheParserATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48F0216FEF56007FC25E /* MapacheParserATN.swift */; };
-		372E48FB216FEF56007FC25E /* MapacheListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E48F1216FEF56007FC25E /* MapacheListener.swift */; };
 		373958252166D7F00030470E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958242166D7F00030470E /* AppDelegate.swift */; };
 		373958272166D7F00030470E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958262166D7F00030470E /* ViewController.swift */; };
 		3739582A2166D7F00030470E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 373958282166D7F00030470E /* Main.storyboard */; };
@@ -38,6 +28,18 @@
 		37DBFD162178378E007433AE /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD152178378E007433AE /* Memory.swift */; };
 		37DBFD1B2178DF8A007433AE /* VirtualMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD1A2178DF8A007433AE /* VirtualMemory.swift */; };
 		37DBFD1D2178E14F007433AE /* Quadruple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD1C2178E14F007433AE /* Quadruple.swift */; };
+		37DBFD6021795F12007433AE /* MapacheParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5121795F11007433AE /* MapacheParser.swift */; };
+		37DBFD6121795F12007433AE /* MapacheLexer.tokens in Resources */ = {isa = PBXBuildFile; fileRef = 37DBFD5521795F11007433AE /* MapacheLexer.tokens */; };
+		37DBFD6221795F12007433AE /* Mapache.interp in Resources */ = {isa = PBXBuildFile; fileRef = 37DBFD5621795F12007433AE /* Mapache.interp */; };
+		37DBFD6321795F12007433AE /* Mapache.tokens in Resources */ = {isa = PBXBuildFile; fileRef = 37DBFD5721795F12007433AE /* Mapache.tokens */; };
+		37DBFD6421795F12007433AE /* MapacheLexerATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5821795F12007433AE /* MapacheLexerATN.swift */; };
+		37DBFD6521795F12007433AE /* MapacheLexer.interp in Resources */ = {isa = PBXBuildFile; fileRef = 37DBFD5921795F12007433AE /* MapacheLexer.interp */; };
+		37DBFD6621795F12007433AE /* MapacheParserATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5A21795F12007433AE /* MapacheParserATN.swift */; };
+		37DBFD6721795F12007433AE /* MapacheListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5B21795F12007433AE /* MapacheListener.swift */; };
+		37DBFD6821795F12007433AE /* MapacheVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5C21795F12007433AE /* MapacheVisitor.swift */; };
+		37DBFD6921795F12007433AE /* MapacheBaseVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5D21795F12007433AE /* MapacheBaseVisitor.swift */; };
+		37DBFD6A21795F12007433AE /* MapacheBaseListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5E21795F12007433AE /* MapacheBaseListener.swift */; };
+		37DBFD6B21795F12007433AE /* MapacheLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5F21795F12007433AE /* MapacheLexer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,16 +84,6 @@
 		029C5D5F50E7651C1EA07116 /* Pods-MapacheUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapacheUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapacheUITests/Pods-MapacheUITests.release.xcconfig"; sourceTree = "<group>"; };
 		0A28EEC2E6E62D2100FADBFE /* Pods-MapacheTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapacheTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapacheTests/Pods-MapacheTests.release.xcconfig"; sourceTree = "<group>"; };
 		22A3A524CA097A8C033F9ACC /* Pods_Mapache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mapache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		372E48E8216FEF56007FC25E /* MapacheLexerATN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheLexerATN.swift; sourceTree = "<group>"; };
-		372E48E9216FEF56007FC25E /* Mapache.interp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mapache.interp; sourceTree = "<group>"; };
-		372E48EA216FEF56007FC25E /* Mapache.tokens */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mapache.tokens; sourceTree = "<group>"; };
-		372E48EB216FEF56007FC25E /* MapacheParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheParser.swift; sourceTree = "<group>"; };
-		372E48EC216FEF56007FC25E /* MapacheLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheLexer.swift; sourceTree = "<group>"; };
-		372E48ED216FEF56007FC25E /* MapacheLexer.interp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapacheLexer.interp; sourceTree = "<group>"; };
-		372E48EE216FEF56007FC25E /* MapacheBaseListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheBaseListener.swift; sourceTree = "<group>"; };
-		372E48EF216FEF56007FC25E /* MapacheLexer.tokens */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapacheLexer.tokens; sourceTree = "<group>"; };
-		372E48F0216FEF56007FC25E /* MapacheParserATN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheParserATN.swift; sourceTree = "<group>"; };
-		372E48F1216FEF56007FC25E /* MapacheListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheListener.swift; sourceTree = "<group>"; };
 		373958212166D7F00030470E /* Mapache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mapache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		373958242166D7F00030470E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		373958262166D7F00030470E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +108,18 @@
 		37DBFD152178378E007433AE /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		37DBFD1A2178DF8A007433AE /* VirtualMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualMemory.swift; sourceTree = "<group>"; };
 		37DBFD1C2178E14F007433AE /* Quadruple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadruple.swift; sourceTree = "<group>"; };
+		37DBFD5121795F11007433AE /* MapacheParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheParser.swift; path = "../../../Swift Grammar/Autogen/MapacheParser.swift"; sourceTree = "<group>"; };
+		37DBFD5521795F11007433AE /* MapacheLexer.tokens */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MapacheLexer.tokens; path = "../../../Swift Grammar/Autogen/MapacheLexer.tokens"; sourceTree = "<group>"; };
+		37DBFD5621795F12007433AE /* Mapache.interp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Mapache.interp; path = "../../../Swift Grammar/Autogen/Mapache.interp"; sourceTree = "<group>"; };
+		37DBFD5721795F12007433AE /* Mapache.tokens */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Mapache.tokens; path = "../../../Swift Grammar/Autogen/Mapache.tokens"; sourceTree = "<group>"; };
+		37DBFD5821795F12007433AE /* MapacheLexerATN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheLexerATN.swift; path = "../../../Swift Grammar/Autogen/MapacheLexerATN.swift"; sourceTree = "<group>"; };
+		37DBFD5921795F12007433AE /* MapacheLexer.interp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MapacheLexer.interp; path = "../../../Swift Grammar/Autogen/MapacheLexer.interp"; sourceTree = "<group>"; };
+		37DBFD5A21795F12007433AE /* MapacheParserATN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheParserATN.swift; path = "../../../Swift Grammar/Autogen/MapacheParserATN.swift"; sourceTree = "<group>"; };
+		37DBFD5B21795F12007433AE /* MapacheListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheListener.swift; path = "../../../Swift Grammar/Autogen/MapacheListener.swift"; sourceTree = "<group>"; };
+		37DBFD5C21795F12007433AE /* MapacheVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheVisitor.swift; path = "../../../Swift Grammar/Autogen/MapacheVisitor.swift"; sourceTree = "<group>"; };
+		37DBFD5D21795F12007433AE /* MapacheBaseVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheBaseVisitor.swift; path = "../../../Swift Grammar/Autogen/MapacheBaseVisitor.swift"; sourceTree = "<group>"; };
+		37DBFD5E21795F12007433AE /* MapacheBaseListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheBaseListener.swift; path = "../../../Swift Grammar/Autogen/MapacheBaseListener.swift"; sourceTree = "<group>"; };
+		37DBFD5F21795F12007433AE /* MapacheLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheLexer.swift; path = "../../../Swift Grammar/Autogen/MapacheLexer.swift"; sourceTree = "<group>"; };
 		56C0634809D4062989D635B8 /* Pods_MapacheUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapacheUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BAB77F7F67A0CAC129BB25E /* Pods-Mapache.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.debug.xcconfig"; sourceTree = "<group>"; };
 		946B35C98E558FA4F9448482 /* Pods-Mapache.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.release.xcconfig"; sourceTree = "<group>"; };
@@ -156,16 +160,18 @@
 		372E48E7216FEF32007FC25E /* Grammar */ = {
 			isa = PBXGroup;
 			children = (
-				372E48E9216FEF56007FC25E /* Mapache.interp */,
-				372E48EA216FEF56007FC25E /* Mapache.tokens */,
-				372E48EE216FEF56007FC25E /* MapacheBaseListener.swift */,
-				372E48ED216FEF56007FC25E /* MapacheLexer.interp */,
-				372E48EC216FEF56007FC25E /* MapacheLexer.swift */,
-				372E48EF216FEF56007FC25E /* MapacheLexer.tokens */,
-				372E48E8216FEF56007FC25E /* MapacheLexerATN.swift */,
-				372E48F1216FEF56007FC25E /* MapacheListener.swift */,
-				372E48EB216FEF56007FC25E /* MapacheParser.swift */,
-				372E48F0216FEF56007FC25E /* MapacheParserATN.swift */,
+				37DBFD5621795F12007433AE /* Mapache.interp */,
+				37DBFD5721795F12007433AE /* Mapache.tokens */,
+				37DBFD5E21795F12007433AE /* MapacheBaseListener.swift */,
+				37DBFD5D21795F12007433AE /* MapacheBaseVisitor.swift */,
+				37DBFD5921795F12007433AE /* MapacheLexer.interp */,
+				37DBFD5F21795F12007433AE /* MapacheLexer.swift */,
+				37DBFD5521795F11007433AE /* MapacheLexer.tokens */,
+				37DBFD5821795F12007433AE /* MapacheLexerATN.swift */,
+				37DBFD5B21795F12007433AE /* MapacheListener.swift */,
+				37DBFD5121795F11007433AE /* MapacheParser.swift */,
+				37DBFD5A21795F12007433AE /* MapacheParserATN.swift */,
+				37DBFD5C21795F12007433AE /* MapacheVisitor.swift */,
 			);
 			path = Grammar;
 			sourceTree = "<group>";
@@ -407,12 +413,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				372E48F7216FEF56007FC25E /* MapacheLexer.interp in Resources */,
+				37DBFD6121795F12007433AE /* MapacheLexer.tokens in Resources */,
+				37DBFD6221795F12007433AE /* Mapache.interp in Resources */,
+				37DBFD6521795F12007433AE /* MapacheLexer.interp in Resources */,
+				37DBFD6321795F12007433AE /* Mapache.tokens in Resources */,
 				3739582F2166D7F10030470E /* LaunchScreen.storyboard in Resources */,
-				372E48F3216FEF56007FC25E /* Mapache.interp in Resources */,
-				372E48F9216FEF56007FC25E /* MapacheLexer.tokens in Resources */,
 				378FFABD2174443500EC10AE /* SemanticCube.json in Resources */,
-				372E48F4216FEF56007FC25E /* Mapache.tokens in Resources */,
 				3739582C2166D7F10030470E /* Assets.xcassets in Resources */,
 				3739582A2166D7F00030470E /* Main.storyboard in Resources */,
 			);
@@ -531,21 +537,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				3762D1EA216BBA7600E44B64 /* Tables.swift in Sources */,
+				37DBFD6921795F12007433AE /* MapacheBaseVisitor.swift in Sources */,
 				373958272166D7F00030470E /* ViewController.swift in Sources */,
-				372E48F2216FEF56007FC25E /* MapacheLexerATN.swift in Sources */,
+				37DBFD6621795F12007433AE /* MapacheParserATN.swift in Sources */,
+				37DBFD6021795F12007433AE /* MapacheParser.swift in Sources */,
 				37DBFD162178378E007433AE /* Memory.swift in Sources */,
+				37DBFD6721795F12007433AE /* MapacheListener.swift in Sources */,
 				373958532166D8940030470E /* Variable.swift in Sources */,
 				37DBFCD82175803C007433AE /* Walker.swift in Sources */,
-				372E48FA216FEF56007FC25E /* MapacheParserATN.swift in Sources */,
-				372E48F6216FEF56007FC25E /* MapacheLexer.swift in Sources */,
-				372E48FB216FEF56007FC25E /* MapacheListener.swift in Sources */,
+				37DBFD6B21795F12007433AE /* MapacheLexer.swift in Sources */,
 				373958252166D7F00030470E /* AppDelegate.swift in Sources */,
 				378FFABA2174311100EC10AE /* Typealiases.swift in Sources */,
-				372E48F5216FEF56007FC25E /* MapacheParser.swift in Sources */,
-				372E48F8216FEF56007FC25E /* MapacheBaseListener.swift in Sources */,
+				37DBFD6421795F12007433AE /* MapacheLexerATN.swift in Sources */,
 				37DBFCDD21758228007433AE /* Wizard.swift in Sources */,
 				37DBFD1D2178E14F007433AE /* Quadruple.swift in Sources */,
 				37DBFD1B2178DF8A007433AE /* VirtualMemory.swift in Sources */,
+				37DBFD6821795F12007433AE /* MapacheVisitor.swift in Sources */,
+				37DBFD6A21795F12007433AE /* MapacheBaseListener.swift in Sources */,
 				373958552166D89D0030470E /* Function.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

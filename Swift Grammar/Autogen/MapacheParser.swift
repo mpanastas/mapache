@@ -111,6 +111,18 @@ open class MapacheParser: Parser {
 				listener.exitMapache(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitMapache(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitMapache(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func mapache() throws -> MapacheContext {
@@ -174,6 +186,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitProgram(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitProgram(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitProgram(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -244,6 +268,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitAsignacion(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitAsignacion(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitAsignacion(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -336,6 +372,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitLlamada(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitLlamada(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitLlamada(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -445,6 +493,18 @@ open class MapacheParser: Parser {
 				listener.exitCondicion(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitCondicion(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitCondicion(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func condicion() throws -> CondicionContext {
@@ -539,6 +599,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitVariable(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitVariable(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitVariable(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -661,6 +733,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitFuncion(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitFuncion(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitFuncion(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -788,6 +872,18 @@ open class MapacheParser: Parser {
 				listener.exitBloque(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitBloque(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitBloque(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func bloque() throws -> BloqueContext {
@@ -872,6 +968,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitBloquefunc(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitBloquefunc(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitBloquefunc(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -981,6 +1089,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitEstatuto(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitEstatuto(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitEstatuto(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -1096,6 +1216,18 @@ open class MapacheParser: Parser {
 				listener.exitExpresion(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitExpresion(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitExpresion(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func expresion() throws -> ExpresionContext {
@@ -1185,6 +1317,18 @@ open class MapacheParser: Parser {
 				listener.exitExp(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitExp(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitExp(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func exp() throws -> ExpContext {
@@ -1266,6 +1410,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitTermino(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitTermino(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitTermino(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -1363,6 +1519,18 @@ open class MapacheParser: Parser {
 				listener.exitFactor(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitFactor(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitFactor(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func factor() throws -> FactorContext {
@@ -1455,6 +1623,18 @@ open class MapacheParser: Parser {
 				listener.exitVector(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitVector(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitVector(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func vector() throws -> VectorContext {
@@ -1507,6 +1687,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitCiclo(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitCiclo(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitCiclo(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -1574,6 +1766,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitCicloWhile(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitCicloWhile(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitCicloWhile(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -1650,6 +1854,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitCicloFor(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitCicloFor(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitCicloFor(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -1730,6 +1946,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitImprimir(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitImprimir(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitImprimir(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -1816,6 +2044,18 @@ open class MapacheParser: Parser {
 				listener.exitTipo(self)
 			}
 		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitTipo(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitTipo(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	 open func tipo() throws -> TipoContext {
@@ -1889,6 +2129,18 @@ open class MapacheParser: Parser {
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
 				listener.exitCte(self)
+			}
+		}
+		override open
+		func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T? {
+			if let visitor = visitor as? MapacheVisitor {
+			    return visitor.visitCte(self)
+			}
+			else if let visitor = visitor as? MapacheBaseVisitor {
+			    return visitor.visitCte(self)
+			}
+			else {
+			     return visitor.visitChildren(self)
 			}
 		}
 	}

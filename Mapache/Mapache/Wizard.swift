@@ -56,6 +56,8 @@ class Wizard{
             let walker = ParseTreeWalker()
             let extractor = MapacheWalker.init()
             try walker.walk(extractor, tree)
+            
+            //print(semanticCube["Float"]["Int"]["*"])
         } catch {
             print("parse error: \(error.localizedDescription)")
         }
