@@ -21,7 +21,9 @@ class MapacheWalker: MapacheBaseListener {
     
     override func exitProgram(_ ctx: MapacheParser.ProgramContext) { }
     
-    override func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) { }
+    override func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
+        let algo = ctx.ASSIGN()
+    }
     
     override func exitAsignacion(_ ctx: MapacheParser.AsignacionContext) { }
     
@@ -102,4 +104,18 @@ class MapacheWalker: MapacheBaseListener {
     override func enterCte(_ ctx: MapacheParser.CteContext) { }
     
     override func exitCte(_ ctx: MapacheParser.CteContext) { }
+    
+
+    override func visitTerminal(_ node: TerminalNode) {
+        
+        
+        
+        
+    }
+
+    override func visitErrorNode(_ node: ErrorNode) {
+        
+    }
+    
+   
 }

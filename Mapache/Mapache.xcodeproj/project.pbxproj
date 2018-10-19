@@ -40,6 +40,7 @@
 		37DBFD6921795F12007433AE /* MapacheBaseVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5D21795F12007433AE /* MapacheBaseVisitor.swift */; };
 		37DBFD6A21795F12007433AE /* MapacheBaseListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5E21795F12007433AE /* MapacheBaseListener.swift */; };
 		37DBFD6B21795F12007433AE /* MapacheLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD5F21795F12007433AE /* MapacheLexer.swift */; };
+		37DBFD7021796573007433AE /* Visitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DBFD6F21796573007433AE /* Visitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		37DBFD5D21795F12007433AE /* MapacheBaseVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheBaseVisitor.swift; path = "../../../Swift Grammar/Autogen/MapacheBaseVisitor.swift"; sourceTree = "<group>"; };
 		37DBFD5E21795F12007433AE /* MapacheBaseListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheBaseListener.swift; path = "../../../Swift Grammar/Autogen/MapacheBaseListener.swift"; sourceTree = "<group>"; };
 		37DBFD5F21795F12007433AE /* MapacheLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapacheLexer.swift; path = "../../../Swift Grammar/Autogen/MapacheLexer.swift"; sourceTree = "<group>"; };
+		37DBFD6F21796573007433AE /* Visitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visitor.swift; sourceTree = "<group>"; };
 		56C0634809D4062989D635B8 /* Pods_MapacheUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapacheUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BAB77F7F67A0CAC129BB25E /* Pods-Mapache.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.debug.xcconfig"; sourceTree = "<group>"; };
 		946B35C98E558FA4F9448482 /* Pods-Mapache.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.release.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				373958242166D7F00030470E /* AppDelegate.swift */,
 				373958262166D7F00030470E /* ViewController.swift */,
 				37DBFCD72175803C007433AE /* Walker.swift */,
+				37DBFD6F21796573007433AE /* Visitor.swift */,
 				37DBFCDC21758228007433AE /* Wizard.swift */,
 				37DBFD152178378E007433AE /* Memory.swift */,
 				373958522166D8940030470E /* Variable.swift */,
@@ -544,6 +547,7 @@
 				37DBFD162178378E007433AE /* Memory.swift in Sources */,
 				37DBFD6721795F12007433AE /* MapacheListener.swift in Sources */,
 				373958532166D8940030470E /* Variable.swift in Sources */,
+				37DBFD7021796573007433AE /* Visitor.swift in Sources */,
 				37DBFCD82175803C007433AE /* Walker.swift in Sources */,
 				37DBFD6B21795F12007433AE /* MapacheLexer.swift in Sources */,
 				373958252166D7F00030470E /* AppDelegate.swift in Sources */,
