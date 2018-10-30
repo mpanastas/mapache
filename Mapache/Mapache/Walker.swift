@@ -11,22 +11,28 @@ import Antlr4
 
 class MapacheWalker: MapacheBaseListener{
     
+    
+    let wizard = Wizard.shared
+    
     // MARK: Base Listener
     
     override func enterMapache(_ ctx: MapacheParser.MapacheContext) {
-        
+        wizard.enterMapache(ctx)
     }
     
     override func exitMapache(_ ctx: MapacheParser.MapacheContext) {
-        
+        wizard.exitMapache(ctx)
     }
     
-    override func enterProgram(_ ctx: MapacheParser.ProgramContext) { }
+    override func enterProgram(_ ctx: MapacheParser.ProgramContext) {
+        wizard.enterProgram(ctx)
+    }
     
-    override func exitProgram(_ ctx: MapacheParser.ProgramContext) { }
+    override func exitProgram(_ ctx: MapacheParser.ProgramContext) {
+        wizard.exitProgram(ctx)
+    }
     
     override func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
-        let algo = ctx.ASSIGN()
         
     }
     
