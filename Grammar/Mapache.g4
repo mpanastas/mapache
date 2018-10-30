@@ -18,12 +18,12 @@ expresion   : expBool ((AND | OR) expBool)?;
 expBool     : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL) exp)?;
 exp         : termino ((PLUS | MINUS) termino)? ;
 termino     : factor ((MULTIPLY | DIVISION) factor)?;
-factor      : (OPEN_PAREN exp CLOSE_PAREN) | vector | cte | llamada | ID;
+factor      : (OPEN_PAREN expresion CLOSE_PAREN) | vector | cte | llamada | ID;
 vector      : ID OPEN_BRACKET exp CLOSE_BRACKET ;
 ciclo       : (cicloWhile | cicloFor);
 cicloWhile  : WHILE OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque;
 cicloFor    : FOR ID IN exp DOTS exp BY exp bloque;
-imprimir    : PRINT OPEN_PAREN (TEXT | exp ) CLOSE_PAREN SEMICOLON;
+imprimir    : PRINT OPEN_PAREN (TEXT | expresion) CLOSE_PAREN SEMICOLON;
 tipo        : INT | FLOAT | BOOL | CHAR;
 cte         : CONST_B | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
 
