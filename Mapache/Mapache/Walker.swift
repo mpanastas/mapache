@@ -9,13 +9,17 @@
 import Foundation
 import Antlr4
 
-class MapacheWalker: MapacheBaseListener {
+class MapacheWalker: MapacheBaseListener{
     
     // MARK: Base Listener
     
-    override func enterMapache(_ ctx: MapacheParser.MapacheContext) { }
+    override func enterMapache(_ ctx: MapacheParser.MapacheContext) {
+        
+    }
     
-    override func exitMapache(_ ctx: MapacheParser.MapacheContext) { }
+    override func exitMapache(_ ctx: MapacheParser.MapacheContext) {
+        
+    }
     
     override func enterProgram(_ ctx: MapacheParser.ProgramContext) { }
     
@@ -23,6 +27,7 @@ class MapacheWalker: MapacheBaseListener {
     
     override func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
         let algo = ctx.ASSIGN()
+        
     }
     
     override func exitAsignacion(_ ctx: MapacheParser.AsignacionContext) { }

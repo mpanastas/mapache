@@ -14,7 +14,7 @@ class Quadruple {
     var operandR: Int?
     var temp: Int?
     
-    init(_ op: Int,_ opL: Int,_ opR: Int,_ temp:Int) {
+    init(_ op: Int,_ opL: Int?,_ opR: Int?,_ temp:Int?) {
         self.op = op
         self.operandL = opL
         self.operandR = opR
