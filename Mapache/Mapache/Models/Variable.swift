@@ -20,6 +20,7 @@ struct Variable {
     var type: Type!
     var virtualAddress: Int!
     var arrSize: Int?
+    var dimension: [Dimension] = []
     #warning("We dont know if we are going to define a variable for the scope")
     //var scope: globar or local
 }

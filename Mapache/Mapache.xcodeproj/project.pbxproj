@@ -39,6 +39,7 @@
 		37F847E12187BF3A009ADBFB /* MapacheLexerATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F847D62187BF3A009ADBFB /* MapacheLexerATN.swift */; };
 		37F847E22187BF3A009ADBFB /* MapacheLexer.interp in Resources */ = {isa = PBXBuildFile; fileRef = 37F847D72187BF3A009ADBFB /* MapacheLexer.interp */; };
 		37F847E32187BF3A009ADBFB /* MapacheParserATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F847D82187BF3A009ADBFB /* MapacheParserATN.swift */; };
+		F55EB9272187E02200180F79 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55EB9262187E02200180F79 /* Dimensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		946B35C98E558FA4F9448482 /* Pods-Mapache.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.release.xcconfig"; sourceTree = "<group>"; };
 		AA7D82985F9FEEE89A6AA51A /* Pods_MapacheTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapacheTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10C9FF88489BD79BAB4410A /* Pods-MapacheUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapacheUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapacheUITests/Pods-MapacheUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F55EB9262187E02200180F79 /* Dimensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		FDE960DB750E53919CD4905D /* Pods-MapacheTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapacheTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapacheTests/Pods-MapacheTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				373958522166D8940030470E /* Variable.swift */,
+				F55EB9262187E02200180F79 /* Dimensions.swift */,
 				373958542166D89D0030470E /* Function.swift */,
 				37DBFD1C2178E14F007433AE /* Quadruple.swift */,
 			);
@@ -550,6 +553,7 @@
 				373958532166D8940030470E /* Variable.swift in Sources */,
 				37DBFCD82175803C007433AE /* Walker.swift in Sources */,
 				37F847DA2187BF3A009ADBFB /* MapacheListener.swift in Sources */,
+				F55EB9272187E02200180F79 /* Dimensions.swift in Sources */,
 				373958252166D7F00030470E /* AppDelegate.swift in Sources */,
 				37F847E02187BF3A009ADBFB /* MapacheBaseListener.swift in Sources */,
 				37F847DD2187BF3A009ADBFB /* MapacheLexer.swift in Sources */,
