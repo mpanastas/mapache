@@ -7,7 +7,7 @@ grammar Mapache;
 mapache     : program+ EOF ;
 program     : MAPACHE bloque;
 asignacion  : ID (OPEN_BRACKET exp CLOSE_BRACKET)? ASSIGN expresion SEMICOLON;
-llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN ;
+llamada     : ID OPEN_PAREN (expresion argumentoListo (COMMA argumentoNuevo expresion argumentoListo)*)? CLOSE_PAREN ;
 condicion   : IF OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque (ELSE condicionElse bloque)?;
 variable    : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
 funcion     : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloquefunc;
@@ -31,6 +31,8 @@ cte         : CONST_B | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
 condicionLista      : ;
 condicionElse       : ;
 
+argumentoListo          : ;
+argumentoNuevo          : ;
 
  /*
  * Lexer Rules
