@@ -81,7 +81,7 @@ extension Wizard {
     func exitProgram(_ ctx: MapacheParser.ProgramContext) { }
     
     func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
-        let algo = ctx.ASSIGN()
+        
         
     }
     
