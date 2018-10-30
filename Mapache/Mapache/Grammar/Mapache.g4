@@ -8,7 +8,7 @@ mapache     : program+ EOF ;
 program     : MAPACHE bloque;
 asignacion  : ID (OPEN_BRACKET exp CLOSE_BRACKET)? ASSIGN expresion SEMICOLON;
 llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN ;
-condicion   : IF OPEN_PAREN expresion CLOSE_PAREN bloque (ELSE bloque)?;
+condicion   : IF OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque (ELSE condicionElse bloque)? condicionTermina;
 variable    : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
 funcion     : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloquefunc;
 bloque      : OPEN_CURLY estatuto* CLOSE_CURLY;
@@ -20,11 +20,23 @@ termino     : factor ((MULTIPLY | DIVISION) factor)?;
 factor      : (OPEN_PAREN exp CLOSE_PAREN) | vector | cte | llamada | ID;
 vector      : ID OPEN_BRACKET exp CLOSE_BRACKET ;
 ciclo       : (cicloWhile | cicloFor);
-cicloWhile  : WHILE expresion bloque;
+cicloWhile  : WHILE cicloInicia expresion condicionLista bloque cicloTermina;
 cicloFor    : FOR ID IN exp DOTS exp BY exp bloque;
 imprimir    : PRINT OPEN_PAREN (TEXT | exp ) CLOSE_PAREN SEMICOLON;
 tipo        : INT | FLOAT | BOOL | CHAR;
 cte         : CONST_B | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
+
+
+condicionLista      : ;
+condicionTermina    : ;
+condicionElse       : ;
+
+cicloInicia         : ;
+cicloTermina        : ;
+
+
+
+
 
  /*
  * Lexer Rules

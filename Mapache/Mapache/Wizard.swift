@@ -101,7 +101,9 @@ extension Wizard {
     
     func exitVariable(_ ctx: MapacheParser.VariableContext) { }
     
-    func enterFuncion(_ ctx: MapacheParser.FuncionContext) { }
+    func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
+        
+    }
     
     func exitFuncion(_ ctx: MapacheParser.FuncionContext) { }
     

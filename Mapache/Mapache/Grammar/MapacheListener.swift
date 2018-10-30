@@ -258,4 +258,64 @@ public protocol MapacheListener: ParseTreeListener {
 	   - ctx: the parse tree
 	 */
 	func exitCte(_ ctx: MapacheParser.CteContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#condicionLista}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterCondicionLista(_ ctx: MapacheParser.CondicionListaContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#condicionLista}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitCondicionLista(_ ctx: MapacheParser.CondicionListaContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#condicionTermina}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#condicionTermina}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#condicionElse}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#condicionElse}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#cicloInicia}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterCicloInicia(_ ctx: MapacheParser.CicloIniciaContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#cicloInicia}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitCicloInicia(_ ctx: MapacheParser.CicloIniciaContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#cicloTermina}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterCicloTermina(_ ctx: MapacheParser.CicloTerminaContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#cicloTermina}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitCicloTermina(_ ctx: MapacheParser.CicloTerminaContext)
 }

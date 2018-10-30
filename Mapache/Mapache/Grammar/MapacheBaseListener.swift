@@ -288,6 +288,71 @@ open class MapacheBaseListener: MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	open func enterCondicionLista(_ ctx: MapacheParser.CondicionListaContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitCondicionLista(_ ctx: MapacheParser.CondicionListaContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterCicloInicia(_ ctx: MapacheParser.CicloIniciaContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitCicloInicia(_ ctx: MapacheParser.CicloIniciaContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterCicloTermina(_ ctx: MapacheParser.CicloTerminaContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitCicloTermina(_ ctx: MapacheParser.CicloTerminaContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	open func enterEveryRule(_ ctx: ParserRuleContext) { }
 	/**
 	 * {@inheritDoc}

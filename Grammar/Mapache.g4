@@ -8,19 +8,20 @@ mapache     : program+ EOF ;
 program     : MAPACHE bloque;
 asignacion  : ID (OPEN_BRACKET exp CLOSE_BRACKET)? ASSIGN expresion SEMICOLON;
 llamada     : ID OPEN_PAREN (expresion (COMMA expresion)*)? CLOSE_PAREN ;
-condicion   : IF OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque (ELSE condicionElse bloque)? condicionTermina;
+condicion   : IF OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque (ELSE condicionElse bloque)?;
 variable    : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
 funcion     : FUNC ID OPEN_PAREN (ID COLON tipo (COMMA ID COLON tipo)*)? CLOSE_PAREN ARROW (VOID | tipo) bloquefunc;
 bloque      : OPEN_CURLY estatuto* CLOSE_CURLY;
 bloquefunc  : OPEN_CURLY estatuto* (RETURN expresion)? CLOSE_CURLY;
 estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion | (llamada SEMICOLON) );
-expresion   : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL | AND | OR) exp)?;
+expresion   : expBool ((AND | OR) expBool)?;
+expBool     : exp ((LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL) exp)?;
 exp         : termino ((PLUS | MINUS) termino)? ;
 termino     : factor ((MULTIPLY | DIVISION) factor)?;
 factor      : (OPEN_PAREN exp CLOSE_PAREN) | vector | cte | llamada | ID;
 vector      : ID OPEN_BRACKET exp CLOSE_BRACKET ;
 ciclo       : (cicloWhile | cicloFor);
-cicloWhile  : WHILE cicloInicia expresion cicloListo bloque cicloTermina;
+cicloWhile  : WHILE OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque;
 cicloFor    : FOR ID IN exp DOTS exp BY exp bloque;
 imprimir    : PRINT OPEN_PAREN (TEXT | exp ) CLOSE_PAREN SEMICOLON;
 tipo        : INT | FLOAT | BOOL | CHAR;
@@ -28,15 +29,7 @@ cte         : CONST_B | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
 
 
 condicionLista      : ;
-condicionTermina    : ;
 condicionElse       : ;
-
-cicloInicia         : ;
-cicloListo          : ;
-cicloTermina        : ;
-
-
-
 
 
  /*

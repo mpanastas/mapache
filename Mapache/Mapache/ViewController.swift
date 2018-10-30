@@ -17,10 +17,24 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let input = """
+//        mapache {
+//
+//        func hi() -> Void {
+//            print("hi");
+//        }
+//
+//        hi();
+//
+//        }
+//        """
+        
         let input = """
         mapache {
 
         func hi() -> Void {
+            var num:Int;
+            num = 10;
             print("hi");
         }
         
@@ -28,8 +42,6 @@ class ViewController: UIViewController {
         
         }
         """
-        
-        
         
         
         Wizard.shared.runCode(input: input)
