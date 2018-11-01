@@ -262,12 +262,20 @@ class MapacheWalker: MapacheBaseListener{
         wizard.exitAsignacionVector(ctx)
     }
     
-    override func enterEveryRule(_ ctx: ParserRuleContext) { }
+    override func enterEveryRule(_ ctx: ParserRuleContext) {
+        wizard.enterEveryRule(ctx)
+    }
     
-    override func exitEveryRule(_ ctx: ParserRuleContext) { }
+    override func exitEveryRule(_ ctx: ParserRuleContext) {
+        wizard.exitEveryRule(ctx)
+    }
     
-    override func visitTerminal(_ node: TerminalNode) { }
+    override func visitTerminal(_ node: TerminalNode) {
+        wizard.visitTerminal(node)
+    }
     
-    override func visitErrorNode(_ node: ErrorNode) { }
+    override func visitErrorNode(_ node: ErrorNode) {
+        wizard.visitErrorNode(node)
+    }
    
 }
