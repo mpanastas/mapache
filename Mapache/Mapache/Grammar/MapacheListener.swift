@@ -139,6 +139,18 @@ public protocol MapacheListener: ParseTreeListener {
 	 */
 	func exitExpresion(_ ctx: MapacheParser.ExpresionContext)
 	/**
+	 * Enter a parse tree produced by {@link MapacheParser#expBool}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterExpBool(_ ctx: MapacheParser.ExpBoolContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#expBool}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitExpBool(_ ctx: MapacheParser.ExpBoolContext)
+	/**
 	 * Enter a parse tree produced by {@link MapacheParser#exp}.
 	 - Parameters:
 	   - ctx: the parse tree
@@ -271,18 +283,6 @@ public protocol MapacheListener: ParseTreeListener {
 	 */
 	func exitCondicionLista(_ ctx: MapacheParser.CondicionListaContext)
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#condicionTermina}.
-	 - Parameters:
-	   - ctx: the parse tree
-	 */
-	func enterCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext)
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#condicionTermina}.
-	 - Parameters:
-	   - ctx: the parse tree
-	 */
-	func exitCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext)
-	/**
 	 * Enter a parse tree produced by {@link MapacheParser#condicionElse}.
 	 - Parameters:
 	   - ctx: the parse tree
@@ -295,27 +295,87 @@ public protocol MapacheListener: ParseTreeListener {
 	 */
 	func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext)
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#cicloInicia}.
+	 * Enter a parse tree produced by {@link MapacheParser#argumentoListo}.
 	 - Parameters:
 	   - ctx: the parse tree
 	 */
-	func enterCicloInicia(_ ctx: MapacheParser.CicloIniciaContext)
+	func enterArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext)
 	/**
-	 * Exit a parse tree produced by {@link MapacheParser#cicloInicia}.
+	 * Exit a parse tree produced by {@link MapacheParser#argumentoListo}.
 	 - Parameters:
 	   - ctx: the parse tree
 	 */
-	func exitCicloInicia(_ ctx: MapacheParser.CicloIniciaContext)
+	func exitArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext)
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#cicloTermina}.
+	 * Enter a parse tree produced by {@link MapacheParser#argumentoNuevo}.
 	 - Parameters:
 	   - ctx: the parse tree
 	 */
-	func enterCicloTermina(_ ctx: MapacheParser.CicloTerminaContext)
+	func enterArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext)
 	/**
-	 * Exit a parse tree produced by {@link MapacheParser#cicloTermina}.
+	 * Exit a parse tree produced by {@link MapacheParser#argumentoNuevo}.
 	 - Parameters:
 	   - ctx: the parse tree
 	 */
-	func exitCicloTermina(_ ctx: MapacheParser.CicloTerminaContext)
+	func exitArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#paramNuevo}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterParamNuevo(_ ctx: MapacheParser.ParamNuevoContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#paramNuevo}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitParamNuevo(_ ctx: MapacheParser.ParamNuevoContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#paramListo}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterParamListo(_ ctx: MapacheParser.ParamListoContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#paramListo}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitParamListo(_ ctx: MapacheParser.ParamListoContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#forRango}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterForRango(_ ctx: MapacheParser.ForRangoContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#forRango}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitForRango(_ ctx: MapacheParser.ForRangoContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#forListo}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterForListo(_ ctx: MapacheParser.ForListoContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#forListo}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitForListo(_ ctx: MapacheParser.ForListoContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#asignacionVector}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#asignacionVector}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext)
 }

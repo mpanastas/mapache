@@ -158,6 +158,19 @@ open class MapacheBaseListener: MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	open func enterExpBool(_ ctx: MapacheParser.ExpBoolContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitExpBool(_ ctx: MapacheParser.ExpBoolContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	open func enterExp(_ ctx: MapacheParser.ExpContext) { }
 	/**
 	 * {@inheritDoc}
@@ -301,19 +314,6 @@ open class MapacheBaseListener: MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	open func exitCondicionTermina(_ ctx: MapacheParser.CondicionTerminaContext) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	open func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
 	/**
 	 * {@inheritDoc}
@@ -327,26 +327,91 @@ open class MapacheBaseListener: MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterCicloInicia(_ ctx: MapacheParser.CicloIniciaContext) { }
+	open func enterArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitCicloInicia(_ ctx: MapacheParser.CicloIniciaContext) { }
+	open func exitArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterCicloTermina(_ ctx: MapacheParser.CicloTerminaContext) { }
+	open func enterArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitCicloTermina(_ ctx: MapacheParser.CicloTerminaContext) { }
+	open func exitArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterParamListo(_ ctx: MapacheParser.ParamListoContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitParamListo(_ ctx: MapacheParser.ParamListoContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterForRango(_ ctx: MapacheParser.ForRangoContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitForRango(_ ctx: MapacheParser.ForRangoContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterForListo(_ ctx: MapacheParser.ForListoContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitForListo(_ ctx: MapacheParser.ForListoContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
 
 	/**
 	 * {@inheritDoc}

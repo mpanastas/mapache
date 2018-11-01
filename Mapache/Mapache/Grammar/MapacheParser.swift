@@ -32,18 +32,21 @@ open class MapacheParser: Parser {
 	static let RULE_mapache = 0, RULE_program = 1, RULE_asignacion = 2, RULE_llamada = 3, 
             RULE_condicion = 4, RULE_variable = 5, RULE_funcion = 6, RULE_bloque = 7, 
             RULE_bloquefunc = 8, RULE_estatuto = 9, RULE_expresion = 10, 
-            RULE_exp = 11, RULE_termino = 12, RULE_factor = 13, RULE_vector = 14, 
-            RULE_ciclo = 15, RULE_cicloWhile = 16, RULE_cicloFor = 17, RULE_imprimir = 18, 
-            RULE_tipo = 19, RULE_cte = 20, RULE_condicionLista = 21, RULE_condicionTermina = 22, 
-            RULE_condicionElse = 23, RULE_cicloInicia = 24, RULE_cicloTermina = 25
+            RULE_expBool = 11, RULE_exp = 12, RULE_termino = 13, RULE_factor = 14, 
+            RULE_vector = 15, RULE_ciclo = 16, RULE_cicloWhile = 17, RULE_cicloFor = 18, 
+            RULE_imprimir = 19, RULE_tipo = 20, RULE_cte = 21, RULE_condicionLista = 22, 
+            RULE_condicionElse = 23, RULE_argumentoListo = 24, RULE_argumentoNuevo = 25, 
+            RULE_paramNuevo = 26, RULE_paramListo = 27, RULE_forRango = 28, 
+            RULE_forListo = 29, RULE_asignacionVector = 30
 
 	public
 	static let ruleNames: [String] = [
 		"mapache", "program", "asignacion", "llamada", "condicion", "variable", 
-		"funcion", "bloque", "bloquefunc", "estatuto", "expresion", "exp", "termino", 
-		"factor", "vector", "ciclo", "cicloWhile", "cicloFor", "imprimir", "tipo", 
-		"cte", "condicionLista", "condicionTermina", "condicionElse", "cicloInicia", 
-		"cicloTermina"
+		"funcion", "bloque", "bloquefunc", "estatuto", "expresion", "expBool", 
+		"exp", "termino", "factor", "vector", "ciclo", "cicloWhile", "cicloFor", 
+		"imprimir", "tipo", "cte", "condicionLista", "condicionElse", "argumentoListo", 
+		"argumentoNuevo", "paramNuevo", "paramListo", "forRango", "forListo", 
+		"asignacionVector"
 	]
 
 	private static let _LITERAL_NAMES: [String?] = [
@@ -124,15 +127,15 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(53) 
+		 	setState(63) 
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	repeat {
-		 		setState(52)
+		 		setState(62)
 		 		try program()
 
 
-		 		setState(55); 
+		 		setState(65); 
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 	} while (//closure
@@ -140,7 +143,7 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.MAPACHE.rawValue
 		 	      return testSet
 		 	 }())
-		 	setState(57)
+		 	setState(67)
 		 	try match(MapacheParser.Tokens.EOF.rawValue)
 
 		}
@@ -188,9 +191,9 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(59)
+		 	setState(69)
 		 	try match(MapacheParser.Tokens.MAPACHE.rawValue)
-		 	setState(60)
+		 	setState(70)
 		 	try bloque()
 
 		}
@@ -232,6 +235,10 @@ open class MapacheParser: Parser {
 			func CLOSE_BRACKET() -> TerminalNode? {
 				return getToken(MapacheParser.Tokens.CLOSE_BRACKET.rawValue, 0)
 			}
+			open
+			func asignacionVector() -> AsignacionVectorContext? {
+				return getRuleContext(AsignacionVectorContext.self, 0)
+			}
 		override open
 		func getRuleIndex() -> Int {
 			return MapacheParser.RULE_asignacion
@@ -259,9 +266,9 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(62)
+		 	setState(72)
 		 	try match(MapacheParser.Tokens.ID.rawValue)
-		 	setState(67)
+		 	setState(78)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -269,20 +276,22 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.OPEN_BRACKET.rawValue
 		 	      return testSet
 		 	 }()) {
-		 		setState(63)
+		 		setState(73)
 		 		try match(MapacheParser.Tokens.OPEN_BRACKET.rawValue)
-		 		setState(64)
+		 		setState(74)
 		 		try exp()
-		 		setState(65)
+		 		setState(75)
 		 		try match(MapacheParser.Tokens.CLOSE_BRACKET.rawValue)
+		 		setState(76)
+		 		try asignacionVector()
 
 		 	}
 
-		 	setState(69)
+		 	setState(80)
 		 	try match(MapacheParser.Tokens.ASSIGN.rawValue)
-		 	setState(70)
+		 	setState(81)
 		 	try expresion()
-		 	setState(71)
+		 	setState(82)
 		 	try match(MapacheParser.Tokens.SEMICOLON.rawValue)
 
 		}
@@ -317,12 +326,28 @@ open class MapacheParser: Parser {
 				return getRuleContext(ExpresionContext.self, i)
 			}
 			open
+			func argumentoListo() -> [ArgumentoListoContext] {
+				return getRuleContexts(ArgumentoListoContext.self)
+			}
+			open
+			func argumentoListo(_ i: Int) -> ArgumentoListoContext? {
+				return getRuleContext(ArgumentoListoContext.self, i)
+			}
+			open
 			func COMMA() -> [TerminalNode] {
 				return getTokens(MapacheParser.Tokens.COMMA.rawValue)
 			}
 			open
 			func COMMA(_ i:Int) -> TerminalNode? {
 				return getToken(MapacheParser.Tokens.COMMA.rawValue, i)
+			}
+			open
+			func argumentoNuevo() -> [ArgumentoNuevoContext] {
+				return getRuleContexts(ArgumentoNuevoContext.self)
+			}
+			open
+			func argumentoNuevo(_ i: Int) -> ArgumentoNuevoContext? {
+				return getRuleContext(ArgumentoNuevoContext.self, i)
 			}
 		override open
 		func getRuleIndex() -> Int {
@@ -351,11 +376,11 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(73)
+		 	setState(84)
 		 	try match(MapacheParser.Tokens.ID.rawValue)
-		 	setState(74)
+		 	setState(85)
 		 	try match(MapacheParser.Tokens.OPEN_PAREN.rawValue)
-		 	setState(83)
+		 	setState(98)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -366,9 +391,11 @@ open class MapacheParser: Parser {
 		 	}()
 		 	      return testSet
 		 	 }()) {
-		 		setState(75)
+		 		setState(86)
 		 		try expresion()
-		 		setState(80)
+		 		setState(87)
+		 		try argumentoListo()
+		 		setState(95)
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 		while (//closure
@@ -376,20 +403,24 @@ open class MapacheParser: Parser {
 		 		      let testSet: Bool = _la == MapacheParser.Tokens.COMMA.rawValue
 		 		      return testSet
 		 		 }()) {
-		 			setState(76)
+		 			setState(88)
 		 			try match(MapacheParser.Tokens.COMMA.rawValue)
-		 			setState(77)
+		 			setState(89)
+		 			try argumentoNuevo()
+		 			setState(90)
 		 			try expresion()
+		 			setState(91)
+		 			try argumentoListo()
 
 
-		 			setState(82)
+		 			setState(97)
 		 			try _errHandler.sync(self)
 		 			_la = try _input.LA(1)
 		 		}
 
 		 	}
 
-		 	setState(85)
+		 	setState(100)
 		 	try match(MapacheParser.Tokens.CLOSE_PAREN.rawValue)
 
 		}
@@ -432,10 +463,6 @@ open class MapacheParser: Parser {
 				return getRuleContext(BloqueContext.self, i)
 			}
 			open
-			func condicionTermina() -> CondicionTerminaContext? {
-				return getRuleContext(CondicionTerminaContext.self, 0)
-			}
-			open
 			func ELSE() -> TerminalNode? {
 				return getToken(MapacheParser.Tokens.ELSE.rawValue, 0)
 			}
@@ -470,19 +497,19 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(87)
+		 	setState(102)
 		 	try match(MapacheParser.Tokens.IF.rawValue)
-		 	setState(88)
+		 	setState(103)
 		 	try match(MapacheParser.Tokens.OPEN_PAREN.rawValue)
-		 	setState(89)
+		 	setState(104)
 		 	try expresion()
-		 	setState(90)
+		 	setState(105)
 		 	try match(MapacheParser.Tokens.CLOSE_PAREN.rawValue)
-		 	setState(91)
+		 	setState(106)
 		 	try condicionLista()
-		 	setState(92)
+		 	setState(107)
 		 	try bloque()
-		 	setState(97)
+		 	setState(112)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -490,17 +517,15 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.ELSE.rawValue
 		 	      return testSet
 		 	 }()) {
-		 		setState(93)
+		 		setState(108)
 		 		try match(MapacheParser.Tokens.ELSE.rawValue)
-		 		setState(94)
+		 		setState(109)
 		 		try condicionElse()
-		 		setState(95)
+		 		setState(110)
 		 		try bloque()
 
 		 	}
 
-		 	setState(99)
-		 	try condicionTermina()
 
 		}
 		catch ANTLRException.recognition(let re) {
@@ -572,11 +597,11 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(101)
+		 	setState(114)
 		 	try match(MapacheParser.Tokens.VAR.rawValue)
-		 	setState(102)
+		 	setState(115)
 		 	try match(MapacheParser.Tokens.ID.rawValue)
-		 	setState(106)
+		 	setState(119)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -584,20 +609,20 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.OPEN_BRACKET.rawValue
 		 	      return testSet
 		 	 }()) {
-		 		setState(103)
+		 		setState(116)
 		 		try match(MapacheParser.Tokens.OPEN_BRACKET.rawValue)
-		 		setState(104)
+		 		setState(117)
 		 		try match(MapacheParser.Tokens.CONST_I.rawValue)
-		 		setState(105)
+		 		setState(118)
 		 		try match(MapacheParser.Tokens.CLOSE_BRACKET.rawValue)
 
 		 	}
 
-		 	setState(108)
+		 	setState(121)
 		 	try match(MapacheParser.Tokens.COLON.rawValue)
-		 	setState(109)
+		 	setState(122)
 		 	try tipo()
-		 	setState(110)
+		 	setState(123)
 		 	try match(MapacheParser.Tokens.SEMICOLON.rawValue)
 
 		}
@@ -652,12 +677,28 @@ open class MapacheParser: Parser {
 				return getRuleContext(TipoContext.self, i)
 			}
 			open
+			func paramNuevo() -> [ParamNuevoContext] {
+				return getRuleContexts(ParamNuevoContext.self)
+			}
+			open
+			func paramNuevo(_ i: Int) -> ParamNuevoContext? {
+				return getRuleContext(ParamNuevoContext.self, i)
+			}
+			open
 			func COLON() -> [TerminalNode] {
 				return getTokens(MapacheParser.Tokens.COLON.rawValue)
 			}
 			open
 			func COLON(_ i:Int) -> TerminalNode? {
 				return getToken(MapacheParser.Tokens.COLON.rawValue, i)
+			}
+			open
+			func paramListo() -> [ParamListoContext] {
+				return getRuleContexts(ParamListoContext.self)
+			}
+			open
+			func paramListo(_ i: Int) -> ParamListoContext? {
+				return getRuleContext(ParamListoContext.self, i)
 			}
 			open
 			func COMMA() -> [TerminalNode] {
@@ -694,13 +735,13 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(112)
+		 	setState(125)
 		 	try match(MapacheParser.Tokens.FUNC.rawValue)
-		 	setState(113)
+		 	setState(126)
 		 	try match(MapacheParser.Tokens.ID.rawValue)
-		 	setState(114)
-		 	try match(MapacheParser.Tokens.OPEN_PAREN.rawValue)
 		 	setState(127)
+		 	try match(MapacheParser.Tokens.OPEN_PAREN.rawValue)
+		 	setState(145)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -708,13 +749,17 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.ID.rawValue
 		 	      return testSet
 		 	 }()) {
-		 		setState(115)
+		 		setState(128)
 		 		try match(MapacheParser.Tokens.ID.rawValue)
-		 		setState(116)
+		 		setState(129)
+		 		try paramNuevo()
+		 		setState(130)
 		 		try match(MapacheParser.Tokens.COLON.rawValue)
-		 		setState(117)
+		 		setState(131)
 		 		try tipo()
-		 		setState(124)
+		 		setState(132)
+		 		try paramListo()
+		 		setState(142)
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 		while (//closure
@@ -722,32 +767,36 @@ open class MapacheParser: Parser {
 		 		      let testSet: Bool = _la == MapacheParser.Tokens.COMMA.rawValue
 		 		      return testSet
 		 		 }()) {
-		 			setState(118)
+		 			setState(133)
 		 			try match(MapacheParser.Tokens.COMMA.rawValue)
-		 			setState(119)
+		 			setState(134)
 		 			try match(MapacheParser.Tokens.ID.rawValue)
-		 			setState(120)
+		 			setState(135)
+		 			try paramNuevo()
+		 			setState(136)
 		 			try match(MapacheParser.Tokens.COLON.rawValue)
-		 			setState(121)
+		 			setState(137)
 		 			try tipo()
+		 			setState(138)
+		 			try paramListo()
 
 
-		 			setState(126)
+		 			setState(144)
 		 			try _errHandler.sync(self)
 		 			_la = try _input.LA(1)
 		 		}
 
 		 	}
 
-		 	setState(129)
+		 	setState(147)
 		 	try match(MapacheParser.Tokens.CLOSE_PAREN.rawValue)
-		 	setState(130)
+		 	setState(148)
 		 	try match(MapacheParser.Tokens.ARROW.rawValue)
-		 	setState(133)
+		 	setState(151)
 		 	try _errHandler.sync(self)
 		 	switch (MapacheParser.Tokens(rawValue: try _input.LA(1))!) {
 		 	case .VOID:
-		 		setState(131)
+		 		setState(149)
 		 		try match(MapacheParser.Tokens.VOID.rawValue)
 
 		 		break
@@ -755,14 +804,14 @@ open class MapacheParser: Parser {
 		 	case .CHAR:fallthrough
 		 	case .FLOAT:fallthrough
 		 	case .BOOL:
-		 		setState(132)
+		 		setState(150)
 		 		try tipo()
 
 		 		break
 		 	default:
 		 		throw ANTLRException.recognition(e: NoViableAltException(self))
 		 	}
-		 	setState(135)
+		 	setState(153)
 		 	try bloquefunc()
 
 		}
@@ -819,9 +868,9 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(137)
+		 	setState(155)
 		 	try match(MapacheParser.Tokens.OPEN_CURLY.rawValue)
-		 	setState(141)
+		 	setState(159)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	while (//closure
@@ -832,15 +881,15 @@ open class MapacheParser: Parser {
 		 	}()
 		 	      return testSet
 		 	 }()) {
-		 		setState(138)
+		 		setState(156)
 		 		try estatuto()
 
 
-		 		setState(143)
+		 		setState(161)
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 	}
-		 	setState(144)
+		 	setState(162)
 		 	try match(MapacheParser.Tokens.CLOSE_CURLY.rawValue)
 
 		}
@@ -905,9 +954,9 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(146)
+		 	setState(164)
 		 	try match(MapacheParser.Tokens.OPEN_CURLY.rawValue)
-		 	setState(150)
+		 	setState(168)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	while (//closure
@@ -918,15 +967,15 @@ open class MapacheParser: Parser {
 		 	}()
 		 	      return testSet
 		 	 }()) {
-		 		setState(147)
+		 		setState(165)
 		 		try estatuto()
 
 
-		 		setState(152)
+		 		setState(170)
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 	}
-		 	setState(155)
+		 	setState(173)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -934,14 +983,14 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.RETURN.rawValue
 		 	      return testSet
 		 	 }()) {
-		 		setState(153)
+		 		setState(171)
 		 		try match(MapacheParser.Tokens.RETURN.rawValue)
-		 		setState(154)
+		 		setState(172)
 		 		try expresion()
 
 		 	}
 
-		 	setState(157)
+		 	setState(175)
 		 	try match(MapacheParser.Tokens.CLOSE_CURLY.rawValue)
 
 		}
@@ -1013,43 +1062,43 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(168)
+		 	setState(186)
 		 	try _errHandler.sync(self)
 		 	switch(try getInterpreter().adaptivePredict(_input,12, _ctx)) {
 		 	case 1:
-		 		setState(159)
+		 		setState(177)
 		 		try variable()
 
 		 		break
 		 	case 2:
-		 		setState(160)
+		 		setState(178)
 		 		try asignacion()
 
 		 		break
 		 	case 3:
-		 		setState(161)
+		 		setState(179)
 		 		try condicion()
 
 		 		break
 		 	case 4:
-		 		setState(162)
+		 		setState(180)
 		 		try imprimir()
 
 		 		break
 		 	case 5:
-		 		setState(163)
+		 		setState(181)
 		 		try ciclo()
 
 		 		break
 		 	case 6:
-		 		setState(164)
+		 		setState(182)
 		 		try funcion()
 
 		 		break
 		 	case 7:
-		 		setState(165)
+		 		setState(183)
 		 		try llamada()
-		 		setState(166)
+		 		setState(184)
 		 		try match(MapacheParser.Tokens.SEMICOLON.rawValue)
 
 
@@ -1069,28 +1118,12 @@ open class MapacheParser: Parser {
 
 	public class ExpresionContext: ParserRuleContext {
 			open
-			func exp() -> [ExpContext] {
-				return getRuleContexts(ExpContext.self)
+			func expBool() -> [ExpBoolContext] {
+				return getRuleContexts(ExpBoolContext.self)
 			}
 			open
-			func exp(_ i: Int) -> ExpContext? {
-				return getRuleContext(ExpContext.self, i)
-			}
-			open
-			func LESS_THAN() -> TerminalNode? {
-				return getToken(MapacheParser.Tokens.LESS_THAN.rawValue, 0)
-			}
-			open
-			func GREATER_THAN() -> TerminalNode? {
-				return getToken(MapacheParser.Tokens.GREATER_THAN.rawValue, 0)
-			}
-			open
-			func EQUAL() -> TerminalNode? {
-				return getToken(MapacheParser.Tokens.EQUAL.rawValue, 0)
-			}
-			open
-			func NOT_EQUAL() -> TerminalNode? {
-				return getToken(MapacheParser.Tokens.NOT_EQUAL.rawValue, 0)
+			func expBool(_ i: Int) -> ExpBoolContext? {
+				return getRuleContext(ExpBoolContext.self, i)
 			}
 			open
 			func AND() -> TerminalNode? {
@@ -1127,25 +1160,116 @@ open class MapacheParser: Parser {
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(170)
+		 	setState(188)
+		 	try expBool()
+		 	setState(191)
+		 	try _errHandler.sync(self)
+		 	_la = try _input.LA(1)
+		 	if (//closure
+		 	 { () -> Bool in
+		 	      let testSet: Bool = _la == MapacheParser.Tokens.AND.rawValue || _la == MapacheParser.Tokens.OR.rawValue
+		 	      return testSet
+		 	 }()) {
+		 		setState(189)
+		 		_la = try _input.LA(1)
+		 		if (!(//closure
+		 		 { () -> Bool in
+		 		      let testSet: Bool = _la == MapacheParser.Tokens.AND.rawValue || _la == MapacheParser.Tokens.OR.rawValue
+		 		      return testSet
+		 		 }())) {
+		 		try _errHandler.recoverInline(self)
+		 		}
+		 		else {
+		 			_errHandler.reportMatch(self)
+		 			try consume()
+		 		}
+		 		setState(190)
+		 		try expBool()
+
+		 	}
+
+
+		}
+		catch ANTLRException.recognition(let re) {
+			_localctx.exception = re
+			_errHandler.reportError(self, re)
+			try _errHandler.recover(self, re)
+		}
+
+		return _localctx
+	}
+
+	public class ExpBoolContext: ParserRuleContext {
+			open
+			func exp() -> [ExpContext] {
+				return getRuleContexts(ExpContext.self)
+			}
+			open
+			func exp(_ i: Int) -> ExpContext? {
+				return getRuleContext(ExpContext.self, i)
+			}
+			open
+			func LESS_THAN() -> TerminalNode? {
+				return getToken(MapacheParser.Tokens.LESS_THAN.rawValue, 0)
+			}
+			open
+			func GREATER_THAN() -> TerminalNode? {
+				return getToken(MapacheParser.Tokens.GREATER_THAN.rawValue, 0)
+			}
+			open
+			func EQUAL() -> TerminalNode? {
+				return getToken(MapacheParser.Tokens.EQUAL.rawValue, 0)
+			}
+			open
+			func NOT_EQUAL() -> TerminalNode? {
+				return getToken(MapacheParser.Tokens.NOT_EQUAL.rawValue, 0)
+			}
+		override open
+		func getRuleIndex() -> Int {
+			return MapacheParser.RULE_expBool
+		}
+		override open
+		func enterRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.enterExpBool(self)
+			}
+		}
+		override open
+		func exitRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.exitExpBool(self)
+			}
+		}
+	}
+	@discardableResult
+	 open func expBool() throws -> ExpBoolContext {
+		var _localctx: ExpBoolContext = ExpBoolContext(_ctx, getState())
+		try enterRule(_localctx, 22, MapacheParser.RULE_expBool)
+		var _la: Int = 0
+		defer {
+	    		try! exitRule()
+	    }
+		do {
+		 	try enterOuterAlt(_localctx, 1)
+		 	setState(193)
 		 	try exp()
-		 	setState(173)
+		 	setState(196)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
 		 	 { () -> Bool in
 		 	      let testSet: Bool = {  () -> Bool in
-		 	   let testArray: [Int] = [_la, MapacheParser.Tokens.EQUAL.rawValue,MapacheParser.Tokens.NOT_EQUAL.rawValue,MapacheParser.Tokens.LESS_THAN.rawValue,MapacheParser.Tokens.GREATER_THAN.rawValue,MapacheParser.Tokens.AND.rawValue,MapacheParser.Tokens.OR.rawValue]
+		 	   let testArray: [Int] = [_la, MapacheParser.Tokens.EQUAL.rawValue,MapacheParser.Tokens.NOT_EQUAL.rawValue,MapacheParser.Tokens.LESS_THAN.rawValue,MapacheParser.Tokens.GREATER_THAN.rawValue]
 		 	    return  Utils.testBitLeftShiftArray(testArray, 0)
 		 	}()
 		 	      return testSet
 		 	 }()) {
-		 		setState(171)
+		 		setState(194)
 		 		_la = try _input.LA(1)
 		 		if (!(//closure
 		 		 { () -> Bool in
 		 		      let testSet: Bool = {  () -> Bool in
-		 		   let testArray: [Int] = [_la, MapacheParser.Tokens.EQUAL.rawValue,MapacheParser.Tokens.NOT_EQUAL.rawValue,MapacheParser.Tokens.LESS_THAN.rawValue,MapacheParser.Tokens.GREATER_THAN.rawValue,MapacheParser.Tokens.AND.rawValue,MapacheParser.Tokens.OR.rawValue]
+		 		   let testArray: [Int] = [_la, MapacheParser.Tokens.EQUAL.rawValue,MapacheParser.Tokens.NOT_EQUAL.rawValue,MapacheParser.Tokens.LESS_THAN.rawValue,MapacheParser.Tokens.GREATER_THAN.rawValue]
 		 		    return  Utils.testBitLeftShiftArray(testArray, 0)
 		 		}()
 		 		      return testSet
@@ -1156,7 +1280,7 @@ open class MapacheParser: Parser {
 		 			_errHandler.reportMatch(self)
 		 			try consume()
 		 		}
-		 		setState(172)
+		 		setState(195)
 		 		try exp()
 
 		 	}
@@ -1209,16 +1333,16 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func exp() throws -> ExpContext {
 		var _localctx: ExpContext = ExpContext(_ctx, getState())
-		try enterRule(_localctx, 22, MapacheParser.RULE_exp)
+		try enterRule(_localctx, 24, MapacheParser.RULE_exp)
 		var _la: Int = 0
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(175)
+		 	setState(198)
 		 	try termino()
-		 	setState(178)
+		 	setState(201)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -1226,7 +1350,7 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.PLUS.rawValue || _la == MapacheParser.Tokens.MINUS.rawValue
 		 	      return testSet
 		 	 }()) {
-		 		setState(176)
+		 		setState(199)
 		 		_la = try _input.LA(1)
 		 		if (!(//closure
 		 		 { () -> Bool in
@@ -1239,7 +1363,7 @@ open class MapacheParser: Parser {
 		 			_errHandler.reportMatch(self)
 		 			try consume()
 		 		}
-		 		setState(177)
+		 		setState(200)
 		 		try termino()
 
 		 	}
@@ -1292,16 +1416,16 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func termino() throws -> TerminoContext {
 		var _localctx: TerminoContext = TerminoContext(_ctx, getState())
-		try enterRule(_localctx, 24, MapacheParser.RULE_termino)
+		try enterRule(_localctx, 26, MapacheParser.RULE_termino)
 		var _la: Int = 0
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(180)
+		 	setState(203)
 		 	try factor()
-		 	setState(183)
+		 	setState(206)
 		 	try _errHandler.sync(self)
 		 	_la = try _input.LA(1)
 		 	if (//closure
@@ -1309,7 +1433,7 @@ open class MapacheParser: Parser {
 		 	      let testSet: Bool = _la == MapacheParser.Tokens.MULTIPLY.rawValue || _la == MapacheParser.Tokens.DIVISION.rawValue
 		 	      return testSet
 		 	 }()) {
-		 		setState(181)
+		 		setState(204)
 		 		_la = try _input.LA(1)
 		 		if (!(//closure
 		 		 { () -> Bool in
@@ -1322,7 +1446,7 @@ open class MapacheParser: Parser {
 		 			_errHandler.reportMatch(self)
 		 			try consume()
 		 		}
-		 		setState(182)
+		 		setState(205)
 		 		try factor()
 
 		 	}
@@ -1344,8 +1468,8 @@ open class MapacheParser: Parser {
 				return getToken(MapacheParser.Tokens.OPEN_PAREN.rawValue, 0)
 			}
 			open
-			func exp() -> ExpContext? {
-				return getRuleContext(ExpContext.self, 0)
+			func expresion() -> ExpresionContext? {
+				return getRuleContext(ExpresionContext.self, 0)
 			}
 			open
 			func CLOSE_PAREN() -> TerminalNode? {
@@ -1387,46 +1511,46 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func factor() throws -> FactorContext {
 		var _localctx: FactorContext = FactorContext(_ctx, getState())
-		try enterRule(_localctx, 26, MapacheParser.RULE_factor)
+		try enterRule(_localctx, 28, MapacheParser.RULE_factor)
 		defer {
 	    		try! exitRule()
 	    }
 		do {
-		 	setState(193)
+		 	setState(216)
 		 	try _errHandler.sync(self)
-		 	switch(try getInterpreter().adaptivePredict(_input,16, _ctx)) {
+		 	switch(try getInterpreter().adaptivePredict(_input,17, _ctx)) {
 		 	case 1:
 		 		try enterOuterAlt(_localctx, 1)
-		 		setState(185)
+		 		setState(208)
 		 		try match(MapacheParser.Tokens.OPEN_PAREN.rawValue)
-		 		setState(186)
-		 		try exp()
-		 		setState(187)
+		 		setState(209)
+		 		try expresion()
+		 		setState(210)
 		 		try match(MapacheParser.Tokens.CLOSE_PAREN.rawValue)
 
 
 		 		break
 		 	case 2:
 		 		try enterOuterAlt(_localctx, 2)
-		 		setState(189)
+		 		setState(212)
 		 		try vector()
 
 		 		break
 		 	case 3:
 		 		try enterOuterAlt(_localctx, 3)
-		 		setState(190)
+		 		setState(213)
 		 		try cte()
 
 		 		break
 		 	case 4:
 		 		try enterOuterAlt(_localctx, 4)
-		 		setState(191)
+		 		setState(214)
 		 		try llamada()
 
 		 		break
 		 	case 5:
 		 		try enterOuterAlt(_localctx, 5)
-		 		setState(192)
+		 		setState(215)
 		 		try match(MapacheParser.Tokens.ID.rawValue)
 
 		 		break
@@ -1479,19 +1603,19 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func vector() throws -> VectorContext {
 		var _localctx: VectorContext = VectorContext(_ctx, getState())
-		try enterRule(_localctx, 28, MapacheParser.RULE_vector)
+		try enterRule(_localctx, 30, MapacheParser.RULE_vector)
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(195)
+		 	setState(218)
 		 	try match(MapacheParser.Tokens.ID.rawValue)
-		 	setState(196)
+		 	setState(219)
 		 	try match(MapacheParser.Tokens.OPEN_BRACKET.rawValue)
-		 	setState(197)
+		 	setState(220)
 		 	try exp()
-		 	setState(198)
+		 	setState(221)
 		 	try match(MapacheParser.Tokens.CLOSE_BRACKET.rawValue)
 
 		}
@@ -1533,23 +1657,23 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func ciclo() throws -> CicloContext {
 		var _localctx: CicloContext = CicloContext(_ctx, getState())
-		try enterRule(_localctx, 30, MapacheParser.RULE_ciclo)
+		try enterRule(_localctx, 32, MapacheParser.RULE_ciclo)
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(202)
+		 	setState(225)
 		 	try _errHandler.sync(self)
 		 	switch (MapacheParser.Tokens(rawValue: try _input.LA(1))!) {
 		 	case .WHILE:
-		 		setState(200)
+		 		setState(223)
 		 		try cicloWhile()
 
 		 		break
 
 		 	case .FOR:
-		 		setState(201)
+		 		setState(224)
 		 		try cicloFor()
 
 		 		break
@@ -1573,12 +1697,16 @@ open class MapacheParser: Parser {
 				return getToken(MapacheParser.Tokens.WHILE.rawValue, 0)
 			}
 			open
-			func cicloInicia() -> CicloIniciaContext? {
-				return getRuleContext(CicloIniciaContext.self, 0)
+			func OPEN_PAREN() -> TerminalNode? {
+				return getToken(MapacheParser.Tokens.OPEN_PAREN.rawValue, 0)
 			}
 			open
 			func expresion() -> ExpresionContext? {
 				return getRuleContext(ExpresionContext.self, 0)
+			}
+			open
+			func CLOSE_PAREN() -> TerminalNode? {
+				return getToken(MapacheParser.Tokens.CLOSE_PAREN.rawValue, 0)
 			}
 			open
 			func condicionLista() -> CondicionListaContext? {
@@ -1587,10 +1715,6 @@ open class MapacheParser: Parser {
 			open
 			func bloque() -> BloqueContext? {
 				return getRuleContext(BloqueContext.self, 0)
-			}
-			open
-			func cicloTermina() -> CicloTerminaContext? {
-				return getRuleContext(CicloTerminaContext.self, 0)
 			}
 		override open
 		func getRuleIndex() -> Int {
@@ -1612,24 +1736,24 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func cicloWhile() throws -> CicloWhileContext {
 		var _localctx: CicloWhileContext = CicloWhileContext(_ctx, getState())
-		try enterRule(_localctx, 32, MapacheParser.RULE_cicloWhile)
+		try enterRule(_localctx, 34, MapacheParser.RULE_cicloWhile)
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(204)
+		 	setState(227)
 		 	try match(MapacheParser.Tokens.WHILE.rawValue)
-		 	setState(205)
-		 	try cicloInicia()
-		 	setState(206)
+		 	setState(228)
+		 	try match(MapacheParser.Tokens.OPEN_PAREN.rawValue)
+		 	setState(229)
 		 	try expresion()
-		 	setState(207)
+		 	setState(230)
+		 	try match(MapacheParser.Tokens.CLOSE_PAREN.rawValue)
+		 	setState(231)
 		 	try condicionLista()
-		 	setState(208)
+		 	setState(232)
 		 	try bloque()
-		 	setState(209)
-		 	try cicloTermina()
 
 		}
 		catch ANTLRException.recognition(let re) {
@@ -1671,6 +1795,14 @@ open class MapacheParser: Parser {
 				return getToken(MapacheParser.Tokens.BY.rawValue, 0)
 			}
 			open
+			func forRango() -> ForRangoContext? {
+				return getRuleContext(ForRangoContext.self, 0)
+			}
+			open
+			func forListo() -> ForListoContext? {
+				return getRuleContext(ForListoContext.self, 0)
+			}
+			open
 			func bloque() -> BloqueContext? {
 				return getRuleContext(BloqueContext.self, 0)
 			}
@@ -1694,29 +1826,33 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func cicloFor() throws -> CicloForContext {
 		var _localctx: CicloForContext = CicloForContext(_ctx, getState())
-		try enterRule(_localctx, 34, MapacheParser.RULE_cicloFor)
+		try enterRule(_localctx, 36, MapacheParser.RULE_cicloFor)
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(211)
+		 	setState(234)
 		 	try match(MapacheParser.Tokens.FOR.rawValue)
-		 	setState(212)
+		 	setState(235)
 		 	try match(MapacheParser.Tokens.ID.rawValue)
-		 	setState(213)
+		 	setState(236)
 		 	try match(MapacheParser.Tokens.IN.rawValue)
-		 	setState(214)
+		 	setState(237)
 		 	try exp()
-		 	setState(215)
+		 	setState(238)
 		 	try match(MapacheParser.Tokens.DOTS.rawValue)
-		 	setState(216)
+		 	setState(239)
 		 	try exp()
-		 	setState(217)
+		 	setState(240)
 		 	try match(MapacheParser.Tokens.BY.rawValue)
-		 	setState(218)
+		 	setState(241)
+		 	try forRango()
+		 	setState(242)
 		 	try exp()
-		 	setState(219)
+		 	setState(243)
+		 	try forListo()
+		 	setState(244)
 		 	try bloque()
 
 		}
@@ -1751,8 +1887,8 @@ open class MapacheParser: Parser {
 				return getToken(MapacheParser.Tokens.TEXT.rawValue, 0)
 			}
 			open
-			func exp() -> ExpContext? {
-				return getRuleContext(ExpContext.self, 0)
+			func expresion() -> ExpresionContext? {
+				return getRuleContext(ExpresionContext.self, 0)
 			}
 		override open
 		func getRuleIndex() -> Int {
@@ -1774,21 +1910,21 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func imprimir() throws -> ImprimirContext {
 		var _localctx: ImprimirContext = ImprimirContext(_ctx, getState())
-		try enterRule(_localctx, 36, MapacheParser.RULE_imprimir)
+		try enterRule(_localctx, 38, MapacheParser.RULE_imprimir)
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(221)
+		 	setState(246)
 		 	try match(MapacheParser.Tokens.PRINT.rawValue)
-		 	setState(222)
+		 	setState(247)
 		 	try match(MapacheParser.Tokens.OPEN_PAREN.rawValue)
-		 	setState(225)
+		 	setState(250)
 		 	try _errHandler.sync(self)
 		 	switch (MapacheParser.Tokens(rawValue: try _input.LA(1))!) {
 		 	case .TEXT:
-		 		setState(223)
+		 		setState(248)
 		 		try match(MapacheParser.Tokens.TEXT.rawValue)
 
 		 		break
@@ -1799,16 +1935,16 @@ open class MapacheParser: Parser {
 		 	case .CONST_B:fallthrough
 		 	case .CONST_C:fallthrough
 		 	case .ID:
-		 		setState(224)
-		 		try exp()
+		 		setState(249)
+		 		try expresion()
 
 		 		break
 		 	default:
 		 		throw ANTLRException.recognition(e: NoViableAltException(self))
 		 	}
-		 	setState(227)
+		 	setState(252)
 		 	try match(MapacheParser.Tokens.CLOSE_PAREN.rawValue)
-		 	setState(228)
+		 	setState(253)
 		 	try match(MapacheParser.Tokens.SEMICOLON.rawValue)
 
 		}
@@ -1858,14 +1994,14 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func tipo() throws -> TipoContext {
 		var _localctx: TipoContext = TipoContext(_ctx, getState())
-		try enterRule(_localctx, 38, MapacheParser.RULE_tipo)
+		try enterRule(_localctx, 40, MapacheParser.RULE_tipo)
 		var _la: Int = 0
 		defer {
 	    		try! exitRule()
 	    }
 		do {
 		 	try enterOuterAlt(_localctx, 1)
-		 	setState(230)
+		 	setState(255)
 		 	_la = try _input.LA(1)
 		 	if (!(//closure
 		 	 { () -> Bool in
@@ -1933,30 +2069,30 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func cte() throws -> CteContext {
 		var _localctx: CteContext = CteContext(_ctx, getState())
-		try enterRule(_localctx, 40, MapacheParser.RULE_cte)
+		try enterRule(_localctx, 42, MapacheParser.RULE_cte)
 		var _la: Int = 0
 		defer {
 	    		try! exitRule()
 	    }
 		do {
-		 	setState(242)
+		 	setState(267)
 		 	try _errHandler.sync(self)
-		 	switch(try getInterpreter().adaptivePredict(_input,21, _ctx)) {
+		 	switch(try getInterpreter().adaptivePredict(_input,22, _ctx)) {
 		 	case 1:
 		 		try enterOuterAlt(_localctx, 1)
-		 		setState(232)
+		 		setState(257)
 		 		try match(MapacheParser.Tokens.CONST_B.rawValue)
 
 		 		break
 		 	case 2:
 		 		try enterOuterAlt(_localctx, 2)
-		 		setState(233)
+		 		setState(258)
 		 		try match(MapacheParser.Tokens.CONST_C.rawValue)
 
 		 		break
 		 	case 3:
 		 		try enterOuterAlt(_localctx, 3)
-		 		setState(235)
+		 		setState(260)
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 		if (//closure
@@ -1964,19 +2100,19 @@ open class MapacheParser: Parser {
 		 		      let testSet: Bool = _la == MapacheParser.Tokens.MINUS.rawValue
 		 		      return testSet
 		 		 }()) {
-		 			setState(234)
+		 			setState(259)
 		 			try match(MapacheParser.Tokens.MINUS.rawValue)
 
 		 		}
 
-		 		setState(237)
+		 		setState(262)
 		 		try match(MapacheParser.Tokens.CONST_F.rawValue)
 
 
 		 		break
 		 	case 4:
 		 		try enterOuterAlt(_localctx, 4)
-		 		setState(239)
+		 		setState(264)
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 		if (//closure
@@ -1984,12 +2120,12 @@ open class MapacheParser: Parser {
 		 		      let testSet: Bool = _la == MapacheParser.Tokens.MINUS.rawValue
 		 		      return testSet
 		 		 }()) {
-		 			setState(238)
+		 			setState(263)
 		 			try match(MapacheParser.Tokens.MINUS.rawValue)
 
 		 		}
 
-		 		setState(241)
+		 		setState(266)
 		 		try match(MapacheParser.Tokens.CONST_I.rawValue)
 
 
@@ -2027,45 +2163,7 @@ open class MapacheParser: Parser {
 	@discardableResult
 	 open func condicionLista() throws -> CondicionListaContext {
 		var _localctx: CondicionListaContext = CondicionListaContext(_ctx, getState())
-		try enterRule(_localctx, 42, MapacheParser.RULE_condicionLista)
-		defer {
-	    		try! exitRule()
-	    }
-		do {
-		 	try enterOuterAlt(_localctx, 1)
-
-		}
-		catch ANTLRException.recognition(let re) {
-			_localctx.exception = re
-			_errHandler.reportError(self, re)
-			try _errHandler.recover(self, re)
-		}
-
-		return _localctx
-	}
-
-	public class CondicionTerminaContext: ParserRuleContext {
-		override open
-		func getRuleIndex() -> Int {
-			return MapacheParser.RULE_condicionTermina
-		}
-		override open
-		func enterRule(_ listener: ParseTreeListener) {
-			if let listener = listener as? MapacheListener {
-				listener.enterCondicionTermina(self)
-			}
-		}
-		override open
-		func exitRule(_ listener: ParseTreeListener) {
-			if let listener = listener as? MapacheListener {
-				listener.exitCondicionTermina(self)
-			}
-		}
-	}
-	@discardableResult
-	 open func condicionTermina() throws -> CondicionTerminaContext {
-		var _localctx: CondicionTerminaContext = CondicionTerminaContext(_ctx, getState())
-		try enterRule(_localctx, 44, MapacheParser.RULE_condicionTermina)
+		try enterRule(_localctx, 44, MapacheParser.RULE_condicionLista)
 		defer {
 	    		try! exitRule()
 	    }
@@ -2120,28 +2218,28 @@ open class MapacheParser: Parser {
 		return _localctx
 	}
 
-	public class CicloIniciaContext: ParserRuleContext {
+	public class ArgumentoListoContext: ParserRuleContext {
 		override open
 		func getRuleIndex() -> Int {
-			return MapacheParser.RULE_cicloInicia
+			return MapacheParser.RULE_argumentoListo
 		}
 		override open
 		func enterRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
-				listener.enterCicloInicia(self)
+				listener.enterArgumentoListo(self)
 			}
 		}
 		override open
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
-				listener.exitCicloInicia(self)
+				listener.exitArgumentoListo(self)
 			}
 		}
 	}
 	@discardableResult
-	 open func cicloInicia() throws -> CicloIniciaContext {
-		var _localctx: CicloIniciaContext = CicloIniciaContext(_ctx, getState())
-		try enterRule(_localctx, 48, MapacheParser.RULE_cicloInicia)
+	 open func argumentoListo() throws -> ArgumentoListoContext {
+		var _localctx: ArgumentoListoContext = ArgumentoListoContext(_ctx, getState())
+		try enterRule(_localctx, 48, MapacheParser.RULE_argumentoListo)
 		defer {
 	    		try! exitRule()
 	    }
@@ -2158,28 +2256,218 @@ open class MapacheParser: Parser {
 		return _localctx
 	}
 
-	public class CicloTerminaContext: ParserRuleContext {
+	public class ArgumentoNuevoContext: ParserRuleContext {
 		override open
 		func getRuleIndex() -> Int {
-			return MapacheParser.RULE_cicloTermina
+			return MapacheParser.RULE_argumentoNuevo
 		}
 		override open
 		func enterRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
-				listener.enterCicloTermina(self)
+				listener.enterArgumentoNuevo(self)
 			}
 		}
 		override open
 		func exitRule(_ listener: ParseTreeListener) {
 			if let listener = listener as? MapacheListener {
-				listener.exitCicloTermina(self)
+				listener.exitArgumentoNuevo(self)
 			}
 		}
 	}
 	@discardableResult
-	 open func cicloTermina() throws -> CicloTerminaContext {
-		var _localctx: CicloTerminaContext = CicloTerminaContext(_ctx, getState())
-		try enterRule(_localctx, 50, MapacheParser.RULE_cicloTermina)
+	 open func argumentoNuevo() throws -> ArgumentoNuevoContext {
+		var _localctx: ArgumentoNuevoContext = ArgumentoNuevoContext(_ctx, getState())
+		try enterRule(_localctx, 50, MapacheParser.RULE_argumentoNuevo)
+		defer {
+	    		try! exitRule()
+	    }
+		do {
+		 	try enterOuterAlt(_localctx, 1)
+
+		}
+		catch ANTLRException.recognition(let re) {
+			_localctx.exception = re
+			_errHandler.reportError(self, re)
+			try _errHandler.recover(self, re)
+		}
+
+		return _localctx
+	}
+
+	public class ParamNuevoContext: ParserRuleContext {
+		override open
+		func getRuleIndex() -> Int {
+			return MapacheParser.RULE_paramNuevo
+		}
+		override open
+		func enterRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.enterParamNuevo(self)
+			}
+		}
+		override open
+		func exitRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.exitParamNuevo(self)
+			}
+		}
+	}
+	@discardableResult
+	 open func paramNuevo() throws -> ParamNuevoContext {
+		var _localctx: ParamNuevoContext = ParamNuevoContext(_ctx, getState())
+		try enterRule(_localctx, 52, MapacheParser.RULE_paramNuevo)
+		defer {
+	    		try! exitRule()
+	    }
+		do {
+		 	try enterOuterAlt(_localctx, 1)
+
+		}
+		catch ANTLRException.recognition(let re) {
+			_localctx.exception = re
+			_errHandler.reportError(self, re)
+			try _errHandler.recover(self, re)
+		}
+
+		return _localctx
+	}
+
+	public class ParamListoContext: ParserRuleContext {
+		override open
+		func getRuleIndex() -> Int {
+			return MapacheParser.RULE_paramListo
+		}
+		override open
+		func enterRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.enterParamListo(self)
+			}
+		}
+		override open
+		func exitRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.exitParamListo(self)
+			}
+		}
+	}
+	@discardableResult
+	 open func paramListo() throws -> ParamListoContext {
+		var _localctx: ParamListoContext = ParamListoContext(_ctx, getState())
+		try enterRule(_localctx, 54, MapacheParser.RULE_paramListo)
+		defer {
+	    		try! exitRule()
+	    }
+		do {
+		 	try enterOuterAlt(_localctx, 1)
+
+		}
+		catch ANTLRException.recognition(let re) {
+			_localctx.exception = re
+			_errHandler.reportError(self, re)
+			try _errHandler.recover(self, re)
+		}
+
+		return _localctx
+	}
+
+	public class ForRangoContext: ParserRuleContext {
+		override open
+		func getRuleIndex() -> Int {
+			return MapacheParser.RULE_forRango
+		}
+		override open
+		func enterRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.enterForRango(self)
+			}
+		}
+		override open
+		func exitRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.exitForRango(self)
+			}
+		}
+	}
+	@discardableResult
+	 open func forRango() throws -> ForRangoContext {
+		var _localctx: ForRangoContext = ForRangoContext(_ctx, getState())
+		try enterRule(_localctx, 56, MapacheParser.RULE_forRango)
+		defer {
+	    		try! exitRule()
+	    }
+		do {
+		 	try enterOuterAlt(_localctx, 1)
+
+		}
+		catch ANTLRException.recognition(let re) {
+			_localctx.exception = re
+			_errHandler.reportError(self, re)
+			try _errHandler.recover(self, re)
+		}
+
+		return _localctx
+	}
+
+	public class ForListoContext: ParserRuleContext {
+		override open
+		func getRuleIndex() -> Int {
+			return MapacheParser.RULE_forListo
+		}
+		override open
+		func enterRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.enterForListo(self)
+			}
+		}
+		override open
+		func exitRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.exitForListo(self)
+			}
+		}
+	}
+	@discardableResult
+	 open func forListo() throws -> ForListoContext {
+		var _localctx: ForListoContext = ForListoContext(_ctx, getState())
+		try enterRule(_localctx, 58, MapacheParser.RULE_forListo)
+		defer {
+	    		try! exitRule()
+	    }
+		do {
+		 	try enterOuterAlt(_localctx, 1)
+
+		}
+		catch ANTLRException.recognition(let re) {
+			_localctx.exception = re
+			_errHandler.reportError(self, re)
+			try _errHandler.recover(self, re)
+		}
+
+		return _localctx
+	}
+
+	public class AsignacionVectorContext: ParserRuleContext {
+		override open
+		func getRuleIndex() -> Int {
+			return MapacheParser.RULE_asignacionVector
+		}
+		override open
+		func enterRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.enterAsignacionVector(self)
+			}
+		}
+		override open
+		func exitRule(_ listener: ParseTreeListener) {
+			if let listener = listener as? MapacheListener {
+				listener.exitAsignacionVector(self)
+			}
+		}
+	}
+	@discardableResult
+	 open func asignacionVector() throws -> AsignacionVectorContext {
+		var _localctx: AsignacionVectorContext = AsignacionVectorContext(_ctx, getState())
+		try enterRule(_localctx, 60, MapacheParser.RULE_asignacionVector)
 		defer {
 	    		try! exitRule()
 	    }

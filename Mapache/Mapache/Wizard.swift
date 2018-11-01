@@ -68,22 +68,15 @@ class Wizard{
 
 
 extension Wizard {
-    func enterMapache(_ ctx: MapacheParser.MapacheContext) {
-        
-    }
+    func enterMapache(_ ctx: MapacheParser.MapacheContext) { }
     
-    func exitMapache(_ ctx: MapacheParser.MapacheContext) {
-        
-    }
+    func exitMapache(_ ctx: MapacheParser.MapacheContext) { }
     
     func enterProgram(_ ctx: MapacheParser.ProgramContext) { }
     
     func exitProgram(_ ctx: MapacheParser.ProgramContext) { }
     
-    func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
-        
-        
-    }
+    func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) { }
     
     func exitAsignacion(_ ctx: MapacheParser.AsignacionContext) { }
     
@@ -95,15 +88,11 @@ extension Wizard {
     
     func exitCondicion(_ ctx: MapacheParser.CondicionContext) { }
     
-    func enterVariable(_ ctx: MapacheParser.VariableContext) {
-        
-    }
+    func enterVariable(_ ctx: MapacheParser.VariableContext) { }
     
     func exitVariable(_ ctx: MapacheParser.VariableContext) { }
     
-    func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
-        
-    }
+    func enterFuncion(_ ctx: MapacheParser.FuncionContext) { }
     
     func exitFuncion(_ ctx: MapacheParser.FuncionContext) { }
     
@@ -115,17 +104,17 @@ extension Wizard {
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) { }
     
-    func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) {
-        let content = ctx.getText()
-        print("Estatuto: \(content)")
-        
-    }
+    func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) { }
     
     func exitEstatuto(_ ctx: MapacheParser.EstatutoContext) { }
     
     func enterExpresion(_ ctx: MapacheParser.ExpresionContext) { }
     
     func exitExpresion(_ ctx: MapacheParser.ExpresionContext) { }
+    
+    func enterExpBool(_ ctx: MapacheParser.ExpBoolContext) { }
+    
+    func exitExpBool(_ ctx: MapacheParser.ExpBoolContext) { }
     
     func enterExp(_ ctx: MapacheParser.ExpContext) { }
     
@@ -167,15 +156,39 @@ extension Wizard {
     
     func exitCte(_ ctx: MapacheParser.CteContext) { }
     
+    func enterCondicionLista(_ ctx: MapacheParser.CondicionListaContext) { }
     
-    func visitTerminal(_ node: TerminalNode) {
-        
-        
-        
-        
-    }
+    func exitCondicionLista(_ ctx: MapacheParser.CondicionListaContext) { }
     
-    func visitErrorNode(_ node: ErrorNode) {
-        
-    }
+    func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
+    
+    func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
+    
+    func enterArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
+    
+    func exitArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
+    
+    func enterArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) { }
+    
+    func exitArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) { }
+    
+    func enterParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) { }
+    
+    func exitParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) { }
+    
+    func enterParamListo(_ ctx: MapacheParser.ParamListoContext) { }
+    
+    func exitParamListo(_ ctx: MapacheParser.ParamListoContext) { }
+    
+    func enterForRango(_ ctx: MapacheParser.ForRangoContext) { }
+    
+    func exitForRango(_ ctx: MapacheParser.ForRangoContext) { }
+    
+    func enterForListo(_ ctx: MapacheParser.ForListoContext) { }
+    
+    func exitForListo(_ ctx: MapacheParser.ForListoContext) { }
+    
+    func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
+    
+    func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
 }
