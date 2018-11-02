@@ -10,8 +10,27 @@ import Foundation
 import Antlr4
 import SwiftyJSON
 
+
+struct Stack<T> {
+    var array: [T] = []
+    
+    mutating func push(_ element: T) {
+        array.append(element)
+    }
+    mutating func pop() -> T? {
+        if !array.isEmpty {
+            let index = array.count - 1
+            let poppedValue = array.remove(at: index)
+            return poppedValue
+        } else {
+            return nil
+        }
+    }
+}
+
 class Wizard{
     
+    // Singletone
     static let shared = Wizard()
     
     // MARK: Variables
@@ -24,6 +43,22 @@ class Wizard{
     
     // Function
     var functionsTable = [Name:Function]()
+    
+    // Pending jumps
+    var jumps = Stack<Int>()
+    
+    // Pending types
+    var types = Stack<Int>()
+    
+    // PilaO
+    var operands = Stack<Int>()
+    
+    // Quadruples count
+    var cont: Int {
+        get {
+            return quadruples.count
+        }
+    }
     
     
     // MARK: Constructor
@@ -63,7 +98,15 @@ class Wizard{
         }
     }
     
+    // MARK: Manage Quadruples
+    func addQuad(_ op: Int, _ opL: Int?, _ opR: Int?, _ temp: Int?){
+        let quad = Quadruple(op, opL, opR, temp)
+        quadruples.append(quad)
+    }
     
+    func fillDirection(_ num1: Int, with num2: Int) {
+        
+    }
 }
 
 
@@ -90,13 +133,24 @@ extension Wizard {
     func enterLlamada(_ ctx: MapacheParser.LlamadaContext) {
         #warning ("TODO: ")
         // PN1 Llamada
+        // Verify that the function exists into the dirFunc table.
+        
         // PN2 Llamada
+        // Generate action ERA size (Activation Record Expansion -NEW -size)
+        // Start the parameter counter (k) in 1.
+        // Add a pointer to the first parameter type in the ParameterTable
+        
     }
     
     func exitLlamada(_ ctx: MapacheParser.LlamadaContext) {
         #warning ("TODO: ")
         // PN5 Llamada
+        // Verify that the last parameter points to null (coherence in number of parameters)
+        
         // PN6 Llamada
+        // Generate action GoSub, procedure-name, initial-address
+        let funcName = ctx.ID()
+        addQuad(GoSub, funcName, initialAddress, nil)
     }
     
     func enterCondicion(_ ctx: MapacheParser.CondicionContext) { }
@@ -104,6 +158,8 @@ extension Wizard {
     func exitCondicion(_ ctx: MapacheParser.CondicionContext) {
         #warning ("TODO: ")
         // PN2 If
+        let end = jumps.pop()
+        fillDirection(end!, with: cont)
     }
     
     func enterVariable(_ ctx: MapacheParser.VariableContext) { }
@@ -117,11 +173,18 @@ extension Wizard {
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         #warning ("TODO: ")
         // PN1 Funcion
+        // Insert func name intro the dirFuncTable, verify semantics
+        let funcName = ctx.ID()
+        print("Func name: ", funcName)
     }
     
     func exitFuncion(_ ctx: MapacheParser.FuncionContext) {
         #warning ("TODO: ")
         // PN7 Funcion
+        // Release the current varTable (local).
+        // Generate an action to end the procedure
+        
+        //addQuad(EndProc, nil, nil, nil)
     }
     
     func enterBloque(_ ctx: MapacheParser.BloqueContext) { }
@@ -131,6 +194,8 @@ extension Wizard {
     func enterBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
         #warning ("TODO: ")
         // PN6 Funcion
+        // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
+        
     }
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) { }
@@ -176,9 +241,20 @@ extension Wizard {
     
     func exitCiclo(_ ctx: MapacheParser.CicloContext) { }
     
-    func enterCicloWhile(_ ctx: MapacheParser.CicloWhileContext) { }
+    func enterCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
+        #warning ("TODO: ")
+        // PN1 While
+        jumps.push(cont)
+    }
     
-    func exitCicloWhile(_ ctx: MapacheParser.CicloWhileContext) { }
+    func exitCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
+        #warning ("TODO: ")
+        // PN3 While
+        let end = jumps.pop()
+        let whileDir = jumps.pop()
+        addQuad(GoTo, nil, nil, whileDir)
+        fillDirection(end!, with: cont)
+    }
     
     func enterCicloFor(_ ctx: MapacheParser.CicloForContext) {
         #warning ("TODO: ")
@@ -206,6 +282,14 @@ extension Wizard {
         #warning ("TODO: ")
         // PN1 If
         // PN2 While
+        let expType = types.pop()
+        if (expType != bool) {
+            //error type-mismatch
+        } else {
+            let result = operands.pop()
+            addQuad(GoToFalse, result, nil, nil)
+            jumps.push(cont-1)
+        }
     }
     
     func exitCondicionLista(_ ctx: MapacheParser.CondicionListaContext) {
@@ -214,6 +298,10 @@ extension Wizard {
     func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext) {
         #warning ("TODO: ")
         // PN3 If
+        addQuad(GoTo, nil, nil, nil)
+        let f = jumps.pop()
+        jumps.push(cont-1)
+        fillDirection(f!, with: cont)
     }
     
     func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
@@ -221,6 +309,13 @@ extension Wizard {
     func enterArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) {
         #warning ("TODO: ")
         // PN3 Llamada
+        let argument = operands.pop()
+        let argumentType = types.pop()
+        
+        // Verify argumentType against current Parameter (#k) in parameterTable.
+        
+        // Generate action Parameter, argument, argument#k
+        addQuad(Parameter, argument, argument, nil)
     }
     
     func exitArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
@@ -228,6 +323,7 @@ extension Wizard {
     func enterArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) {
         #warning ("TODO: ")
         // PN4 Llamada
+        //k = k + 1, move to the next parameter
     }
     
     func exitArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) { }
@@ -235,6 +331,11 @@ extension Wizard {
     func enterParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) {
         #warning ("TODO: ")
         // PN2 Funcion
+        // Insert parameter into the current (local) varTable
+        
+        //let parent = ctx.parent as! MapacheParser.FuncionContext
+        //let param = parent.
+        
     }
     
     func exitParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) { }
@@ -242,6 +343,9 @@ extension Wizard {
     func enterParamListo(_ ctx: MapacheParser.ParamListoContext) {
         #warning ("TODO: ")
         // PN3 Funcion
+        // Insert the type to every parameter uploaded into the varTable.
+        // At the same time into the parameterTable (to create the function's signature)
+        
     }
     
     func exitParamListo(_ ctx: MapacheParser.ParamListoContext) { }
