@@ -14,4 +14,30 @@ enum Type: Int {
     case Char
     case Bool
     case Void
+    
+    init?(_ string: String) {
+        switch string.lowercased() {
+        case "int":
+            self = .Int
+        case "float":
+            self = .Float
+        case "char":
+            self = .Char
+        case "bool":
+            self = .Bool
+        case "void":
+            self = .Void
+        default:
+            return nil
+        }
+    }
 }
+
+//
+//enum Type: String {
+//    case Int
+//    case Float
+//    case Char
+//    case Bool
+//    case Void
+//}

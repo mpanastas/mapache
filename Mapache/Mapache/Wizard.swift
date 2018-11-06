@@ -66,6 +66,12 @@ class Wizard{
         }
     }
     
+    #warning ("TODO: Change init")
+    var currentLocalInt = 0
+    var currentLocalFloat = 0
+    var currentLocalChar = 0
+    var currentLocalBool = 0
+    
     
     // MARK: Constructor
     
@@ -137,6 +143,22 @@ class Wizard{
     ///   - direction: direction to fill to the quad
     private func fillGoTo(_ quadToFill: Int, with direction: Int) {
         quadruples[quadToFill].temp = direction
+    }
+    
+    // MARK: CTX functions
+    
+    func getText(from arr: [TerminalNode] ) -> String {
+        let str = arr.compactMap({$0.getSymbol()?.getText()}).joined()
+        return str
+    }
+    
+    func getType(from arr: [TerminalNode]) -> Type {
+        let stringType = getText(from: arr)
+        return Type(stringType)!
+    }
+    
+    func getType(from arr: [MapacheParser.TipoContext]) {
+        
     }
 }
 
@@ -211,9 +233,34 @@ extension Wizard {
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         #warning ("TODO: ")
         // PN1 Funcion
+        // Reset Virtual Memory directions
+        #warning ("TODO: Reset Virtual Memory directions")
+        currentLocalInt = 0
+        currentLocalFloat = 0
+        currentLocalChar = 0
+        currentLocalBool = 0
+        
         // Insert func name intro the dirFuncTable, verify semantics
-        let funcName = ctx.ID()
-        print("Func name: ", funcName)
+        let funcName = getText(from: ctx.ID())
+        
+        if functions.keys.contains(funcName) {
+            #warning ("TODO: Error function already exists")
+            return
+        }
+        
+        
+        let returnType: Type
+        
+        if let ex = ctx.VOID() {
+            returnType = .Void
+        } else {
+            //returnType = getType
+            returnType = getType(from: ctx.tipo())
+        }
+        
+        
+        let function = Function(returnType: <#T##Type#>, startAddress: <#T##Int#>)
+        
     }
     
     func exitFuncion(_ ctx: MapacheParser.FuncionContext) {
