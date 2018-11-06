@@ -11,7 +11,7 @@
 		2C5A32E721D1AEE0B2EDAA48 /* Pods_Mapache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A3A524CA097A8C033F9ACC /* Pods_Mapache.framework */; };
 		318382D1995F795450AE4876 /* Pods_MapacheUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C0634809D4062989D635B8 /* Pods_MapacheUITests.framework */; };
 		373958252166D7F00030470E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958242166D7F00030470E /* AppDelegate.swift */; };
-		373958272166D7F00030470E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958262166D7F00030470E /* ViewController.swift */; };
+		373958272166D7F00030470E /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373958262166D7F00030470E /* HomeVC.swift */; };
 		3739582A2166D7F00030470E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 373958282166D7F00030470E /* Main.storyboard */; };
 		3739582C2166D7F10030470E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739582B2166D7F10030470E /* Assets.xcassets */; };
 		3739582F2166D7F10030470E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3739582D2166D7F10030470E /* LaunchScreen.storyboard */; };
@@ -32,7 +32,6 @@
 		37ECDF1F2190E46000984782 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECDF1E2190E46000984782 /* Type.swift */; };
 		37ECDF212190F09A00984782 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECDF202190F09A00984782 /* ColorConstants.swift */; };
 		37ECDF242191142D00984782 /* EditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECDF232191142D00984782 /* EditorVC.swift */; };
-		37ECDF262191152100984782 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECDF252191152100984782 /* HomeVC.swift */; };
 		37F847D92187BF3A009ADBFB /* Mapache.g4 in Resources */ = {isa = PBXBuildFile; fileRef = 37F847CE2187BF3A009ADBFB /* Mapache.g4 */; };
 		37F847DA2187BF3A009ADBFB /* MapacheListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F847CF2187BF3A009ADBFB /* MapacheListener.swift */; };
 		37F847DB2187BF3A009ADBFB /* Mapache.interp in Resources */ = {isa = PBXBuildFile; fileRef = 37F847D02187BF3A009ADBFB /* Mapache.interp */; };
@@ -91,7 +90,7 @@
 		22A3A524CA097A8C033F9ACC /* Pods_Mapache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mapache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		373958212166D7F00030470E /* Mapache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mapache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		373958242166D7F00030470E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		373958262166D7F00030470E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		373958262166D7F00030470E /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		373958292166D7F00030470E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3739582B2166D7F10030470E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3739582E2166D7F10030470E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -117,7 +116,6 @@
 		37ECDF1E2190E46000984782 /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		37ECDF202190F09A00984782 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		37ECDF232191142D00984782 /* EditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorVC.swift; sourceTree = "<group>"; };
-		37ECDF252191152100984782 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		37F847CE2187BF3A009ADBFB /* Mapache.g4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mapache.g4; sourceTree = "<group>"; };
 		37F847CF2187BF3A009ADBFB /* MapacheListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapacheListener.swift; sourceTree = "<group>"; };
 		37F847D02187BF3A009ADBFB /* Mapache.interp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mapache.interp; sourceTree = "<group>"; };
@@ -271,8 +269,7 @@
 		37ECDF222191140A00984782 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				373958262166D7F00030470E /* ViewController.swift */,
-				37ECDF252191152100984782 /* HomeVC.swift */,
+				373958262166D7F00030470E /* HomeVC.swift */,
 				37ECDF232191142D00984782 /* EditorVC.swift */,
 			);
 			path = Controllers;
@@ -577,7 +574,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3762D1EA216BBA7600E44B64 /* Tables.swift in Sources */,
-				373958272166D7F00030470E /* ViewController.swift in Sources */,
+				373958272166D7F00030470E /* HomeVC.swift in Sources */,
 				37F847E12187BF3A009ADBFB /* MapacheLexerATN.swift in Sources */,
 				37DBFD162178378E007433AE /* Memory.swift in Sources */,
 				37F847E32187BF3A009ADBFB /* MapacheParserATN.swift in Sources */,
@@ -589,7 +586,6 @@
 				373958252166D7F00030470E /* AppDelegate.swift in Sources */,
 				37F847E02187BF3A009ADBFB /* MapacheBaseListener.swift in Sources */,
 				37F847DD2187BF3A009ADBFB /* MapacheLexer.swift in Sources */,
-				37ECDF262191152100984782 /* HomeVC.swift in Sources */,
 				37ECDF192190C74900984782 /* Operators.swift in Sources */,
 				378FFABA2174311100EC10AE /* Typealiases.swift in Sources */,
 				37DBFCDD21758228007433AE /* Wizard.swift in Sources */,

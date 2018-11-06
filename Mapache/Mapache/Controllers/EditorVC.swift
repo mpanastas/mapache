@@ -12,6 +12,13 @@ class EditorVC: UIViewController {
 
     @IBOutlet weak var editorTextView: UITextView!
     
+    @IBOutlet weak var consoleTextView: UITextView!
+    
+    @IBOutlet weak var consoleTextViewHeight: NSLayoutConstraint! {
+        didSet {
+            consoleTextViewHeight.constant = 0
+        }
+    }
     
     // MARK: - Override
     
@@ -37,6 +44,15 @@ class EditorVC: UIViewController {
     
     @IBAction func runCode(_ sender: Any) {
         Wizard.shared.runCode(input: editorTextView.text)
+        
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 7.0, options: .curveEaseIn,
+                       animations: {
+                        self.consoleTextViewHeight.constant = 250
+                        
+                        self.view.layoutIfNeeded()
+        },completion: nil)
     }
 
 }

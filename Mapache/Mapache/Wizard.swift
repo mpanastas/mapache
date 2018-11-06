@@ -26,6 +26,10 @@ struct Stack<T> {
             return nil
         }
     }
+    
+    mutating func removeAll() {
+        array.removeAll()
+    }
 }
 
 class Wizard{
@@ -41,6 +45,8 @@ class Wizard{
     // Quadruple
     var quadruples = [Quadruple]()
     
+    
+    var global: Function!
     // Function
     var functions = [Name:Function]()
     
@@ -81,7 +87,19 @@ class Wizard{
     
     // MARK: Functions
     
+    func clearModels() {
+        quadruples.removeAll()
+        
+        functions.removeAll()
+        jumps.removeAll()
+        types.removeAll()
+        operands.removeAll()
+    }
+    
     func runCode(input: String){
+        clearModels()
+        
+        
         do {
             let lexer = MapacheLexer(ANTLRInputStream(input))
             let tokens = CommonTokenStream(lexer)
@@ -99,13 +117,26 @@ class Wizard{
     }
     
     // MARK: Manage Quadruples
-    func addQuad(_ op: Op, _ opL: Int?, _ opR: Int?, _ temp: Int?){
+    
+    /// Create a Quad and add it to the quadruples array
+    ///
+    /// - Parameters:
+    ///   - op: Operator
+    ///   - opL: Left Operand
+    ///   - opR: Right Operand
+    ///   - temp: Temp var \ Sometimes direction for some instructions
+    private func addQuad(_ op: Op, _ opL: Int?, _ opR: Int?, _ temp: Int?){
         let quad = Quadruple(op, opL, opR, temp)
         quadruples.append(quad)
     }
     
-    func fillDirection(_ num1: Int, with num2: Int) {
-        #warning ("TODO: ")
+    /// Fill the quad with direction
+    ///
+    /// - Parameters:
+    ///   - quadToFill: index of the quad, in quadruples array, to fill with the direction
+    ///   - direction: direction to fill to the quad
+    private func fillGoTo(_ quadToFill: Int, with direction: Int) {
+        quadruples[quadToFill].temp = direction
     }
 }
 
@@ -166,7 +197,7 @@ extension Wizard {
         #warning ("TODO: ")
         // PN2 If
         let end = jumps.pop()
-        fillDirection(end!, with: cont)
+        fillGoTo(end!, with: cont)
     }
     
     func enterVariable(_ ctx: MapacheParser.VariableContext) { }
@@ -267,7 +298,7 @@ extension Wizard {
         let end = jumps.pop()
         let whileDir = jumps.pop()
         addQuad(.GoTo, nil, nil, whileDir)
-        fillDirection(end!, with: cont)
+        fillGoTo(end!, with: cont)
     }
     
     func enterCicloFor(_ ctx: MapacheParser.CicloForContext) {
@@ -315,7 +346,7 @@ extension Wizard {
         addQuad(.GoTo, nil, nil, nil)
         let f = jumps.pop()
         jumps.push(cont-1)
-        fillDirection(f!, with: cont)
+        fillGoTo(f!, with: cont)
     }
     
     func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }

@@ -2,7 +2,7 @@
 //  HomeVC.swift
 //  Mapache
 //
-//  Created by Luis Salazar on 11/5/18.
+//  Created by Luis Salazar on 10/4/18.
 //  Copyright © 2018 Luis Salazar. All rights reserved.
 //
 
@@ -11,22 +11,48 @@ import Antlr4
 import SwiftyJSON
 
 class HomeVC: UIViewController {
-
+    
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
+    // MARK: Override
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupNavBar()
+    }
 
-        // Do any additional setup after loading the view.
+    // MARK: - Custom functions
+    
+    func setupNavBar() {
+        let logoView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        logoView.image = #imageLiteral(resourceName: "logo")
+        logoView.contentMode = .scaleAspectFit
+        navigationItem.titleView = logoView
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+extension HomeVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileCell", for: indexPath)
+        return cell
+    }
+    
+    
+}
+
+extension HomeVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "openEditor", sender: self)
+    }
+    
+}
+

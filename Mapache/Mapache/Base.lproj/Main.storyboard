@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fX2-p8-yuQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--HomeVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Mapache" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeVC" customModule="Mapache" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,29 +28,35 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="QuF-rJ-fAA">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fileCell" id="QuF-rJ-fAA">
                                         <rect key="frame" x="37.5" y="0.0" width="300" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="p8i-EV-JEY"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="GP3-OP-mIz"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gor-yW-pD3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0bj-p0-25f"/>
                             <constraint firstItem="gor-yW-pD3" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Eer-B3-rOa"/>
-                            <constraint firstItem="gor-yW-pD3" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="GYw-RM-KuS"/>
                             <constraint firstItem="gor-yW-pD3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jrR-9v-Ml3"/>
+                            <constraint firstAttribute="bottom" secondItem="gor-yW-pD3" secondAttribute="bottom" id="pIJ-ng-l60"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="20p-7f-VcZ"/>
                     <connections>
-                        <segue destination="dyJ-FU-lQB" kind="show" id="SMO-20-BfK"/>
+                        <outlet property="collectionView" destination="gor-yW-pD3" id="T5M-Ww-ugr"/>
+                        <segue destination="dyJ-FU-lQB" kind="show" identifier="openEditor" id="SMO-20-BfK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -99,8 +105,8 @@
                             <constraint firstItem="iTn-on-cHe" firstAttribute="leading" secondItem="4R2-dN-jcf" secondAttribute="leading" id="Ib0-la-43S"/>
                             <constraint firstItem="ZoU-yo-JuA" firstAttribute="trailing" secondItem="4R2-dN-jcf" secondAttribute="trailing" id="Mal-8d-oe2"/>
                             <constraint firstItem="iTn-on-cHe" firstAttribute="top" secondItem="ZoU-yo-JuA" secondAttribute="bottom" id="O54-J5-czv"/>
-                            <constraint firstItem="iTn-on-cHe" firstAttribute="bottom" secondItem="4R2-dN-jcf" secondAttribute="bottom" id="RMJ-EL-ORh"/>
                             <constraint firstItem="ZoU-yo-JuA" firstAttribute="leading" secondItem="4R2-dN-jcf" secondAttribute="leading" id="jhx-qE-rCN"/>
+                            <constraint firstAttribute="bottom" secondItem="iTn-on-cHe" secondAttribute="bottom" id="xSI-fQ-qlt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4R2-dN-jcf"/>
                     </view>
@@ -112,6 +118,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="consoleTextView" destination="iTn-on-cHe" id="sg2-2S-p9j"/>
+                        <outlet property="consoleTextViewHeight" destination="mev-pE-XO7" id="dez-jH-EV8"/>
                         <outlet property="editorTextView" destination="ZoU-yo-JuA" id="qp4-u1-Yy5"/>
                     </connections>
                 </viewController>
