@@ -8,9 +8,9 @@
 
 import Foundation
 
-let globalStartAdress = 100000
-let localStartAdress = 110000
-let constantStartAdress = 120000
+//let globalStartAdress = 100000
+//let localStartAdress = 110000
+//let constantStartAdress = 120000
 
 class VirtualMemory {
     var globalMemory = Memory()
@@ -18,7 +18,7 @@ class VirtualMemory {
     var constantsMemory = Memory()
     
     func setValueIn(address: Int, resut: Any){
-        var realAdress = adress
+        //var realAdress = adress
         
         //code
     }

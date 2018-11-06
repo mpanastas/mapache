@@ -9,12 +9,12 @@
 import Foundation
 
 class Quadruple {
-    var op: Int
+    var op: Op
     var operandL: Int?
     var operandR: Int?
     var temp: Int?
     
-    init(_ op: Int,_ opL: Int?,_ opR: Int?,_ temp:Int?) {
+    init(_ op: Op,_ opL: Int?,_ opR: Int?,_ temp:Int?) {
         self.op = op
         self.operandL = opL
         self.operandR = opR

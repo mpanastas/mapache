@@ -8,13 +8,7 @@
 
 import Foundation
 
-enum Type: Int {
-    case Int = 1
-    case Float = 2
-    case Char = 3
-    case Bool = 4
-    case Void = 5
-}
+
 
 struct Variable {
     var type: Type!

@@ -42,13 +42,13 @@ class Wizard{
     var quadruples = [Quadruple]()
     
     // Function
-    var functionsTable = [Name:Function]()
+    var functions = [Name:Function]()
     
     // Pending jumps
     var jumps = Stack<Int>()
     
     // Pending types
-    var types = Stack<Int>()
+    var types = Stack<Type>()
     
     // PilaO
     var operands = Stack<Int>()
@@ -99,13 +99,13 @@ class Wizard{
     }
     
     // MARK: Manage Quadruples
-    func addQuad(_ op: Int, _ opL: Int?, _ opR: Int?, _ temp: Int?){
+    func addQuad(_ op: Op, _ opL: Int?, _ opR: Int?, _ temp: Int?){
         let quad = Quadruple(op, opL, opR, temp)
         quadruples.append(quad)
     }
     
     func fillDirection(_ num1: Int, with num2: Int) {
-        
+        #warning ("TODO: ")
     }
 }
 
@@ -137,6 +137,10 @@ extension Wizard {
         
         // PN2 Llamada
         // Generate action ERA size (Activation Record Expansion -NEW -size)
+        let funcName = ctx.ID()
+        #warning ("TODO: Get func start address")
+        let funcStartAddress = -1
+        addQuad(.ERA, funcStartAddress, nil, nil)
         // Start the parameter counter (k) in 1.
         // Add a pointer to the first parameter type in the ParameterTable
         
@@ -150,7 +154,10 @@ extension Wizard {
         // PN6 Llamada
         // Generate action GoSub, procedure-name, initial-address
         let funcName = ctx.ID()
-        addQuad(GoSub, funcName, initialAddress, nil)
+        
+        #warning ("TODO: Get func start address")
+        let funcStartAddress = -1
+        addQuad(.GoSub, funcStartAddress, nil, nil)
     }
     
     func enterCondicion(_ ctx: MapacheParser.CondicionContext) { }
@@ -184,7 +191,7 @@ extension Wizard {
         // Release the current varTable (local).
         // Generate an action to end the procedure
         
-        //addQuad(EndProc, nil, nil, nil)
+        addQuad(.EndProc, nil, nil, nil)
     }
     
     func enterBloque(_ ctx: MapacheParser.BloqueContext) { }
@@ -198,7 +205,14 @@ extension Wizard {
         
     }
     
-    func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) { }
+    func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
+        #warning ("TODO: Return")
+        // PN? Funcion
+        // Check if function has return, if it does, create Quad
+        //let temp = ctx.expresion()
+        // check if expression is same type as function
+        //addQuad(.Return, temp, nil, nil)
+    }
     
     func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) { }
     
@@ -252,7 +266,7 @@ extension Wizard {
         // PN3 While
         let end = jumps.pop()
         let whileDir = jumps.pop()
-        addQuad(GoTo, nil, nil, whileDir)
+        addQuad(.GoTo, nil, nil, whileDir)
         fillDirection(end!, with: cont)
     }
     
@@ -283,11 +297,11 @@ extension Wizard {
         // PN1 If
         // PN2 While
         let expType = types.pop()
-        if (expType != bool) {
+        if (expType != .Bool) {
             //error type-mismatch
         } else {
             let result = operands.pop()
-            addQuad(GoToFalse, result, nil, nil)
+            addQuad(.GoToFalse, result, nil, nil)
             jumps.push(cont-1)
         }
     }
@@ -298,7 +312,7 @@ extension Wizard {
     func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext) {
         #warning ("TODO: ")
         // PN3 If
-        addQuad(GoTo, nil, nil, nil)
+        addQuad(.GoTo, nil, nil, nil)
         let f = jumps.pop()
         jumps.push(cont-1)
         fillDirection(f!, with: cont)
@@ -313,9 +327,14 @@ extension Wizard {
         let argumentType = types.pop()
         
         // Verify argumentType against current Parameter (#k) in parameterTable.
-        
+        if argumentType != argumentType {
+            
+        }
         // Generate action Parameter, argument, argument#k
-        addQuad(Parameter, argument, argument, nil)
+        
+        addQuad(.Param, nil, nil, argument) // Param nil nil argument
+        // Maybe we dont need argument number, if we do, the instruction should be:
+        // Param argument nil k (k is the argument number, index)
     }
     
     func exitArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
