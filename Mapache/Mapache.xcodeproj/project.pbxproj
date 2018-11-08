@@ -43,6 +43,7 @@
 		37F847E12187BF3A009ADBFB /* MapacheLexerATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F847D62187BF3A009ADBFB /* MapacheLexerATN.swift */; };
 		37F847E22187BF3A009ADBFB /* MapacheLexer.interp in Resources */ = {isa = PBXBuildFile; fileRef = 37F847D72187BF3A009ADBFB /* MapacheLexer.interp */; };
 		37F847E32187BF3A009ADBFB /* MapacheParserATN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F847D82187BF3A009ADBFB /* MapacheParserATN.swift */; };
+		F527EB3621940C7B00E7E4D6 /* VirtualMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F527EB3521940C7B00E7E4D6 /* VirtualMachine.swift */; };
 		F55EB9272187E02200180F79 /* Dimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55EB9262187E02200180F79 /* Dimension.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		946B35C98E558FA4F9448482 /* Pods-Mapache.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapache.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mapache/Pods-Mapache.release.xcconfig"; sourceTree = "<group>"; };
 		AA7D82985F9FEEE89A6AA51A /* Pods_MapacheTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapacheTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10C9FF88489BD79BAB4410A /* Pods-MapacheUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapacheUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapacheUITests/Pods-MapacheUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F527EB3521940C7B00E7E4D6 /* VirtualMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualMachine.swift; sourceTree = "<group>"; };
 		F55EB9262187E02200180F79 /* Dimension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimension.swift; sourceTree = "<group>"; };
 		FDE960DB750E53919CD4905D /* Pods-MapacheTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapacheTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapacheTests/Pods-MapacheTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -206,6 +208,7 @@
 				378FFAB92174311100EC10AE /* Typealiases.swift */,
 				37ECDF222191140A00984782 /* Controllers */,
 				37DBFCD72175803C007433AE /* Walker.swift */,
+				F527EB3521940C7B00E7E4D6 /* VirtualMachine.swift */,
 				37DBFCDC21758228007433AE /* Wizard.swift */,
 				37DBFD152178378E007433AE /* Memory.swift */,
 				37DBFD1A2178DF8A007433AE /* VirtualMemory.swift */,
@@ -585,6 +588,7 @@
 				37ECDF212190F09A00984782 /* ColorConstants.swift in Sources */,
 				373958252166D7F00030470E /* AppDelegate.swift in Sources */,
 				37F847E02187BF3A009ADBFB /* MapacheBaseListener.swift in Sources */,
+				F527EB3621940C7B00E7E4D6 /* VirtualMachine.swift in Sources */,
 				37F847DD2187BF3A009ADBFB /* MapacheLexer.swift in Sources */,
 				37ECDF192190C74900984782 /* Operators.swift in Sources */,
 				378FFABA2174311100EC10AE /* Typealiases.swift in Sources */,
