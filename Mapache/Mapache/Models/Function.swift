@@ -11,10 +11,9 @@ import Foundation
 struct Function {
     
     var returnType: Type!
-    var startAddress: Int
+    var startAddress: Int!
+    var startQuadAddress: Int!
     var variables = [Name: Variable]() 
-    #warning("We still dont know if it's better to have the parameter on a separate dictionary or have them inside the 'variables' dictionary")
-    var parameters = [Name: Variable]()
     var paramsSecuence = [Type]() // used to know parameters of function
     
     init(returnType: Type, startAddress: Int) {

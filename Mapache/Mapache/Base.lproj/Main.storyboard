@@ -74,14 +74,21 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZoU-yo-JuA">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="403"/>
                                 <string key="text">mapache {
-    func hi() -&gt; Void {
-        var num:Int;
-        num = 10;
-        print("hi");
-    }
-        
-    hi();
-        
+var ej:int; var ej2: int;
+
+func suma(num1: Int, num2: Int) -&gt; Int {
+	var res:Int;
+	res = num1 + num2;
+}
+
+ej = suma(ej,ej2);
+
+func hi() -&gt; Void {
+	print("hi"); 
+}
+ 
+hi();
+
 }</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>

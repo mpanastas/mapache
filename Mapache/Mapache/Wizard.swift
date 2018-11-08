@@ -116,7 +116,7 @@ class Wizard{
             let extractor = MapacheWalker.init()
             try walker.walk(extractor, tree)
             
-            //print(semanticCube["Float"]["Int"]["*"])
+            print(semanticCube["Float"]["Int"]["*"])
         } catch {
             print("parse error: \(error.localizedDescription)")
         }
@@ -147,18 +147,33 @@ class Wizard{
     
     // MARK: CTX functions
     
-    func getText(from arr: [TerminalNode] ) -> String {
-        let str = arr.compactMap({$0.getSymbol()?.getText()}).joined()
-        return str
+//    func getText(from arr: [TerminalNode] ) -> String {
+//        let str = arr.compactMap({$0.getSymbol()?.getText()}).joined()
+//        return str
+//    }
+    
+    func getText(from node: TerminalNode ) -> String {
+        return (node.getSymbol()?.getText())!
     }
     
-    func getType(from arr: [TerminalNode]) -> Type {
-        let stringType = getText(from: arr)
-        return Type(stringType)!
-    }
+//    func getType(from arr: [TerminalNode]) -> Type {
+//        let stringType = getText(from: arr)
+//        return Type(stringType)!
+//    }
     
-    func getType(from arr: [MapacheParser.TipoContext]) {
+    func getType(from ctx: MapacheParser.TipoContext) -> Type {
+ 
+        if ctx.INT() != nil {
+            return .Int
+        } else if ctx.FLOAT() != nil {
+            return .Float
+        } else if ctx.BOOL() != nil {
+            return .Bool
+        } else if ctx.CHAR() != nil {
+            return .Char
+        }
         
+        return .Void
     }
 }
 
@@ -241,34 +256,56 @@ extension Wizard {
         currentLocalBool = 0
         
         // Insert func name intro the dirFuncTable, verify semantics
-        let funcName = getText(from: ctx.ID())
+        let funcName = getText(from: ctx.ID().first!)
         
         if functions.keys.contains(funcName) {
-            #warning ("TODO: Error function already exists")
+            #warning ("TODO: Error. Function already exists")
             return
         }
         
+        // If void, init with .Void if not get type from 'tipo'
+        let returnType = (ctx.VOID() != nil) ? .Void : getType(from: ctx.tipo().last!)
         
-        let returnType: Type
+        let startAddress = functions.count
+        functions[funcName] = Function(returnType: returnType, startAddress: startAddress)
         
-        if let ex = ctx.VOID() {
-            returnType = .Void
-        } else {
-            //returnType = getType
-            returnType = getType(from: ctx.tipo())
+        
+        // PN2 Funcion
+        var paramsIdsCtx = ctx.ID()
+        paramsIdsCtx.remove(at: 0)
+        let paramsTypeCtx = ctx.tipo()
+        
+        let paramsIds = paramsIdsCtx.map({getText(from: $0)})
+        print(paramsIds)
+        
+        let paramsType = paramsTypeCtx.map({getType(from: $0)})
+        
+        // Here we have all the params with their types
+        for i in 0..<paramsIds.count {
+            let paramId = paramsIds[i]
+            let paramType = paramsType[i]
+            // Insert parameter into the current (local) varTable
+            // Insert the type to every parameter uploaded into the varTable.
+            if (functions[funcName]?.variables.keys.contains(paramId))!{
+                #warning ("TODO: Error. Parameter already exists")
+                return
+            }
+            
+            #warning ("TODO: Create virtual address")
+            let virtualAddress = -1 //getVirtualAddress(forType: Type)
+            functions[funcName]?.variables[paramId] = Variable(paramType, virtualAddress)
+            
+            // At the same time into the parameterTable (to create the function's signature)
+            functions[funcName]?.paramsSecuence.append(paramType)
         }
-        
-        
-        let function = Function(returnType: <#T##Type#>, startAddress: <#T##Int#>)
-        
     }
     
     func exitFuncion(_ ctx: MapacheParser.FuncionContext) {
         #warning ("TODO: ")
         // PN7 Funcion
         // Release the current varTable (local).
-        // Generate an action to end the procedure
         
+        // Generate an action to end the procedure
         addQuad(.EndProc, nil, nil, nil)
     }
     
@@ -280,7 +317,9 @@ extension Wizard {
         #warning ("TODO: ")
         // PN6 Funcion
         // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
-        
+        let funcCtx = ctx.parent as! MapacheParser.FuncionContext
+        let funcName = getText(from: funcCtx.ID().first!)
+        functions[funcName]?.startQuadAddress = cont
     }
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
@@ -425,25 +464,11 @@ extension Wizard {
     
     func exitArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) { }
     
-    func enterParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) {
-        #warning ("TODO: ")
-        // PN2 Funcion
-        // Insert parameter into the current (local) varTable
-        
-        //let parent = ctx.parent as! MapacheParser.FuncionContext
-        //let param = parent.
-        
-    }
+    func enterParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) {}
     
     func exitParamNuevo(_ ctx: MapacheParser.ParamNuevoContext) { }
     
-    func enterParamListo(_ ctx: MapacheParser.ParamListoContext) {
-        #warning ("TODO: ")
-        // PN3 Funcion
-        // Insert the type to every parameter uploaded into the varTable.
-        // At the same time into the parameterTable (to create the function's signature)
-        
-    }
+    func enterParamListo(_ ctx: MapacheParser.ParamListoContext) {}
     
     func exitParamListo(_ ctx: MapacheParser.ParamListoContext) { }
     
@@ -464,7 +489,7 @@ extension Wizard {
     func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) {
         #warning ("TODO: ")
         // PN2 Asignacion
-        // Checar si es vector
+        // Checar si es vector. No es necesario, si entra a esta funcion SI es vector
         // Parecido a EnterVector/ExitVector
     }
     

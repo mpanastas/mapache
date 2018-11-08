@@ -17,4 +17,9 @@ struct Variable {
     var dimension: [Dimension] = []
     #warning("We dont know if we are going to define a variable for the scope")
     //var scope: globar or local
+    
+    init(_ type: Type, _ virtualAddress: Int){
+        self.type = type
+        self.virtualAddress = virtualAddress
+    }
 }
