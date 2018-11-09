@@ -196,6 +196,10 @@ extension Wizard {
         #warning ("TODO: ")
         return 1
     }
+    
+    func setParamValue(_ value: Any, in address: Address) {
+        #warning ("TODO: ")
+    }
 }
 
 
