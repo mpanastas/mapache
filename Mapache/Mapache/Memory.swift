@@ -9,52 +9,62 @@
 import Foundation
 
 class Memory {
+    
+    // MARK: - Constants
     private let intBase = 0
     private let floatBase = 1000
     private let charBase = 2000
     private let boolBase = 3000
     private let letreroBase = 4000
     
-    var ints: [Int] = []
-    var floats: [Float] = []
-    var chars: [Character] = []
-    var bools: [Bool] = []
-    var letreros: [String] = []
+    // MARK: - Variables
+    private var ints: [Int] = []
+    private var floats: [Float] = []
+    private var chars: [Character] = []
+    private var bools: [Bool] = []
+    private var letreros: [String] = []
     
-    var baseAddress = 0
+    private var baseAddress = 0
     
-    var intStartAddress : Address {
+    // MARK: - Get Variables
+    private var intStartAddress : Address {
         get {
             return baseAddress + intBase
         }
     }
-    var floatStartAddress : Address {
+    private var floatStartAddress : Address {
         get {
             return baseAddress + floatBase
         }
     }
-    var charStartAddress : Address {
+    private var charStartAddress : Address {
         get {
             return baseAddress + charBase
         }
     }
-    var boolStartAddress : Address {
+    private var boolStartAddress : Address {
         get {
             return baseAddress + boolBase
         }
     }
-    var letreroStartAddress : Address {
+    private var letreroStartAddress : Address {
         get {
             return baseAddress + letreroBase
         }
     }
     
+    // MARK: - Init
     init(baseAddress: Address){
         self.baseAddress = baseAddress
     }
     
+    // MARK: - Public functions
     
-    func getVal(from address: Address) -> (Any, Type) {
+    func setValue(_ value: Any, in address: Address) {
+        #warning ("TODO: ")
+    }
+    
+    func getValue(from address: Address) -> (Any, Type) {
         switch address {
         case _ where address < floatStartAddress:
             // int
@@ -74,22 +84,24 @@ class Memory {
         }
     }
     
-    func saveInt(_ val: Int) -> Address {
+    // MARK: - Private functions
+    
+    private func saveInt(_ val: Int) -> Address {
         ints.append(val)
         return intStartAddress + ints.count - 1
     }
     
-    func saveFloat(_ val: Float) -> Address {
+    private func saveFloat(_ val: Float) -> Address {
         floats.append(val)
         return floatStartAddress + floats.count - 1
     }
     
-    func saveChar(_ val: Character) -> Address {
+    private func saveChar(_ val: Character) -> Address {
         chars.append(val)
         return charStartAddress + chars.count - 1
     }
 
-    func saveInt(_ val: Bool) -> Address {
+    private func saveInt(_ val: Bool) -> Address {
         bools.append(val)
         return boolStartAddress + bools.count - 1
     }

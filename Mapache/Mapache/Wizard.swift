@@ -66,7 +66,14 @@ class Wizard{
         }
     }
     
+    // MARK: Memory variables
+    var globalMemory = Memory(baseAddress: 5000)
+    var localMemory = Memory(baseAddress: 10000)
+    var constantsMemory = Memory(baseAddress: 15000)
+    
     #warning ("TODO: Change init")
+    
+    
     var currentLocalInt = 0
     var currentLocalFloat = 0
     var currentLocalChar = 0
@@ -174,6 +181,20 @@ class Wizard{
         }
         
         return .Void
+    }
+}
+
+
+// MARK: - Memory handling functions
+extension Wizard {
+    
+    func setValue(_ value: Any, in address: Address) {
+        #warning ("TODO: ")
+    }
+    
+    func getValue(from address: Address) -> Any {
+        #warning ("TODO: ")
+        return 1
     }
 }
 
