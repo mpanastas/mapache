@@ -12,10 +12,20 @@ import Foundation
 //let localStartAdress = 110000
 //let constantStartAdress = 120000
 
+//    localInts = 5000
+//    localFloats = 7000
+//    localChars = 9000
+//    localBools = 11000
+//
+//    tempInts = 13000
+//    tempFloats = 15000
+//    tempChars = 17000
+//    tempBools = 19000
+
 class VirtualMemory {
-    var globalMemory = Memory()
-    var localMemory = Memory()
-    var constantsMemory = Memory()
+    var globalMemory = Memory(baseAddress: 5000)
+    var localMemory = Memory(baseAddress: 10000)
+    var constantsMemory = Memory(baseAddress: 15000)
     
     func setValueIn(address: Int, resut: Any){
         //var realAdress = adress

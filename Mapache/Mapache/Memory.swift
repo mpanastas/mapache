@@ -9,39 +9,68 @@
 import Foundation
 
 class Memory {
+    private let intBase = 0
+    private let floatBase = 1000
+    private let charBase = 2000
+    private let boolBase = 3000
+    private let letreroBase = 4000
+    
     var ints: [Int] = []
     var floats: [Float] = []
     var chars: [Character] = []
     var bools: [Bool] = []
+    var letreros: [String] = []
     
-    var intStartAddress = 0
-    var floatStartAddress = 1000
-    var charStartAddress = 2000
-    var boolStartAddress = 3000
-//    localInts = 5000
-//    localFloats = 7000
-//    localChars = 9000
-//    localBools = 11000
-//
-//    tempInts = 13000
-//    tempFloats = 15000
-//    tempChars = 17000
-//    tempBools = 19000
+    var baseAddress = 0
     
-    func getVal(from address: Int) -> (Any, Type) {
+    var intStartAddress : Address {
+        get {
+            return baseAddress + intBase
+        }
+    }
+    var floatStartAddress : Address {
+        get {
+            return baseAddress + floatBase
+        }
+    }
+    var charStartAddress : Address {
+        get {
+            return baseAddress + charBase
+        }
+    }
+    var boolStartAddress : Address {
+        get {
+            return baseAddress + boolBase
+        }
+    }
+    var letreroStartAddress : Address {
+        get {
+            return baseAddress + letreroBase
+        }
+    }
+    
+    init(baseAddress: Address){
+        self.baseAddress = baseAddress
+    }
+    
+    
+    func getVal(from address: Address) -> (Any, Type) {
         switch address {
         case _ where address < floatStartAddress:
             // int
-            return (ints[address - intStartAddress], Type.Int)
+            return (ints[address - intStartAddress], .Int)
         case _ where address < charStartAddress:
             // float
-            return (floats[address - floatStartAddress], Type.Float)
+            return (floats[address - floatStartAddress], .Float)
         case _ where address < boolStartAddress:
             // char
-            return (chars[address - charStartAddress], Type.Char)
-        default:
+            return (chars[address - charStartAddress], .Char)
+        case _ where address < letreroStartAddress:
             // bool
-            return (bools[address - boolStartAddress], Type.Bool)
+            return (bools[address - boolStartAddress], .Bool)
+        default:
+            // letrero
+            return (letreros[address - letreroStartAddress], .Letrero)
         }
     }
     
