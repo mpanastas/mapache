@@ -87,6 +87,16 @@ public interface MapacheListener extends ParseTreeListener {
 	 */
 	void exitBloque(MapacheParser.BloqueContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MapacheParser#bloquefunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterBloquefunc(MapacheParser.BloquefuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#bloquefunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitBloquefunc(MapacheParser.BloquefuncContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MapacheParser#estatuto}.
 	 * @param ctx the parse tree
 	 */
@@ -106,6 +116,16 @@ public interface MapacheListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpresion(MapacheParser.ExpresionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#expBool}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpBool(MapacheParser.ExpBoolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#expBool}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpBool(MapacheParser.ExpBoolContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MapacheParser#exp}.
 	 * @param ctx the parse tree
@@ -206,4 +226,94 @@ public interface MapacheListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCte(MapacheParser.CteContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#condicionLista}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondicionLista(MapacheParser.CondicionListaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#condicionLista}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondicionLista(MapacheParser.CondicionListaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#condicionElse}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondicionElse(MapacheParser.CondicionElseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#condicionElse}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondicionElse(MapacheParser.CondicionElseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#argumentoListo}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentoListo(MapacheParser.ArgumentoListoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#argumentoListo}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentoListo(MapacheParser.ArgumentoListoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#argumentoNuevo}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentoNuevo(MapacheParser.ArgumentoNuevoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#argumentoNuevo}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentoNuevo(MapacheParser.ArgumentoNuevoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#paramNuevo}.
+	 * @param ctx the parse tree
+	 */
+	void enterParamNuevo(MapacheParser.ParamNuevoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#paramNuevo}.
+	 * @param ctx the parse tree
+	 */
+	void exitParamNuevo(MapacheParser.ParamNuevoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#paramListo}.
+	 * @param ctx the parse tree
+	 */
+	void enterParamListo(MapacheParser.ParamListoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#paramListo}.
+	 * @param ctx the parse tree
+	 */
+	void exitParamListo(MapacheParser.ParamListoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#forRango}.
+	 * @param ctx the parse tree
+	 */
+	void enterForRango(MapacheParser.ForRangoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#forRango}.
+	 * @param ctx the parse tree
+	 */
+	void exitForRango(MapacheParser.ForRangoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#forListo}.
+	 * @param ctx the parse tree
+	 */
+	void enterForListo(MapacheParser.ForListoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#forListo}.
+	 * @param ctx the parse tree
+	 */
+	void exitForListo(MapacheParser.ForListoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#asignacionVector}.
+	 * @param ctx the parse tree
+	 */
+	void enterAsignacionVector(MapacheParser.AsignacionVectorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#asignacionVector}.
+	 * @param ctx the parse tree
+	 */
+	void exitAsignacionVector(MapacheParser.AsignacionVectorContext ctx);
 }
