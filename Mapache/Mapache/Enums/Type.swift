@@ -13,7 +13,7 @@ enum Type: Int {
     case Float
     case Char
     case Bool
-    case Letrero
+    case String
     case Void
     
     init?(_ string: String) {
@@ -29,7 +29,7 @@ enum Type: Int {
         case "void":
             self = .Void
         case "letrero":
-            self = .Letrero
+            self = .String
         default:
             return nil
         }

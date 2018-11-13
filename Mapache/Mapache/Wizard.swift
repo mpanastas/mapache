@@ -188,6 +188,26 @@ class Wizard{
 // MARK: - Memory handling functions
 extension Wizard {
     
+    func save(int: Int){
+        
+    }
+    
+    func save(float: Float){
+        
+    }
+    
+    func save(bool: Bool) {
+        
+    }
+    
+    func save(char: Character) {
+        
+    }
+    
+    func save(string: String) {
+        
+    }
+    
     func setValue(_ value: Any, in address: Address) {
         #warning ("TODO: ")
     }
@@ -430,7 +450,23 @@ extension Wizard {
     
     func exitTipo(_ ctx: MapacheParser.TipoContext) { }
     
-    func enterCte(_ ctx: MapacheParser.CteContext) { }
+    func enterCte(_ ctx: MapacheParser.CteContext) {
+        // b c f i
+        if let boolNode = ctx.CONST_B() {
+            let boolText = getText(from: boolNode)
+            //let boolText = getText(from: boolNode)
+            //let bool = boolNode.getSymbol().getText()
+            
+        } else if let charNode = ctx.CONST_C() {
+            let charText = getText(from: charNode)
+        } else if let floatNode = ctx.CONST_F() {
+            let floatText = getText(from: floatNode)
+        } else if let intNode = ctx.CONST_I() {
+            let intText = getText(from: intNode)
+            
+        }
+        
+    }
     
     func exitCte(_ ctx: MapacheParser.CteContext) { }
     

@@ -15,14 +15,14 @@ class Memory {
     private let floatBase = 1000
     private let charBase = 2000
     private let boolBase = 3000
-    private let letreroBase = 4000
+    private let stringBase = 4000
     
     // MARK: - Variables
     private var ints: [Int] = []
     private var floats: [Float] = []
     private var chars: [Character] = []
     private var bools: [Bool] = []
-    private var letreros: [String] = []
+    private var strings: [String] = []
     
     private var baseAddress = 0
     
@@ -47,9 +47,9 @@ class Memory {
             return baseAddress + boolBase
         }
     }
-    private var letreroStartAddress : Address {
+    private var stringStartAddress : Address {
         get {
-            return baseAddress + letreroBase
+            return baseAddress + stringBase
         }
     }
     
@@ -60,49 +60,49 @@ class Memory {
     
     // MARK: - Public functions
     
-    func setValue(_ value: Any, in address: Address) {
+    func save(_ value: Any, in address: Address) {
         #warning ("TODO: ")
     }
     
     func getValue(from address: Address) -> (Any, Type) {
         switch address {
         case _ where address < floatStartAddress:
-            // int
             return (ints[address - intStartAddress], .Int)
         case _ where address < charStartAddress:
-            // float
             return (floats[address - floatStartAddress], .Float)
         case _ where address < boolStartAddress:
-            // char
             return (chars[address - charStartAddress], .Char)
-        case _ where address < letreroStartAddress:
-            // bool
+        case _ where address < stringStartAddress:
             return (bools[address - boolStartAddress], .Bool)
         default:
-            // letrero
-            return (letreros[address - letreroStartAddress], .Letrero)
+            return (strings[address - stringStartAddress], .String)
         }
     }
     
     // MARK: - Private functions
     
-    private func saveInt(_ val: Int) -> Address {
-        ints.append(val)
+    func save(int: Int) -> Address {
+        ints.append(int)
         return intStartAddress + ints.count - 1
     }
     
-    private func saveFloat(_ val: Float) -> Address {
-        floats.append(val)
+    func save(float: Float) -> Address {
+        floats.append(float)
         return floatStartAddress + floats.count - 1
     }
     
-    private func saveChar(_ val: Character) -> Address {
-        chars.append(val)
+    func save(char: Character) -> Address {
+        chars.append(char)
         return charStartAddress + chars.count - 1
     }
 
-    private func saveInt(_ val: Bool) -> Address {
-        bools.append(val)
+    func save(bool: Bool) -> Address {
+        bools.append(bool)
         return boolStartAddress + bools.count - 1
+    }
+    
+    func save(string: String) -> Address {
+        strings.append(string)
+        return stringStartAddress + strings.count - 1
     }
 }
