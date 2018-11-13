@@ -222,12 +222,14 @@ extension Wizard {
     }
     
     #warning ("TODO: If we dont use this functions inside Wizard file, move them to Virtual Machine file")
-    #warning ("TODO: Rename func to 'save'")
+    
+    #warning ("TODO: Rename func to 'save(value:)'")
     func setValue(_ value: Any, in address: Address) {
-        #warning ("TODO: ")
+        
         
         switch address {
         case ..<constantsBaseAddress:
+            #warning ("TODO: ")
             print("Error: address out of tables indexes")
             break
         case ..<globalBaseAddress:
@@ -240,15 +242,31 @@ extension Wizard {
             tempMemory.save(value, in: address)
         }
     }
-    
-    func getValue(from address: Address) -> (value: Any, type: Type) {
-        #warning ("TODO: ")
-        return (1, .Int)
-    }
-    
+    #warning ("TODO: Rename func to 'save(param:)'")
     func setParamValue(_ value: Any, in address: Address) {
         #warning ("TODO: ")
+
     }
+    
+    func getValue(from address: Address) -> (value: Any, type: Type) {
+        switch address {
+        case ..<constantsBaseAddress:
+            #warning ("TODO: ")
+            print("Error: address out of tables indexes")
+            return (-1, .Void)
+            break
+        case ..<globalBaseAddress:
+            return constantsMemory.getValue(from: address)
+        case ..<localBaseAddress:
+            return globalMemory.getValue(from: address)
+        case ..<tempBaseAddress:
+            return localMemory.getValue(from: address)
+        default:
+            return tempMemory.getValue(from: address)
+        }
+    }
+    
+    
 }
 
 

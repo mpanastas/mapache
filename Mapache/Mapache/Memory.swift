@@ -72,15 +72,15 @@ class Memory {
         strings.removeAll()
     }
     
-    func getValue(from address: Address) -> (Any, Type) {
+    func getValue(from address: Address) -> (value: Any, type: Type) {
         switch address {
-        case _ where address < floatStartAddress:
+        case ..<floatStartAddress:
             return (ints[address - intStartAddress]!, .Int)
-        case _ where address < charStartAddress:
+        case ..<charStartAddress:
             return (floats[address - floatStartAddress]!, .Float)
-        case _ where address < boolStartAddress:
+        case ..<boolStartAddress:
             return (chars[address - charStartAddress]!, .Char)
-        case _ where address < stringStartAddress:
+        case ..<stringStartAddress:
             return (bools[address - boolStartAddress]!, .Bool)
         default:
             return (strings[address - stringStartAddress]!, .String)
