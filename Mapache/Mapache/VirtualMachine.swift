@@ -103,31 +103,32 @@ extension Wizard {
     func add(left:Address, right:Address, temp:Address){
         
         // more code*
-        let leftVal = getValue(from:left)
-        let rightVal = getValue(from:right)
         
-        if leftVal.1 == .Int && rightVal.1 == .Int {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = Float(rightVal.0 as! Int)
+        let (leftVal, leftType) = getValue(from: left)
+        let (rightVal, rightType) = getValue(from: right)
+        
+        if leftType == .Int && rightType == .Int {
+            let numL = Float(leftVal as! Int)
+            let numR = Float(rightVal as! Int)
             
             setValue(numL + numR, in: temp)
             return
-        } else if leftVal.1 == .Int && rightVal.1 == .Float {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = rightVal.0 as! Float
+        } else if leftType == .Int && rightType == .Float {
+            let numL = Float(leftVal as! Int)
+            let numR = rightVal as! Float
             
             setValue(numL + numR, in: temp)
             return
-        } else if leftVal.1 == .Float && rightVal.1 == .Int {
-            let numL = leftVal.0 as! Float
-            let numR = Float(rightVal.0 as! Int)
+        } else if leftType == .Float && rightType == .Int {
+            let numL = leftVal as! Float
+            let numR = Float(rightVal as! Int)
             
             setValue(numL + numR, in: temp)
             return
         }
         
-        let numL = leftVal.0 as! Float
-        let numR = rightVal.0 as! Float
+        let numL = leftVal as! Float
+        let numR = rightVal as! Float
         
         setValue(numL + numR, in: temp)
     }
@@ -136,31 +137,31 @@ extension Wizard {
      function to do the substraction and save the result in the corresponding address
      **/
     func sub(left:Address, right:Address, temp:Address){
-        let leftVal = getValue(from:left)
-        let rightVal = getValue(from:right)
+        let (leftVal, leftType) = getValue(from:left)
+        let (rightVal, rightType) = getValue(from:right)
         
-        if leftVal.1 == .Int && rightVal.1 == .Int {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = Float(rightVal.0 as! Int)
+        if leftType == .Int && rightType == .Int {
+            let numL = Float(leftVal as! Int)
+            let numR = Float(rightVal as! Int)
             
             setValue(numL - numR, in: temp)
             return
-        } else if leftVal.1 == .Int && rightVal.1 == .Float {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = rightVal.0 as! Float
+        } else if leftType == .Int && rightType == .Float {
+            let numL = Float(leftVal as! Int)
+            let numR = rightVal as! Float
             
             setValue(numL - numR, in: temp)
             return
-        } else if leftVal.1 == .Float && rightVal.1 == .Int {
-            let numL = leftVal.0 as! Float
-            let numR = Float(rightVal.0 as! Int)
+        } else if leftType == .Float && rightType == .Int {
+            let numL = leftVal as! Float
+            let numR = Float(rightVal as! Int)
             
             setValue(numL - numR, in: temp)
             return
         }
         
-        let numL = leftVal.0 as! Float
-        let numR = rightVal.0 as! Float
+        let numL = leftVal as! Float
+        let numR = rightVal as! Float
         
         setValue(numL - numR, in: temp)
     }
@@ -169,31 +170,31 @@ extension Wizard {
      function to do the division and save the result in the corresponding address
      **/
     func divide(left:Address, right:Address, temp:Address){
-        let leftVal = getValue(from:left)
-        let rightVal = getValue(from:right)
+        let (leftVal, leftType) = getValue(from:left)
+        let (rightVal, rightType) = getValue(from:right)
         
-        if leftVal.1 == .Int && rightVal.1 == .Int {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = Float(rightVal.0 as! Int)
+        if leftType == .Int && rightType == .Int {
+            let numL = Float(leftVal as! Int)
+            let numR = Float(rightVal as! Int)
             
             setValue(numL / numR, in: temp)
             return
-        } else if leftVal.1 == .Int && rightVal.1 == .Float {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = rightVal.0 as! Float
+        } else if leftType == .Int && rightType == .Float {
+            let numL = Float(leftVal as! Int)
+            let numR = rightVal as! Float
             
             setValue(numL / numR, in: temp)
             return
-        } else if leftVal.1 == .Float && rightVal.1 == .Int {
-            let numL = leftVal.0 as! Float
-            let numR = Float(rightVal.0 as! Int)
+        } else if leftType == .Float && rightType == .Int {
+            let numL = leftVal as! Float
+            let numR = Float(rightVal as! Int)
             
             setValue(numL / numR, in: temp)
             return
         }
         
-        let numL = leftVal.0 as! Float
-        let numR = rightVal.0 as! Float
+        let numL = leftVal as! Float
+        let numR = rightVal as! Float
         
         setValue(numL / numR, in: temp)
         
@@ -203,31 +204,31 @@ extension Wizard {
      function to do the multiplication and save the result in the corresponding address
      **/
     func multiply(left:Address, right:Address, temp:Address){
-        let leftVal = getValue(from:left)
-        let rightVal = getValue(from:right)
+        let (leftVal, leftType) = getValue(from:left)
+        let (rightVal, rightType) = getValue(from:right)
         
-        if leftVal.1 == .Int && rightVal.1 == .Int {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = Float(rightVal.0 as! Int)
+        if leftType == .Int && rightType == .Int {
+            let numL = Float(leftVal as! Int)
+            let numR = Float(rightVal as! Int)
             
             setValue(numL * numR, in: temp)
             return
-        } else if leftVal.1 == .Int && rightVal.1 == .Float {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = rightVal.0 as! Float
+        } else if leftType == .Int && rightType == .Float {
+            let numL = Float(leftVal as! Int)
+            let numR = rightVal as! Float
             
             setValue(numL * numR, in: temp)
             return
-        } else if leftVal.1 == .Float && rightVal.1 == .Int {
-            let numL = leftVal.0 as! Float
-            let numR = Float(rightVal.0 as! Int)
+        } else if leftType == .Float && rightType == .Int {
+            let numL = leftVal as! Float
+            let numR = Float(rightVal as! Int)
             
             setValue(numL * numR, in: temp)
             return
         }
         
-        let numL = leftVal.0 as! Float
-        let numR = rightVal.0 as! Float
+        let numL = leftVal as! Float
+        let numR = rightVal as! Float
         
         setValue(numL * numR, in: temp)
     }
@@ -245,31 +246,31 @@ extension Wizard {
      function to evaluate lesser than and save the result in the corresponding address
      **/
     func lessThan(left:Address, right:Address, temp:Address){
-        let leftVal = getValue(from:left)
-        let rightVal = getValue(from:right)
+        let (leftVal, leftType) = getValue(from:left)
+        let (rightVal, rightType) = getValue(from:right)
         
-        if leftVal.1 == .Int && rightVal.1 == .Int {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = Float(rightVal.0 as! Int)
+        if leftType == .Int && rightType == .Int {
+            let numL = Float(leftVal as! Int)
+            let numR = Float(rightVal as! Int)
             
             setValue(numL < numR, in: temp)
             return
-        } else if leftVal.1 == .Int && rightVal.1 == .Float {
-            let numL = Float(leftVal.0 as! Int)
-            let numR = rightVal.0 as! Float
+        } else if leftType == .Int && rightType == .Float {
+            let numL = Float(leftVal as! Int)
+            let numR = rightVal as! Float
             
             setValue(numL < numR, in: temp)
             return
-        } else if leftVal.1 == .Float && rightVal.1 == .Int {
-            let numL = leftVal.0 as! Float
-            let numR = Float(rightVal.0 as! Int)
+        } else if leftType == .Float && rightType == .Int {
+            let numL = leftVal as! Float
+            let numR = Float(rightVal as! Int)
             
             setValue(numL < numR, in: temp)
             return
         }
         
-        let numL = leftVal.0 as! Float
-        let numR = rightVal.0 as! Float
+        let numL = leftVal as! Float
+        let numR = rightVal as! Float
         
         setValue(numL < numR, in: temp)
     }
@@ -285,30 +286,30 @@ extension Wizard {
      function to evaluate not equal than and save the result in the corresponding address
      **/
     func notEqual(left:Address, right:Address, temp:Address){
-        let leftVal = getValue(from:left)
-        let rightVal = getValue(from:right)
+        let (leftVal, leftType) = getValue(from:left)
+        let (rightVal, rightType) = getValue(from:right)
         
-        if leftVal.1 == .Int && rightVal.1 == .Int {
-            let numL = leftVal.0 as! Int
-            let numR = rightVal.0 as! Int
+        if leftType == .Int && rightType == .Int {
+            let numL = leftVal as! Int
+            let numR = rightVal as! Int
             
             setValue(numL == numR, in: temp)
             return
-        } else if leftVal.1 == .Float && rightVal.1 != .Float {
-            let numL = leftVal.0 as! Float
-            let numR = rightVal.0 as! Float
+        } else if leftType == .Float && rightType != .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
             
             setValue(numL == numR, in: temp)
             return
-        } else if leftVal.1 == .String && rightVal.1 != .String {
-            let numL = leftVal.0 as! String
-            let numR = rightVal.0 as! String
+        } else if leftType == .String && rightType != .String {
+            let numL = leftVal as! String
+            let numR = rightVal as! String
             
             setValue(numL == numR, in: temp)
             return
-        } else if leftVal.1 == .Bool && rightVal.1 != .Bool {
-            let numL = leftVal.0 as! Bool
-            let numR = rightVal.0 as! Bool
+        } else if leftType == .Bool && rightType != .Bool {
+            let numL = leftVal as! Bool
+            let numR = rightVal as! Bool
             
             setValue(numL != numR, in: temp)
             return
@@ -320,11 +321,11 @@ extension Wizard {
      **/
     func andOperator(left:Address, right:Address, temp:Address){
         //code
-        let leftVal = getValue(from: left) //getValue in memory address
-        let rightVal = getValue(from: right) //getValue in memory address
+        let (leftVal, leftType) = getValue(from: left) //getValue in memory address
+        let (rightVal, rightType) = getValue(from: right) //getValue in memory address
         
-        let numL = leftVal.0 as! Bool
-        let numR = rightVal.0 as! Bool
+        let numL = leftVal as! Bool
+        let numR = rightVal as! Bool
         
         setValue(numL && numR, in: temp) //from Virtual memory
     }
@@ -333,11 +334,11 @@ extension Wizard {
      function to evaluate "or" operator and save the result in the corresponding address
      **/
     func orOperator(left:Address, right:Address, temp:Address){
-        let leftVal = getValue(from: left)
-        let rightVal = getValue(from: right) //getValue in memory address
+        let (leftVal, leftType) = getValue(from: left)
+        let (rightVal, rightType) = getValue(from: right) //getValue in memory address
         
-        let numL = leftVal.0 as! Bool
-        let numR = rightVal.0 as! Bool
+        let numL = leftVal as! Bool
+        let numR = rightVal as! Bool
         
         setValue(numL || numR, in: temp) //from Virtual memory
     }
@@ -346,30 +347,30 @@ extension Wizard {
      function to evaluate "==" operator and save the result in the corresponding address
      **/
     func equal(left:Address, right:Address, temp:Address){
-        let leftVal = getValue(from: left)
-        let rightVal = getValue(from: right)
+        let (leftVal, leftType) = getValue(from: left)
+        let (rightVal, rightType) = getValue(from: right)
         
-        if leftVal.1 == .Int && rightVal.1 == .Int {
-            let numL = leftVal.0 as! Int
-            let numR = rightVal.0 as! Int
+        if leftType == .Int && rightType == .Int {
+            let numL = leftVal as! Int
+            let numR = rightVal as! Int
             
             setValue(numL == numR, in: temp)
             return
-        } else if leftVal.1 == .Float && rightVal.1 == .Float {
-            let numL = leftVal.0 as! Float
-            let numR = rightVal.0 as! Float
+        } else if leftType == .Float && rightType == .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
             
             setValue(numL == numR, in: temp)
             return
-        } else if leftVal.1 == .String && rightVal.1 == .String {
-            let numL = leftVal.0 as! String
-            let numR = rightVal.0 as! String
+        } else if leftType == .String && rightType == .String {
+            let numL = leftVal as! String
+            let numR = rightVal as! String
             
             setValue(numL == numR, in: temp)
             return
-        } else if leftVal.1 == .Bool && rightVal.1 == .Bool {
-            let numL = leftVal.0 as! Bool
-            let numR = rightVal.0 as! Bool
+        } else if leftType == .Bool && rightType == .Bool {
+            let numL = leftVal as! Bool
+            let numR = rightVal as! Bool
             
             setValue(numL == numR, in: temp)
             return
