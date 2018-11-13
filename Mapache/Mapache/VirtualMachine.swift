@@ -12,7 +12,7 @@ import Foundation
 extension Wizard {
     
     func quads(_ quadruples: [Quadruple]) { //the creation of quadruples is pending
-        let quadCount = 0
+        var quadCount = 0
         
         while quadCount < quadruples.count { //check each quadruple
             let quadruple = quadruples[quadCount]
@@ -20,67 +20,71 @@ extension Wizard {
             
             // Addition +
             case .Sum :
-                add(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                add(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Subtraction -
             case .Sub :
-                sub(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                sub(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Multiplication *
             case .Mult:
-                multiply(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                multiply(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Division /
             case .Div:
-                divide(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                divide(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Assign =
             case .Assign:
-                assign(leftAddress : quadruple.operandLeft!, resAddress : quadruple.temp!)
+                assign(left : quadruple.operandLeft!, temp : quadruple.temp!)
             // Equal ==
             case .Equal:
-                equal(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                equal(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Not equal !=
             case .NotEqual:
-                notEqual(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                notEqual(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Less than <
             case .LessThan:
-                lessThan(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                lessThan(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Greater than >
             case .GreaterThan:
-                greatThan(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                greatThan(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // And &&
             case .And:
-                andOperator(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                andOperator(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Or ||
             case .Or:
-                orOperator(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                orOperator(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Go to
             case .GoTo :
-                goTo(leftAddress: quadruple.operandLeft!, resAddress : quadruple.temp!)
+               quadCount = quadruple.temp! - 1
             // Go to if true
             case .GoToTrue :
-                goToT(leftAddress: quadruple.operandLeft!, resAddress : quadruple.temp!)
+                if (!(getValue(from: quadruple.operandLeft!).0 as! Bool)){
+                    quadCount = quadruple.temp! - 1
+                }
             // Go to if false
             case .GoToFalse:
-                goToF(leftAddress: quadruple.operandLeft!, resAddress : quadruple.temp!)
+                if (!(getValue(from: quadruple.operandLeft!).0 as! Bool)){
+                    quadCount = quadruple.temp! - 1
+                }
             // ERA size
             case .ERA :
-                era(leftAddress: quadruple.operandLeft!, resAddress : quadruple.temp!)
+                era(left: quadruple.operandLeft!, temp : quadruple.temp!)
             // Go to subrutine (go to function)
             case .GoSub:
-                goSub(leftAddress : quadruple.operandLeft!, resAddress : quadruple.temp!)
+                goSub(left : quadruple.operandLeft!, temp : quadruple.temp!)
             // Set parameter
             case .Param:
-                param(leftAddress: quadruple.operandLeft!, resAddress : quadruple.temp!)
+                param(left: quadruple.operandLeft!, temp : quadruple.temp!)
             // End procedure (end function)
             case .EndProc:
                 endFunc()
             // Print
             case .Print:
-                printOp(leftAddress: quadruple.operandLeft!)
+                printOp(left: quadruple.operandLeft!)
             // Verify
             case .Verify:
-                verify(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, resAddress : quadruple.temp!)
+                verify(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Ret furn value of function
             case .Return:
-                returnOp(leftAddress: quadruple.operandLeft!)
+                returnOp(left: quadruple.operandLeft!)
             // End main?
             case .End:
                 end() //for main(?), may not be necessay
@@ -95,142 +99,143 @@ extension Wizard {
     /**
      function to do the addition and save the result in the corresponding address
      **/
-    func add(leftAddress:Int, rightAddress:Int, resAddress:Int){
+   
+    func add(left:Address, right:Address, temp:Address){
         
         // more code*
-        let leftT = getValue(from:leftAddress)
-        let rightT = getValue(from:rightAddress)
+        let leftVal = getValue(from:left)
+        let rightVal = getValue(from:right)
         
-        if leftT.1 == .Int && rightT.1 == .Int {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = Float(rightT.0 as! Int)
+        if leftVal.1 == .Int && rightVal.1 == .Int {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL + valueR, in: resAddress)
+            setValue(numL + numR, in: temp)
             return
-        } else if leftT.1 == .Int && rightT.1 == .Float {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = rightT.0 as! Float
+        } else if leftVal.1 == .Int && rightVal.1 == .Float {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = rightVal.0 as! Float
             
-            setValue(valueL + valueR, in: resAddress)
+            setValue(numL + numR, in: temp)
             return
-        } else if leftT.1 == .Float && rightT.1 == .Int {
-            let valueL = leftT.0 as! Float
-            let valueR = Float(rightT.0 as! Int)
+        } else if leftVal.1 == .Float && rightVal.1 == .Int {
+            let numL = leftVal.0 as! Float
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL + valueR, in: resAddress)
+            setValue(numL + numR, in: temp)
             return
         }
         
-        let valueL = leftT.0 as! Float
-        let valueR = rightT.0 as! Float
+        let numL = leftVal.0 as! Float
+        let numR = rightVal.0 as! Float
         
-        setValue(valueL + valueR, in: resAddress)
+        setValue(numL + numR, in: temp)
     }
     
     /**
      function to do the substraction and save the result in the corresponding address
      **/
-    func sub(leftAddress:Int, rightAddress:Int, resAddress:Int){
-        let leftT = getValue(from:leftAddress)
-        let rightT = getValue(from:rightAddress)
+    func sub(left:Address, right:Address, temp:Address){
+        let leftVal = getValue(from:left)
+        let rightVal = getValue(from:right)
         
-        if leftT.1 == .Int && rightT.1 == .Int {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = Float(rightT.0 as! Int)
+        if leftVal.1 == .Int && rightVal.1 == .Int {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL - valueR, in: resAddress)
+            setValue(numL - numR, in: temp)
             return
-        } else if leftT.1 == .Int && rightT.1 == .Float {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = rightT.0 as! Float
+        } else if leftVal.1 == .Int && rightVal.1 == .Float {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = rightVal.0 as! Float
             
-            setValue(valueL - valueR, in: resAddress)
+            setValue(numL - numR, in: temp)
             return
-        } else if leftT.1 == .Float && rightT.1 == .Int {
-            let valueL = leftT.0 as! Float
-            let valueR = Float(rightT.0 as! Int)
+        } else if leftVal.1 == .Float && rightVal.1 == .Int {
+            let numL = leftVal.0 as! Float
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL - valueR, in: resAddress)
+            setValue(numL - numR, in: temp)
             return
         }
         
-        let valueL = leftT.0 as! Float
-        let valueR = rightT.0 as! Float
+        let numL = leftVal.0 as! Float
+        let numR = rightVal.0 as! Float
         
-        setValue(valueL - valueR, in: resAddress)
+        setValue(numL - numR, in: temp)
     }
     
     /**
      function to do the division and save the result in the corresponding address
      **/
-    func divide(leftAddress:Int, rightAddress:Int, resAddress:Int){
-        let leftT = getValue(from:leftAddress)
-        let rightT = getValue(from:rightAddress)
+    func divide(left:Address, right:Address, temp:Address){
+        let leftVal = getValue(from:left)
+        let rightVal = getValue(from:right)
         
-        if leftT.1 == .Int && rightT.1 == .Int {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = Float(rightT.0 as! Int)
+        if leftVal.1 == .Int && rightVal.1 == .Int {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL / valueR, in: resAddress)
+            setValue(numL / numR, in: temp)
             return
-        } else if leftT.1 == .Int && rightT.1 == .Float {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = rightT.0 as! Float
+        } else if leftVal.1 == .Int && rightVal.1 == .Float {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = rightVal.0 as! Float
             
-            setValue(valueL / valueR, in: resAddress)
+            setValue(numL / numR, in: temp)
             return
-        } else if leftT.1 == .Float && rightT.1 == .Int {
-            let valueL = leftT.0 as! Float
-            let valueR = Float(rightT.0 as! Int)
+        } else if leftVal.1 == .Float && rightVal.1 == .Int {
+            let numL = leftVal.0 as! Float
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL / valueR, in: resAddress)
+            setValue(numL / numR, in: temp)
             return
         }
         
-        let valueL = leftT.0 as! Float
-        let valueR = rightT.0 as! Float
+        let numL = leftVal.0 as! Float
+        let numR = rightVal.0 as! Float
         
-        setValue(valueL / valueR, in: resAddress)
+        setValue(numL / numR, in: temp)
         
     }
     
     /**
      function to do the multiplication and save the result in the corresponding address
      **/
-    func multiply(leftAddress:Int, rightAddress:Int, resAddress:Int){
-        let leftT = getValue(from:leftAddress)
-        let rightT = getValue(from:rightAddress)
+    func multiply(left:Address, right:Address, temp:Address){
+        let leftVal = getValue(from:left)
+        let rightVal = getValue(from:right)
         
-        if leftT.1 == .Int && rightT.1 == .Int {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = Float(rightT.0 as! Int)
+        if leftVal.1 == .Int && rightVal.1 == .Int {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL * valueR, in: resAddress)
+            setValue(numL * numR, in: temp)
             return
-        } else if leftT.1 == .Int && rightT.1 == .Float {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = rightT.0 as! Float
+        } else if leftVal.1 == .Int && rightVal.1 == .Float {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = rightVal.0 as! Float
             
-            setValue(valueL * valueR, in: resAddress)
+            setValue(numL * numR, in: temp)
             return
-        } else if leftT.1 == .Float && rightT.1 == .Int {
-            let valueL = leftT.0 as! Float
-            let valueR = Float(rightT.0 as! Int)
+        } else if leftVal.1 == .Float && rightVal.1 == .Int {
+            let numL = leftVal.0 as! Float
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL * valueR, in: resAddress)
+            setValue(numL * numR, in: temp)
             return
         }
         
-        let valueL = leftT.0 as! Float
-        let valueR = rightT.0 as! Float
+        let numL = leftVal.0 as! Float
+        let numR = rightVal.0 as! Float
         
-        setValue(valueL * valueR, in: resAddress)
+        setValue(numL * numR, in: temp)
     }
     
     /**
      function to assign and save the result in the corresponding address
      **/
-    func assign(leftAddress:Int, resAddress:Int){
+    func assign(left:Address, temp:Address){
         //code
     }
     
@@ -239,73 +244,73 @@ extension Wizard {
     /**
      function to evaluate lesser than and save the result in the corresponding address
      **/
-    func lessThan(leftAddress:Int, rightAddress:Int, resAddress:Int){
-        let leftT = getValue(from:leftAddress)
-        let rightT = getValue(from:rightAddress)
+    func lessThan(left:Address, right:Address, temp:Address){
+        let leftVal = getValue(from:left)
+        let rightVal = getValue(from:right)
         
-        if leftT.1 == .Int && rightT.1 == .Int {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = Float(rightT.0 as! Int)
+        if leftVal.1 == .Int && rightVal.1 == .Int {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL < valueR, in: resAddress)
+            setValue(numL < numR, in: temp)
             return
-        } else if leftT.1 == .Int && rightT.1 == .Float {
-            let valueL = Float(leftT.0 as! Int)
-            let valueR = rightT.0 as! Float
+        } else if leftVal.1 == .Int && rightVal.1 == .Float {
+            let numL = Float(leftVal.0 as! Int)
+            let numR = rightVal.0 as! Float
             
-            setValue(valueL < valueR, in: resAddress)
+            setValue(numL < numR, in: temp)
             return
-        } else if leftT.1 == .Float && rightT.1 == .Int {
-            let valueL = leftT.0 as! Float
-            let valueR = Float(rightT.0 as! Int)
+        } else if leftVal.1 == .Float && rightVal.1 == .Int {
+            let numL = leftVal.0 as! Float
+            let numR = Float(rightVal.0 as! Int)
             
-            setValue(valueL < valueR, in: resAddress)
+            setValue(numL < numR, in: temp)
             return
         }
         
-        let valueL = leftT.0 as! Float
-        let valueR = rightT.0 as! Float
+        let numL = leftVal.0 as! Float
+        let numR = rightVal.0 as! Float
         
-        setValue(valueL < valueR, in: resAddress)
+        setValue(numL < numR, in: temp)
     }
     
     /**
      function to evaluate greater than and save the result in the corresponding address
      **/
-    func greatThan(leftAddress:Int, rightAddress:Int, resAddress:Int){
+    func greatThan(left:Address, right:Address, temp:Address){
         //cod
     }
     
     /**
      function to evaluate not equal than and save the result in the corresponding address
      **/
-    func notEqual(leftAddress:Int, rightAddress:Int, resAddress:Int){
-        let leftT = virtualMemory.getValueIn(address: leftAddress)
-        let rightT = virtualMemory.getValueIn(address: rightAddress)
+    func notEqual(left:Address, right:Address, temp:Address){
+        let leftVal = getValue(from:left)
+        let rightVal = getValue(from:right)
         
-        if leftT.1 == .Int && rightT.1 == .Int {
-            let valueL = leftT.0 as! Int
-            let valueR = rightT.0 as! Int
+        if leftVal.1 == .Int && rightVal.1 == .Int {
+            let numL = leftVal.0 as! Int
+            let numR = rightVal.0 as! Int
             
-            setValue(valueL == valueR, in: resAddress)
+            setValue(numL == numR, in: temp)
             return
-        } else if leftT.1 == .Float && rightT.1 != .Float {
-            let valueL = leftT.0 as! Float
-            let valueR = rightT.0 as! Float
+        } else if leftVal.1 == .Float && rightVal.1 != .Float {
+            let numL = leftVal.0 as! Float
+            let numR = rightVal.0 as! Float
             
-            setValue(valueL == valueR, in: resAddress)
+            setValue(numL == numR, in: temp)
             return
-        } else if leftT.1 == .String && rightT.1 != .String {
-            let valueL = leftT.0 as! String
-            let valueR = rightT.0 as! String
+        } else if leftVal.1 == .String && rightVal.1 != .String {
+            let numL = leftVal.0 as! String
+            let numR = rightVal.0 as! String
             
-            setValue(valueL == valueR, in: resAddress)
+            setValue(numL == numR, in: temp)
             return
-        } else if leftT.1 == .Bool && rightT.1 != .Bool {
-            let valueL = leftT.0 as! Bool
-            let valueR = rightT.0 as! Bool
+        } else if leftVal.1 == .Bool && rightVal.1 != .Bool {
+            let numL = leftVal.0 as! Bool
+            let numR = rightVal.0 as! Bool
             
-            setValue(valueL != valueR, in: resAddress)
+            setValue(numL != numR, in: temp)
             return
         }
     }
@@ -313,60 +318,60 @@ extension Wizard {
     /**
      function to evaluate "and" operator than and save the result in the corresponding address
      **/
-    func andOperator(leftAddress:Int, rightAddress:Int, resAddress:Int){
+    func andOperator(left:Address, right:Address, temp:Address){
         //code
-        let leftT = getValue(from: leftAddress) //getValue in memory address
-        let rightT = getValue(from: rightAddress) //getValue in memory address
+        let leftVal = getValue(from: left) //getValue in memory address
+        let rightVal = getValue(from: right) //getValue in memory address
         
-        let valueL = leftT.0 as! Bool
-        let valueR = rightT.0 as! Bool
+        let numL = leftVal.0 as! Bool
+        let numR = rightVal.0 as! Bool
         
-        setValue(valueL && valueR, in: resAddress) //from Virtual memory
+        setValue(numL && numR, in: temp) //from Virtual memory
     }
     
     /**
      function to evaluate "or" operator and save the result in the corresponding address
      **/
-    func orOperator(leftAddress:Int, rightAddress:Int, resAddress:Int){
-        let leftT = getValue(from: leftAddress)
-        let rightT = getValue(from: rightAddress) //getValue in memory address
+    func orOperator(left:Address, right:Address, temp:Address){
+        let leftVal = getValue(from: left)
+        let rightVal = getValue(from: right) //getValue in memory address
         
-        let valueL = leftT.0 as! Bool
-        let valueR = rightT.0 as! Bool
+        let numL = leftVal.0 as! Bool
+        let numR = rightVal.0 as! Bool
         
-        setValue(valueL || valueR, in: resAddress) //from Virtual memory
+        setValue(numL || numR, in: temp) //from Virtual memory
     }
     
     /**
      function to evaluate "==" operator and save the result in the corresponding address
      **/
-    func equal(leftAddress:Int, rightAddress:Int, resAddress:Int){
-        let leftT = getValue(from: leftAddress)
-        let rightT = getValue(from: rightAddress)
+    func equal(left:Address, right:Address, temp:Address){
+        let leftVal = getValue(from: left)
+        let rightVal = getValue(from: right)
         
-        if leftT.1 == .Int && rightT.1 == .Int {
-            let valueL = leftT.0 as! Int
-            let valueR = rightT.0 as! Int
+        if leftVal.1 == .Int && rightVal.1 == .Int {
+            let numL = leftVal.0 as! Int
+            let numR = rightVal.0 as! Int
             
-            setValue(valueL == valueR, in: resAddress)
+            setValue(numL == numR, in: temp)
             return
-        } else if leftT.1 == .Float && rightT.1 == .Float {
-            let valueL = leftT.0 as! Float
-            let valueR = rightT.0 as! Float
+        } else if leftVal.1 == .Float && rightVal.1 == .Float {
+            let numL = leftVal.0 as! Float
+            let numR = rightVal.0 as! Float
             
-            setValue(valueL == valueR, in: resAddress)
+            setValue(numL == numR, in: temp)
             return
-        } else if leftT.1 == .String && rightT.1 == .String {
-            let valueL = leftT.0 as! String
-            let valueR = rightT.0 as! String
+        } else if leftVal.1 == .String && rightVal.1 == .String {
+            let numL = leftVal.0 as! String
+            let numR = rightVal.0 as! String
             
-            setValue(valueL == valueR, in: resAddress)
+            setValue(numL == numR, in: temp)
             return
-        } else if leftT.1 == .Bool && rightT.1 == .Bool {
-            let valueL = leftT.0 as! Bool
-            let valueR = rightT.0 as! Bool
+        } else if leftVal.1 == .Bool && rightVal.1 == .Bool {
+            let numL = leftVal.0 as! Bool
+            let numR = rightVal.0 as! Bool
             
-            setValue(valueL == valueR, in: resAddress)
+            setValue(numL == numR, in: temp)
             return
         }
     }
@@ -377,48 +382,40 @@ extension Wizard {
     /**
      function to create GoToF and save the result in the corresponding address
      **/
-    func goToF(leftAddress:Int, resAddress:Int){
-        if (!(getValue(from: quadruple.operandLeft!).0 as! Bool)){
-            quadNum = quadruple.varRes! - 1
-        }
+    func goToF(left:Address, temp:Address){
+       
     }
     
     /**
      function to create GoToT and save the result in the corresponding address
      **/
-    func goToT(leftAddress:Int, resAddress:Int){
-        if (!(getValue(from: quadruple.operandLeft!).0 as! Bool)){
-            quadNum = quadruple.varRes! - 1
-        }
-    }
+    
     
     /**
      function to create GoTo and save the result in the corresponding address
      **/
-    func goTo(leftAddress:Int, resAddress:Int){
-        quadNum = quadruple.varRes! - 1
-    }
+ 
     
     /**
      function to create ERA and save the result in the corresponding address
      **/
-    func era(leftAddress:Int, resAddress:Int){
+    func era(left:Address, temp:Address){
         //code
     }
     
     /**
      function to create GoSub and save the result in the corresponding address
      **/
-    func goSub(leftAddress:Int, resAddress:Int){
+    func goSub(left:Address, temp:Address){
         //code
     }
     
     /**
      function to create PARAM and save the result in the corresponding address
      **/
-    func param(leftAddress:Int, resAddress:Int){
+    func param(left:Address, temp:Address){
         //get value
-        let valueT = getValue(from: leftAddress)
+        let valueT = getValue(from: left)
         
         // Set Value in top memory of stack
         if valueT.1 == .Int {
@@ -455,7 +452,7 @@ extension Wizard {
     /**
      function to validate the limits and save the result in the corresponding address
      **/
-    func verify(leftAddress: Int, rightAddress: Int, resAddress : Int){
+    func verify(left:Address, right:Address, temp:Address){
         /**if quadruple.leftOperand! < getValue(from:quadruple.resultVar!).0 as! Int || quadruple.operandLeft! < 0 {
             ParseTestFailBlock("Index in array is out of bounds");
             quadrupleNumber = quadruples.count
@@ -466,14 +463,14 @@ extension Wizard {
     /**
      function to create RETURN and save the result in the corresponding address
      **/
-    func returnOp(leftAddress:Int){
+    func returnOp(left:Address){
         //code
     }
     
     /**
      function to create RETURN and save the result in the corresponding address
      **/
-    func printOp(leftAddress:Int){
+    func printOp(left:Address){
         //code
     }
 
