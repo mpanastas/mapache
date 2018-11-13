@@ -18,11 +18,11 @@ class Memory {
     private let stringBase = 4000
     
     // MARK: - Variables
-    private var ints: [Int] = []
-    private var floats: [Float] = []
-    private var chars: [Character] = []
-    private var bools: [Bool] = []
-    private var strings: [String] = []
+    private var ints: [Int?] = []
+    private var floats: [Float?] = []
+    private var chars: [Character?] = []
+    private var bools: [Bool?] = []
+    private var strings: [String?] = []
     
     private var baseAddress = 0
     
@@ -67,15 +67,15 @@ class Memory {
     func getValue(from address: Address) -> (Any, Type) {
         switch address {
         case _ where address < floatStartAddress:
-            return (ints[address - intStartAddress], .Int)
+            return (ints[address - intStartAddress]!, .Int)
         case _ where address < charStartAddress:
-            return (floats[address - floatStartAddress], .Float)
+            return (floats[address - floatStartAddress]!, .Float)
         case _ where address < boolStartAddress:
-            return (chars[address - charStartAddress], .Char)
+            return (chars[address - charStartAddress]!, .Char)
         case _ where address < stringStartAddress:
-            return (bools[address - boolStartAddress], .Bool)
+            return (bools[address - boolStartAddress]!, .Bool)
         default:
-            return (strings[address - stringStartAddress], .String)
+            return (strings[address - stringStartAddress]!, .String)
         }
     }
     
@@ -104,5 +104,51 @@ class Memory {
     func save(string: String) -> Address {
         strings.append(string)
         return stringStartAddress + strings.count - 1
+    }
+    
+    
+
+    
+    // MARK: Find functions
+    // Only for constants table
+    
+    func find(bool: Bool) -> Address? {
+        if let index = bools.firstIndex(of: bool) {
+            return index + boolStartAddress
+        }
+        
+        return nil
+    }
+    
+    func find(char: Character) -> Address? {
+        if let index = chars.firstIndex(of: char) {
+            return index + charStartAddress
+        }
+        
+        return nil
+    }
+    
+    func find(float: Float) -> Address? {
+        if let index = floats.firstIndex(of: float) {
+            return index + floatStartAddress
+        }
+        
+        return nil
+    }
+    
+    func find(int: Int) -> Address? {
+        if let index = ints.firstIndex(of: int) {
+            return index + intStartAddress
+        }
+        
+        return nil
+    }
+    
+    func find(string: String) -> Address? {
+        if let index = strings.firstIndex(of: string) {
+            return index + stringStartAddress
+        }
+        
+        return nil
     }
 }

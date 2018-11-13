@@ -212,9 +212,9 @@ extension Wizard {
         #warning ("TODO: ")
     }
     
-    func getValue(from address: Address) -> Any {
+    func getValue(from address: Address) -> (Any, Type) {
         #warning ("TODO: ")
-        return 1
+        return (1, .Int)
     }
     
     func setParamValue(_ value: Any, in address: Address) {
@@ -451,19 +451,43 @@ extension Wizard {
     func exitTipo(_ ctx: MapacheParser.TipoContext) { }
     
     func enterCte(_ ctx: MapacheParser.CteContext) {
-        // b c f i
         if let boolNode = ctx.CONST_B() {
-            let boolText = getText(from: boolNode)
-            //let boolText = getText(from: boolNode)
-            //let bool = boolNode.getSymbol().getText()
+            let bool = getText(from: boolNode).lowercased() == "true" ? true : false
             
+            if let boolAddress = constantsMemory.find(bool: bool) {
+                print("\(bool) already exists. Address: ", boolAddress)
+            } else {
+                let boolAddress = constantsMemory.save(bool: bool)
+                print("\(bool) doesn't exists. New address: ", boolAddress)
+            }
         } else if let charNode = ctx.CONST_C() {
             let charText = getText(from: charNode)
-        } else if let floatNode = ctx.CONST_F() {
-            let floatText = getText(from: floatNode)
-        } else if let intNode = ctx.CONST_I() {
-            let intText = getText(from: intNode)
+            let char = Character(charText[1])
             
+            if let charAddress = constantsMemory.find(char: char) {
+                print("\(char) already exists. Address: ", charAddress)
+            } else {
+                let charAddress = constantsMemory.save(char: char)
+                print("\(char) doesn't exists. New address: ", charAddress)
+            }
+        } else if let floatNode = ctx.CONST_F() {
+            let float = Float(getText(from: floatNode))!
+            
+            if let floatAddress = constantsMemory.find(float: float) {
+                print("\(float) already exists. Address: ", floatAddress)
+            } else {
+                let floatAddress = constantsMemory.save(float: float)
+                print("\(float) doesn't exists. New address: ", floatAddress)
+            }
+        } else if let intNode = ctx.CONST_I() {
+            let int = Int(getText(from: intNode))!
+            
+            if let intAddress = constantsMemory.find(int: int) {
+                print("\(int) already exists. Address: ", intAddress)
+            } else {
+                let intAddress = constantsMemory.save(int: int)
+                print("\(int) doesn't exists. New address: ", intAddress)
+            }
         }
         
     }
