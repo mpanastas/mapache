@@ -50,6 +50,8 @@ class Wizard{
     // Function
     var functions = [Name:Function]()
     
+    var currentFunction = "global"
+    
     // Pending jumps
     var jumps = Stack<Int>()
     
@@ -315,7 +317,7 @@ extension Wizard {
         
         let startAddress = functions.count
         functions[funcName] = Function(returnType: returnType, startAddress: startAddress)
-        
+        currentFunction = funcName
         
         // PN2 Funcion
         var paramsIdsCtx = ctx.ID()
@@ -351,6 +353,8 @@ extension Wizard {
         #warning ("TODO: ")
         // PN7 Funcion
         // Release the current varTable (local).
+        
+        currentFunction = "global"
         
         // Generate an action to end the procedure
         addQuad(.EndProc, nil, nil, nil)
@@ -400,7 +404,22 @@ extension Wizard {
     
     func enterFactor(_ ctx: MapacheParser.FactorContext) { }
     
-    func exitFactor(_ ctx: MapacheParser.FactorContext) { }
+    func exitFactor(_ ctx: MapacheParser.FactorContext) {
+
+        if let idNode = ctx.ID() {
+            let id = getText(from: idNode)
+            
+            if let idVar = functions[currentFunction]?.variables[id] {
+                addOperandToStacks(address: idVar.address, type: idVar.type)
+            } else if let idVar = global.variables[id] {
+                addOperandToStacks(address: idVar.address, type: idVar.type)
+            } else {
+                #warning ("TODO: Error")
+                return
+            }
+            
+        }
+    }
     
     func enterVector(_ ctx: MapacheParser.VectorContext) {
         #warning ("TODO: ")

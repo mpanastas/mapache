@@ -11,7 +11,7 @@ import Foundation
 struct Function {
     
     var returnType: Type!
-    var startAddress: Int!
+    var startAddress: Address!
     var startQuadAddress: Int!
     var variables = [Name: Variable]() 
     var paramsSecuence = [Type]() // used to know parameters of function

@@ -73,19 +73,24 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZoU-yo-JuA">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="403"/>
-                                <string key="text">
-mapache {
+                                <string key="text">mapache {
+var ej:int;  var ej2: int;
 
-var intEx: int; 
-var floatEx: float;
-var boolEx: bool; var charEx: char;
+func suma(num1: Int, num2: Int) -&gt; Int {
+	var res:Int;
+	res = num1 + num2;
+	return res;
+}
 
-intEx = 1;
-floatEx = 3.1416;
-boolEx = true;
-charEx = 'w';
+ej = 5;
+ej2 = -11;
+ej = suma(ej,ej2);
 
-floatEx = 3.1416; floatEx = 5.26;
+func hi() -&gt; Void {
+	print("hi"); 
+}
+ 
+hi();
 
 }</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
