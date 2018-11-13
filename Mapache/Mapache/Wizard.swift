@@ -154,19 +154,9 @@ class Wizard{
     
     // MARK: CTX functions
     
-//    func getText(from arr: [TerminalNode] ) -> String {
-//        let str = arr.compactMap({$0.getSymbol()?.getText()}).joined()
-//        return str
-//    }
-    
     func getText(from node: TerminalNode ) -> String {
         return (node.getSymbol()?.getText())!
     }
-    
-//    func getType(from arr: [TerminalNode]) -> Type {
-//        let stringType = getText(from: arr)
-//        return Type(stringType)!
-//    }
     
     func getType(from ctx: MapacheParser.TipoContext) -> Type {
  
@@ -181,6 +171,18 @@ class Wizard{
         }
         
         return .Void
+    }
+    
+    // MARK: Manage Stacks
+    func addOperandToStacks(address: Address, type: Type) {
+        operands.push(address)
+        types.push(type)
+    }
+    
+    func getOperandAndType() -> (operand: Address, type: Type) {
+        let operand = operands.pop()!
+        let type = types.pop()!
+        return (operand, type)
     }
 }
 
@@ -212,7 +214,7 @@ extension Wizard {
         #warning ("TODO: ")
     }
     
-    func getValue(from address: Address) -> (Any, Type) {
+    func getValue(from address: Address) -> (value: Any, type: Type) {
         #warning ("TODO: ")
         return (1, .Int)
     }
@@ -444,49 +446,64 @@ extension Wizard {
     
     func enterImprimir(_ ctx: MapacheParser.ImprimirContext) { }
     
-    func exitImprimir(_ ctx: MapacheParser.ImprimirContext) { }
+    func exitImprimir(_ ctx: MapacheParser.ImprimirContext) {
+        if let textNode = ctx.TEXT() {
+            let string = getText(from: textNode)
+            if let stringAddress = constantsMemory.find(string: string) {
+                addOperandToStacks(address: stringAddress, type: .String)
+                addQuad(.Print, stringAddress, nil, nil)
+            } else {
+                let stringAddress = constantsMemory.save(string: string)
+                addQuad(.Print, stringAddress, nil, nil)
+            }
+        } else {
+            let (operand, _) = getOperandAndType()
+            addQuad(.Print, operand, nil, nil)
+        }
+    }
     
     func enterTipo(_ ctx: MapacheParser.TipoContext) { }
     
     func exitTipo(_ ctx: MapacheParser.TipoContext) { }
     
     func enterCte(_ ctx: MapacheParser.CteContext) {
+        
         if let boolNode = ctx.CONST_B() {
             let bool = getText(from: boolNode).lowercased() == "true" ? true : false
             
             if let boolAddress = constantsMemory.find(bool: bool) {
-                print("\(bool) already exists. Address: ", boolAddress)
+                addOperandToStacks(address: boolAddress, type: .Bool)
             } else {
                 let boolAddress = constantsMemory.save(bool: bool)
-                print("\(bool) doesn't exists. New address: ", boolAddress)
+                addOperandToStacks(address: boolAddress, type: .Bool)
             }
         } else if let charNode = ctx.CONST_C() {
             let charText = getText(from: charNode)
             let char = Character(charText[1])
             
             if let charAddress = constantsMemory.find(char: char) {
-                print("\(char) already exists. Address: ", charAddress)
+                addOperandToStacks(address: charAddress, type: .Char)
             } else {
                 let charAddress = constantsMemory.save(char: char)
-                print("\(char) doesn't exists. New address: ", charAddress)
+                addOperandToStacks(address: charAddress, type: .Char)
             }
         } else if let floatNode = ctx.CONST_F() {
             let float = Float(getText(from: floatNode))!
             
             if let floatAddress = constantsMemory.find(float: float) {
-                print("\(float) already exists. Address: ", floatAddress)
+                addOperandToStacks(address: floatAddress, type: .Float)
             } else {
                 let floatAddress = constantsMemory.save(float: float)
-                print("\(float) doesn't exists. New address: ", floatAddress)
+                addOperandToStacks(address: floatAddress, type: .Float)
             }
         } else if let intNode = ctx.CONST_I() {
             let int = Int(getText(from: intNode))!
             
             if let intAddress = constantsMemory.find(int: int) {
-                print("\(int) already exists. Address: ", intAddress)
+               addOperandToStacks(address: intAddress, type: .Int)
             } else {
                 let intAddress = constantsMemory.save(int: int)
-                print("\(int) doesn't exists. New address: ", intAddress)
+                addOperandToStacks(address: intAddress, type: .Int)
             }
         }
         
