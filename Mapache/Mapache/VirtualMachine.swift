@@ -11,7 +11,17 @@ import Foundation
 
 extension Wizard {
     
+    func runQuads(_ quadruples: [Quadruple]) {
+        
+    }
+    
+    func add(left: Address, right: Address, temp: Address) {
+        
+    }
+    
+    
 }
+
 func runQuads(quadruples: [Quadruple]){ //the creation of quadruples is pending
     var quadCount = 0
     
