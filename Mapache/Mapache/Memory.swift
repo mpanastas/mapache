@@ -58,10 +58,18 @@ class Memory {
         self.baseAddress = baseAddress
     }
     
-    // MARK: - Public functions
+    // MARK: - Custom functions
     
-    func save(_ value: Any, in address: Address) {
-        #warning ("TODO: ")
+//    func save(_ value: Any, in address: Address) {
+//        #warning ("TODO: ")
+//    }
+    
+    func reset() {
+        ints.removeAll()
+        floats.removeAll()
+        chars.removeAll()
+        bools.removeAll()
+        strings.removeAll()
     }
     
     func getValue(from address: Address) -> (Any, Type) {
@@ -78,8 +86,6 @@ class Memory {
             return (strings[address - stringStartAddress]!, .String)
         }
     }
-    
-    // MARK: - Private functions
     
     func save(int: Int) -> Address {
         ints.append(int)
@@ -105,8 +111,6 @@ class Memory {
         strings.append(string)
         return stringStartAddress + strings.count - 1
     }
-    
-    
 
     
     // MARK: Find functions

@@ -69,17 +69,10 @@ class Wizard{
     }
     
     // MARK: Memory variables
-    var globalMemory = Memory(baseAddress: 5000)
-    var localMemory = Memory(baseAddress: 10000)
-    var constantsMemory = Memory(baseAddress: 15000)
-    
-    #warning ("TODO: Change init")
-    
-    
-    var currentLocalInt = 0
-    var currentLocalFloat = 0
-    var currentLocalChar = 0
-    var currentLocalBool = 0
+    var constantsMemory = Memory(baseAddress: 5000)
+    var globalMemory = Memory(baseAddress: 10000)
+    var localMemory = Memory(baseAddress: 15000)
+    var tempMemory = Memory(baseAddress: 20000)
     
     
     // MARK: Constructor
@@ -192,6 +185,11 @@ class Wizard{
 // MARK: - Memory handling functions
 extension Wizard {
     
+    func resetLocalMemory() {
+        localMemory.reset()
+        tempMemory.reset()
+    }
+    
     func save(int: Int){
         
     }
@@ -295,14 +293,13 @@ extension Wizard {
     }
     
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
-        #warning ("TODO: ")
+        
         // PN1 Funcion
         // Reset Virtual Memory directions
         #warning ("TODO: Reset Virtual Memory directions")
-        currentLocalInt = 0
-        currentLocalFloat = 0
-        currentLocalChar = 0
-        currentLocalBool = 0
+        resetLocalMemory()
+        
+        
         
         // Insert func name intro the dirFuncTable, verify semantics
         let funcName = getText(from: ctx.ID().first!)
@@ -353,7 +350,7 @@ extension Wizard {
         #warning ("TODO: ")
         // PN7 Funcion
         // Release the current varTable (local).
-        
+        localMemory
         currentFunction = "global"
         
         // Generate an action to end the procedure
