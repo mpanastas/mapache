@@ -68,11 +68,16 @@ class Wizard{
         }
     }
     
+    let constantsBaseAddress = 5000
+    let globalBaseAddress = 10000
+    let localBaseAddress = 15000
+    let tempBaseAddress = 20000
+    
     // MARK: Memory variables
-    var constantsMemory = Memory(baseAddress: 5000)
-    var globalMemory = Memory(baseAddress: 10000)
-    var localMemory = Memory(baseAddress: 15000)
-    var tempMemory = Memory(baseAddress: 20000)
+    var constantsMemory: Memory!
+    var globalMemory: Memory!
+    var localMemory: Memory!
+    var tempMemory: Memory!
     
     
     // MARK: Constructor
@@ -98,15 +103,21 @@ class Wizard{
     func clearModels() {
         quadruples.removeAll()
         
+        global = Function(returnType: .Void, startAddress: -1)
+        
         functions.removeAll()
         jumps.removeAll()
         types.removeAll()
         operands.removeAll()
+        
+        constantsMemory = Memory(baseAddress: constantsBaseAddress)
+        globalMemory = Memory(baseAddress: globalBaseAddress)
+        localMemory = Memory(baseAddress: localBaseAddress)
+        tempMemory = Memory(baseAddress: tempBaseAddress)
     }
     
     func runCode(input: String){
         clearModels()
-        
         
         do {
             let lexer = MapacheLexer(ANTLRInputStream(input))
@@ -210,8 +221,24 @@ extension Wizard {
         
     }
     
+    #warning ("TODO: If we dont use this functions inside Wizard file, move them to Virtual Machine file")
+    #warning ("TODO: Rename func to 'save'")
     func setValue(_ value: Any, in address: Address) {
         #warning ("TODO: ")
+        
+        switch address {
+        case ..<constantsBaseAddress:
+            print("Error: address out of tables indexes")
+            break
+        case ..<globalBaseAddress:
+            constantsMemory.save(value, in: address)
+        case ..<localBaseAddress:
+            globalMemory.save(value, in: address)
+        case ..<tempBaseAddress:
+            localMemory.save(value, in: address)
+        default:
+            tempMemory.save(value, in: address)
+        }
     }
     
     func getValue(from address: Address) -> (value: Any, type: Type) {

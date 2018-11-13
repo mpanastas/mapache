@@ -60,9 +60,9 @@ class Memory {
     
     // MARK: - Custom functions
     
-//    func save(_ value: Any, in address: Address) {
-//        #warning ("TODO: ")
-//    }
+    func save(_ value: Any, in address: Address) {
+        #warning ("TODO: ")
+    }
     
     func reset() {
         ints.removeAll()
