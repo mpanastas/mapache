@@ -20,6 +20,9 @@ class EditorVC: UIViewController {
         }
     }
     
+    
+    
+    
     // MARK: - Override
     
     override func viewDidLoad() {
@@ -42,8 +45,25 @@ class EditorVC: UIViewController {
     }
     */
     
-    @IBAction func runCode(_ sender: Any) {
-        Wizard.shared.runCode(input: editorTextView.text)
+    private func cleanResults() {
+        consoleTextView.text = ""
+    }
+    
+    func showResults(results: [String], error: Bool) {
+        consoleTextView.textColor = error ? #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        var text = ""
+        for result in results {
+            text += (result + "\n")
+        }
+        
+        consoleTextView.text = text
+    }
+    
+    @IBAction private func runCode(_ sender: Any) {
+        cleanResults()
+        
+        Wizard.shared.runCode(input: editorTextView.text, vc: self)
         
         
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7,
@@ -55,4 +75,6 @@ class EditorVC: UIViewController {
         },completion: nil)
     }
 
+    
+    
 }

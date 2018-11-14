@@ -79,6 +79,11 @@ class Wizard{
     var localMemory: Memory!
     var tempMemory: Memory!
     
+    var editorVC: EditorVC!
+    
+    var outputs: [String] = []
+    var errors: [String] = []
+    
     
     // MARK: Constructor
     
@@ -114,10 +119,15 @@ class Wizard{
         globalMemory = Memory(baseAddress: globalBaseAddress)
         localMemory = Memory(baseAddress: localBaseAddress)
         tempMemory = Memory(baseAddress: tempBaseAddress)
+        
+        outputs.removeAll()
+        errors.removeAll()
     }
     
-    func runCode(input: String){
+    func runCode(input: String, vc: EditorVC){
         clearModels()
+        
+        editorVC = vc
         
         do {
             let lexer = MapacheLexer(ANTLRInputStream(input))
@@ -201,30 +211,28 @@ extension Wizard {
         tempMemory.reset()
     }
     
-    func save(int: Int){
-        
-    }
-    
-    func save(float: Float){
-        
-    }
-    
-    func save(bool: Bool) {
-        
-    }
-    
-    func save(char: Character) {
-        
-    }
-    
-    func save(string: String) {
-        
-    }
+//    func save(int: Int){
+//
+//    }
+//
+//    func save(float: Float){
+//
+//    }
+//
+//    func save(bool: Bool) {
+//
+//    }
+//
+//    func save(char: Character) {
+//
+//    }
+//
+//    func save(string: String) {
+//
+//    }
     
     
     func save(_ value: Any, in address: Address) {
-        
-        
         switch address {
         case ..<constantsBaseAddress:
             #warning ("TODO: ")

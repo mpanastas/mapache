@@ -8,7 +8,27 @@
 
 import Foundation
 
+// MARK: - Functions for Virtual Machine
+extension Wizard {
+    func end() {
+        if errors.isEmpty {
+            editorVC.showResults(results: outputs, error: false)
+        } else {
+            editorVC.showResults(results: errors, error: true)
+        }
+    }
+    
+    func addOutput() {
+        
+    }
+    
+    func addError() {
+        
+    }
+    
+}
 
+// MARK: - Virtual Machine
 extension Wizard {
     
     func quads(_ quadruples: [Quadruple]) { //the creation of quadruples is pending
@@ -32,7 +52,6 @@ extension Wizard {
                 divide(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
             // Assign =
             case .Assign:
-               break
                assign(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             // Equal ==
             case .Equal:
@@ -76,7 +95,7 @@ extension Wizard {
                 param(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             // End procedure (end function)
             case .EndProc:
-                #warning ("TODO: EndBlock()")
+                
                 break
                 
             // Print
@@ -87,7 +106,7 @@ extension Wizard {
                 if quadruple.operandLeft! < getValue(from:quadruple.temp!).0 as! Int || quadruple.operandLeft! < 0 {
                     #warning ("TODO: Error(Index in array is out of bounds)")
                     quadCount = quadruples.count
-                    #warning ("TODO: EndBlock()")
+                    end()
                 }
                 break
             // Ret furn value of function
@@ -95,8 +114,7 @@ extension Wizard {
                 returnOp(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             // End main?
             case .End:
-                #warning ("TODO:EndBlock();")
-                break
+                end()
             }
             quadCount += 1
         }
@@ -505,4 +523,3 @@ extension Wizard {
     }
 
 }
-
