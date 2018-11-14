@@ -221,10 +221,8 @@ extension Wizard {
         
     }
     
-    #warning ("TODO: If we dont use this functions inside Wizard file, move them to Virtual Machine file")
     
-    #warning ("TODO: Rename func to 'save(value:)'")
-    func setValue(_ value: Any, in address: Address) {
+    func save(_ value: Any, in address: Address) {
         
         
         switch address {
@@ -242,19 +240,24 @@ extension Wizard {
             tempMemory.save(value, in: address)
         }
     }
-    #warning ("TODO: Rename func to 'save(param:)'")
-    func setParamValue(_ value: Any, in address: Address) {
+    
+    func saveParam(_ value: Any, in address: Address) {
         #warning ("TODO: ")
 
     }
     
     func getValue(from address: Address) -> (value: Any, type: Type) {
+        
+        if address < 0 {
+            let (arrayAddress,_) = getValue(from: -address)
+            return getValue(from: arrayAddress as! Address)
+        }
+        
         switch address {
         case ..<constantsBaseAddress:
             #warning ("TODO: ")
             print("Error: address out of tables indexes")
             return (-1, .Void)
-            break
         case ..<globalBaseAddress:
             return constantsMemory.getValue(from: address)
         case ..<localBaseAddress:
@@ -341,10 +344,7 @@ extension Wizard {
         
         // PN1 Funcion
         // Reset Virtual Memory directions
-        #warning ("TODO: Reset Virtual Memory directions")
         resetLocalMemory()
-        
-        
         
         // Insert func name intro the dirFuncTable, verify semantics
         let funcName = getText(from: ctx.ID().first!)

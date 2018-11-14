@@ -120,26 +120,26 @@ extension Wizard {
             let numL = Float(leftVal as! Int)
             let numR = Float(rightVal as! Int)
             
-            setValue(numL + numR, in: tempAddress)
+            save(numL + numR, in: tempAddress)
             return
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
-            setValue(numL + numR, in: tempAddress)
+            save(numL + numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
-            setValue(numL + numR, in: tempAddress)
+            save(numL + numR, in: tempAddress)
             return
         }
         
         let numL = leftVal as! Float
         let numR = rightVal as! Float
         
-        setValue(numL + numR, in: tempAddress)
+        save(numL + numR, in: tempAddress)
     }
     
     /**
@@ -153,26 +153,26 @@ extension Wizard {
             let numL = Float(leftVal as! Int)
             let numR = Float(rightVal as! Int)
             
-            setValue(numL - numR, in: tempAddress)
+            save(numL - numR, in: tempAddress)
             return
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
-            setValue(numL - numR, in: tempAddress)
+            save(numL - numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
-            setValue(numL - numR, in: tempAddress)
+            save(numL - numR, in: tempAddress)
             return
         }
         
         let numL = leftVal as! Float
         let numR = rightVal as! Float
         
-        setValue(numL - numR, in: tempAddress)
+        save(numL - numR, in: tempAddress)
     }
     
     /**
@@ -186,26 +186,26 @@ extension Wizard {
             let numL = Float(leftVal as! Int)
             let numR = Float(rightVal as! Int)
             
-            setValue(numL / numR, in: tempAddress)
+            save(numL / numR, in: tempAddress)
             return
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
-            setValue(numL / numR, in: tempAddress)
+            save(numL / numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
-            setValue(numL / numR, in: tempAddress)
+            save(numL / numR, in: tempAddress)
             return
         }
         
         let numL = leftVal as! Float
         let numR = rightVal as! Float
         
-        setValue(numL / numR, in: tempAddress)
+        save(numL / numR, in: tempAddress)
         
     }
     
@@ -220,26 +220,26 @@ extension Wizard {
             let numL = Float(leftVal as! Int)
             let numR = Float(rightVal as! Int)
             
-            setValue(numL * numR, in: tempAddress)
+            save(numL * numR, in: tempAddress)
             return
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
-            setValue(numL * numR, in: tempAddress)
+            save(numL * numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
-            setValue(numL * numR, in: tempAddress)
+            save(numL * numR, in: tempAddress)
             return
         }
         
         let numL = leftVal as! Float
         let numR = rightVal as! Float
         
-        setValue(numL * numR, in: tempAddress)
+        save(numL * numR, in: tempAddress)
     }
     
 
@@ -250,7 +250,7 @@ extension Wizard {
     func assign(leftAddress:Address, tempAddress:Address){
         let (leftVal, _) = getValue(from: leftAddress)
         
-        setValue(leftVal, in: tempAddress)
+        save(leftVal, in: tempAddress)
     }
     
     // MARK : Logic Operation
@@ -266,26 +266,26 @@ extension Wizard {
             let numL = Float(leftVal as! Int)
             let numR = Float(rightVal as! Int)
             
-            setValue(numL < numR, in: tempAddress)
+            save(numL < numR, in: tempAddress)
             return
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
-            setValue(numL < numR, in: tempAddress)
+            save(numL < numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
-            setValue(numL < numR, in: tempAddress)
+            save(numL < numR, in: tempAddress)
             return
         }
         
         let numL = leftVal as! Float
         let numR = rightVal as! Float
         
-        setValue(numL < numR, in: tempAddress)
+        save(numL < numR, in: tempAddress)
     }
     
     /**
@@ -314,25 +314,25 @@ extension Wizard {
             let numL = leftVal as! Int
             let numR = rightVal as! Int
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             return
         } else if leftType == .Int && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType != .Int {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            setValue(numL < numR, in: tempAddress)
+            save(numL < numR, in: tempAddress)
             return
         }
     }
@@ -348,25 +348,25 @@ extension Wizard {
             let numL = leftVal as! Int
             let numR = rightVal as! Int
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             return
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             return
         } else if leftType == .String && rightType != .String {
             let numL = leftVal as! String
             let numR = rightVal as! String
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             return
         } else if leftType == .Bool && rightType != .Bool {
             let numL = leftVal as! Bool
             let numR = rightVal as! Bool
             
-            setValue(numL != numR, in: tempAddress)
+            save(numL != numR, in: tempAddress)
             return
         }
     }
@@ -382,7 +382,7 @@ extension Wizard {
         let numL = leftVal as! Bool
         let numR = rightVal as! Bool
         
-        setValue(numL && numR, in: tempAddress) //from Virtual memory
+        save(numL && numR, in: tempAddress) //from Virtual memory
     }
     
     /**
@@ -395,7 +395,7 @@ extension Wizard {
         let numL = leftVal as! Bool
         let numR = rightVal as! Bool
         
-        setValue(numL || numR, in: tempAddress) //from Virtual memory
+        save(numL || numR, in: tempAddress) //from Virtual memory
     }
     
     /**
@@ -409,22 +409,22 @@ extension Wizard {
             let numL = leftVal as! Int
             let numR = rightVal as! Int
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
         } else if leftType == .Float && rightType == .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
         } else if leftType == .String && rightType == .String {
             let numL = leftVal as! String
             let numR = rightVal as! String
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
         } else if leftType == .Bool && rightType == .Bool {
             let numL = leftVal as! Bool
             let numR = rightVal as! Bool
             
-            setValue(numL == numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
         }
     }
     
@@ -456,16 +456,16 @@ extension Wizard {
         switch leftType {
         case .Int:
             let value = leftVal as! Int
-            setParamValue(value, in: tempAddress)
+            saveParam(value, in: tempAddress)
         case .Float:
             let value = leftVal as! Float
-            setParamValue(value, in: tempAddress)
+            saveParam(value, in: tempAddress)
         case .String:
             let value = leftVal as! String
-            setParamValue(value, in: tempAddress)
+            saveParam(value, in: tempAddress)
         case .Bool:
             let value = leftVal as! Bool
-            setParamValue(value, in: tempAddress)
+            saveParam(value, in: tempAddress)
         default:
             print("ERROR - The data type is incorrect")
         }
