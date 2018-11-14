@@ -18,11 +18,11 @@ extension Wizard {
         }
     }
     
-    func addOutput() {
+    func output(_ outpu: String) {
         
     }
     
-    func addError() {
+    func error(_ error: String) {
         
     }
     
