@@ -32,8 +32,8 @@ extension Wizard {
                 divide(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Assign =
             case .Assign:
-                -1
-                //To Do:  setValue(in:quadruple.temp!, temp: getValue(from: quadruple.operandLeft!).0)
+               break
+                #warning ("TODO:  setValue(in:quadruple.temp!, temp: getValue(from: quadruple.operandLeft!).0)")
             // Equal ==
             case .Equal:
                 equal(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
@@ -76,17 +76,18 @@ extension Wizard {
                 param(left: quadruple.operandLeft!, temp : quadruple.temp!)
             // End procedure (end function)
             case .EndProc:
-                -1
-                //ToDo: EndBlock();
+                #warning ("TODO: EndBlock()")
+                break
+                
             // Print
             case .Print:
                 printOp(left: quadruple.operandLeft!)
             // Verify
             case .Verify:
                 if quadruple.operandLeft! < getValue(from:quadruple.temp!).0 as! Int || quadruple.operandLeft! < 0 {
-                    //ToDo: Error("Index in array is out of bounds");
+                    #warning ("TODO: Error(Index in array is out of bounds)")
                     quadCount = quadruples.count
-                    //ToDo: EndBlock();
+                    #warning ("TODO: EndBlock()")
                 }
                 break
             // Ret furn value of function
@@ -94,8 +95,8 @@ extension Wizard {
                 returnOp(left: quadruple.operandLeft!, temp : quadruple.temp!)
             // End main?
             case .End:
-                -1
-                //ToDo: EndBlock();  //for main(?), may not be necessay
+                #warning ("TODO:EndBlock();")
+                break
             }
             quadCount += 1
         }
@@ -401,25 +402,21 @@ extension Wizard {
             let numR = rightVal as! Int
             
             setValue(numL == numR, in: temp)
-            return
         } else if leftType == .Float && rightType == .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
             setValue(numL == numR, in: temp)
-            return
         } else if leftType == .String && rightType == .String {
             let numL = leftVal as! String
             let numR = rightVal as! String
             
             setValue(numL == numR, in: temp)
-            return
         } else if leftType == .Bool && rightType == .Bool {
             let numL = leftVal as! Bool
             let numR = rightVal as! Bool
             
             setValue(numL == numR, in: temp)
-            return
         }
     }
     
@@ -445,22 +442,23 @@ extension Wizard {
      **/
     func param(left:Address, temp:Address){
         //get value
-        let valueT = getValue(from: left)
+        let (leftVal, leftType) = getValue(from: left)
         
         // Set Value in top memory of stack
-        if valueT.1 == .Int {
-            let value = valueT.0 as! Int
-            //To DO: setParamValue(value, in: Address)
-        } else if valueT.1 == .Float {
-            let value = valueT.0 as! Float
-            //To DO:setParamValue(value, in: Address)
-        } else if valueT.1 == .String {
-            let value = valueT.0 as! String
-            //To DO:setParamValue(value, in: Address)
-        } else if valueT.1 == .Bool {
-            let value = valueT.0 as! Bool
-           //To DO: setParamValue(value, in: Address)
-        } else {
+        switch leftType {
+        case .Int:
+            let value = leftVal as! Int
+            setParamValue(value, in: temp)
+        case .Float:
+            let value = leftVal as! Float
+            setParamValue(value, in: temp)
+        case .String:
+            let value = leftVal as! String
+            setParamValue(value, in: temp)
+        case .Bool:
+            let value = leftVal as! Bool
+            setParamValue(value, in: temp)
+        default:
             print("ERROR - The data type is incorrect")
         }
     }
@@ -471,7 +469,7 @@ extension Wizard {
      **/
     func returnOp(left:Address, temp:Address){
         // Return addresss value
-        let value = getValue(from: temp)
+        
         
         // Memory that called current function
         // To Do: memoryStack.last?.setValue(in: Address, temp: value.0)
@@ -481,19 +479,19 @@ extension Wizard {
      function to create RETURN and save the result in the corresponding address
      **/
     func printOp(left:Address){
-        let (outputVal, output) = getValue(from: left)
+        let (outputVal, outputType) = getValue(from: left)
         
-        if output == .Int {
-            let value = String(output as! Int) + "\n"
+        if outputType == .Int {
+            let value = String(outputVal as! Int) + "\n"
             // To Do: ParseTestSuccessBlock(value)
-        } else if output == .Float {
-            let value = String(output as! Float) + "\n"
+        } else if outputType == .Float {
+            let value = String(outputVal as! Float) + "\n"
             // To Do: ParseTestSuccessBlock(value)
-        } else if output == .Bool {
-            let value = String(output as! Bool) + "\n"
+        } else if outputType == .Bool {
+            let value = String(outputVal as! Bool) + "\n"
             // To Do:ParseTestSuccessBlock(value)
         } else {
-            let value = output as! String + "\n"
+            let value = outputVal as! String + "\n"
             // To Do:ParseTestSuccessBlock(value)
         }
     }

@@ -395,7 +395,7 @@ extension Wizard {
         #warning ("TODO: ")
         // PN7 Funcion
         // Release the current varTable (local).
-        localMemory
+        //localMemory
         currentFunction = "global"
         
         // Generate an action to end the procedure
