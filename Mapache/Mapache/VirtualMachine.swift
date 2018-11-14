@@ -32,7 +32,8 @@ extension Wizard {
                 divide(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
             // Assign =
             case .Assign:
-                assign(left : quadruple.operandLeft!, temp : quadruple.temp!)
+                -1
+                //To Do:  setValue(in:quadruple.temp!, temp: getValue(from: quadruple.operandLeft!).0)
             // Equal ==
             case .Equal:
                 equal(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
@@ -75,21 +76,28 @@ extension Wizard {
                 param(left: quadruple.operandLeft!, temp : quadruple.temp!)
             // End procedure (end function)
             case .EndProc:
-                endFunc()
+                -1
+                //ToDo: EndBlock();
             // Print
             case .Print:
                 printOp(left: quadruple.operandLeft!)
             // Verify
             case .Verify:
-                verify(left: quadruple.operandLeft!, right: quadruple.operandRight!, temp : quadruple.temp!)
+                if quadruple.operandLeft! < getValue(from:quadruple.temp!).0 as! Int || quadruple.operandLeft! < 0 {
+                    //ToDo: Error("Index in array is out of bounds");
+                    quadCount = quadruples.count
+                    //ToDo: EndBlock();
+                }
+                break
             // Ret furn value of function
             case .Return:
-                returnOp(left: quadruple.operandLeft!)
+                returnOp(left: quadruple.operandLeft!, temp : quadruple.temp!)
             // End main?
             case .End:
-                end() //for main(?), may not be necessay
+                -1
+                //ToDo: EndBlock();  //for main(?), may not be necessay
             }
-            
+            quadCount += 1
         }
         
     }
@@ -233,12 +241,8 @@ extension Wizard {
         setValue(numL * numR, in: temp)
     }
     
-    /**
-     function to assign and save the result in the corresponding address
-     **/
-    func assign(left:Address, temp:Address){
-        //code
-    }
+
+
     
     // MARK : Logic Operation
     
@@ -279,7 +283,49 @@ extension Wizard {
      function to evaluate greater than and save the result in the corresponding address
      **/
     func greatThan(left:Address, right:Address, temp:Address){
-        //cod
+        var (leftVal, leftType) = getValue(from:left)
+        var (rightVal, rightType) = getValue(from:right)
+        
+        if left < 0 || right < 0 {
+            
+            if left < 0 {
+                leftVal = getValue(from :(getValue(from: -1*left)).0 as! Int)
+            }
+            
+            if right < 0 {
+                rightVal = getValue(from: (getValue(from: -1*left)).0 as! Int)
+            }
+            
+        }else{
+            leftVal = getValue(from: left)
+            rightVal = getValue(from: right)
+        }
+        
+        if leftType == .Int && rightType == .Int {
+            let numL = leftVal as! Int
+            let numR = rightVal as! Int
+            
+            setValue(numL == numR, in: temp)
+            return
+        } else if leftType == .Float && rightType != .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
+            
+            setValue(numL == numR, in: temp)
+            return
+        } else if leftType == .Int && rightType != .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
+            
+            setValue(numL == numR, in: temp)
+            return
+        } else if leftType == .Float && rightType != .Int {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
+            
+            setValue(numL < numR, in: temp)
+            return
+        }
     }
     
     /**
@@ -379,36 +425,19 @@ extension Wizard {
     
     
     // MARK : Instructions
-    // MARK : GOTO
-    /**
-     function to create GoToF and save the result in the corresponding address
-     **/
-    func goToF(left:Address, temp:Address){
-       
-    }
-    
-    /**
-     function to create GoToT and save the result in the corresponding address
-     **/
-    
-    
-    /**
-     function to create GoTo and save the result in the corresponding address
-     **/
- 
     
     /**
      function to create ERA and save the result in the corresponding address
      **/
     func era(left:Address, temp:Address){
-        //code
+        //TO DO: era func
     }
     
     /**
      function to create GoSub and save the result in the corresponding address
      **/
     func goSub(left:Address, temp:Address){
-        //code
+        //TO DO: code
     }
     
     /**
@@ -421,58 +450,52 @@ extension Wizard {
         // Set Value in top memory of stack
         if valueT.1 == .Int {
             let value = valueT.0 as! Int
-            setParamValue(value, in: address)
+            //To DO: setParamValue(value, in: Address)
         } else if valueT.1 == .Float {
             let value = valueT.0 as! Float
-            setParamValue(value, in: address)
+            //To DO:setParamValue(value, in: Address)
         } else if valueT.1 == .String {
             let value = valueT.0 as! String
-            setParamValue(value, in: address)
+            //To DO:setParamValue(value, in: Address)
         } else if valueT.1 == .Bool {
             let value = valueT.0 as! Bool
-            setParamValue(value, in: address)
+           //To DO: setParamValue(value, in: Address)
         } else {
             print("ERROR - The data type is incorrect")
         }
     }
     
-    /**
-     function to create ENDPROC and save the result in the corresponding address
-     **/
-    func endFunc(){
-        //code
-    }
-    
-    /**
-     function to create ENDPROC and save the result in the corresponding address
-     **/
-    func end(){
-        //code
-    }
-    
-    /**
-     function to validate the limits and save the result in the corresponding address
-     **/
-    func verify(left:Address, right:Address, temp:Address){
-        /**if quadruple.leftOperand! < getValue(from:quadruple.resultVar!).0 as! Int || quadruple.operandLeft! < 0 {
-            ParseTestFailBlock("Index in array is out of bounds");
-            quadrupleNumber = quadruples.count
-            EndBlock();
-        }**/
-    }
     
     /**
      function to create RETURN and save the result in the corresponding address
      **/
-    func returnOp(left:Address){
-        //code
+    func returnOp(left:Address, temp:Address){
+        // Return addresss value
+        let value = getValue(from: temp)
+        
+        // Memory that called current function
+        // To Do: memoryStack.last?.setValue(in: Address, temp: value.0)
     }
     
     /**
      function to create RETURN and save the result in the corresponding address
      **/
     func printOp(left:Address){
-        //code
+        let (outputVal, output) = getValue(from: left)
+        
+        if output == .Int {
+            let value = String(output as! Int) + "\n"
+            // To Do: ParseTestSuccessBlock(value)
+        } else if output == .Float {
+            let value = String(output as! Float) + "\n"
+            // To Do: ParseTestSuccessBlock(value)
+        } else if output == .Bool {
+            let value = String(output as! Bool) + "\n"
+            // To Do:ParseTestSuccessBlock(value)
+        } else {
+            let value = output as! String + "\n"
+            // To Do:ParseTestSuccessBlock(value)
+        }
     }
 
 }
