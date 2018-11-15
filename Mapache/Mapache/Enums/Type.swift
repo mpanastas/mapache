@@ -10,13 +10,14 @@ import Foundation
 
 enum Type: Int {
     case Int = 1
-    case Float
-    case Char
-    case Bool
-    case String
-    case Void
+    case Float = 2
+    case Char = 3
+    case Bool = 4
+    case String = 5
+    case Void = 6
+    case Error = -1
     
-    init?(_ string: String) {
+    init(_ string: String) {
         switch string.lowercased() {
         case "int":
             self = .Int
@@ -31,7 +32,7 @@ enum Type: Int {
         case "letrero":
             self = .String
         default:
-            return nil
+            self = .Error
         }
     }
 }

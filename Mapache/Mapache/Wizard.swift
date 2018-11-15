@@ -133,6 +133,13 @@ class Wizard{
         }
     }
     
+    // MAR: - Semantic cube functions
+    
+    func getResultType(_ left: Type, _ right: Type, _ oper: Op) -> Type {
+        let rawType = semanticCube[String(left.rawValue)][String(right.rawValue)][String(oper.rawValue)].int!
+        return Type(rawValue: rawType)!
+    }
+    
     // MARK: - Manage Quadruples
     
     /// Create a Quad and add it to the quadruples array
@@ -156,6 +163,24 @@ class Wizard{
         quadruples[quadToFill].temp = direction
     }
     
+    func addExprQuad(){
+        let (opR, typeR) = getOperandAndType()
+        let (opL, typeL) = getOperandAndType()
+        let oper = operators.pop()!
+        
+        let resultType = getResultType(typeL, typeR, oper)
+        
+        if resultType != .Error {
+            #warning ("TODO: Result address")
+            let resultAddress = -1
+            addQuad(oper, opL, opR, resultAddress)
+            addOperandToStacks(address: resultAddress, type: resultType)
+        } else {
+            print("Error: Type mismatch")
+        }
+        
+    }
+    
     // MARK: - CTX functions
     
     func getText(from node: TerminalNode ) -> String {
@@ -177,8 +202,8 @@ class Wizard{
         return .Void
     }
     
-    func getReturnType(from function: MapacheParser.FuncionContext) {
-        return (ctx.VOID() != nil) ? .Void : getType(from: ctx.tipo().last!)
+    func getReturnType(from functionCtx: MapacheParser.FuncionContext) -> Type {
+        return (functionCtx.VOID() != nil) ? .Void : getType(from: functionCtx.tipo().last!)
     }
     
     // MARK: - Manage Stacks
@@ -461,15 +486,25 @@ extension Wizard {
     
     func exitExp(_ ctx: MapacheParser.ExpContext) { }
     
-    func enterTermino(_ ctx: MapacheParser.TerminoContext) { }
+    func enterTermino(_ ctx: MapacheParser.TerminoContext) {
+        
+    }
     
-    func exitTermino(_ ctx: MapacheParser.TerminoContext) { }
+    func exitTermino(_ ctx: MapacheParser.TerminoContext) {
+        
+    }
     
-    func enterFactor(_ ctx: MapacheParser.FactorContext) { }
+    func enterFactor(_ ctx: MapacheParser.FactorContext) {
+        if ctx.OPEN_PAREN != nil {
+            // PN 6: Hoja
+            operators.push(.FalseBottomMark)
+        }
+    }
     
     func exitFactor(_ ctx: MapacheParser.FactorContext) {
 
         if let idNode = ctx.ID() {
+            // PN 1: Hoja
             let id = getText(from: idNode)
             
             if let idVar = functions[currentFunction]?.variables[id] {
@@ -481,6 +516,18 @@ extension Wizard {
                 return
             }
             
+        } else if ctx.CLOSE_PAREN() != nil {
+            // PN 7: Hoja
+            operators.pop()
+        }
+        
+        // PN 5: Hoja
+        
+        switch operators.top()! {
+        case .Mult, .Div:
+            addExprQuad()
+        default:
+            break
         }
     }
     
