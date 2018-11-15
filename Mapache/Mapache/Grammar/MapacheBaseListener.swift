@@ -418,6 +418,58 @@ open class MapacheBaseListener: MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	open func enterAndOr(_ ctx: MapacheParser.AndOrContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitAndOr(_ ctx: MapacheParser.AndOrContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterEquality(_ ctx: MapacheParser.EqualityContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitEquality(_ ctx: MapacheParser.EqualityContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterSubAdd(_ ctx: MapacheParser.SubAddContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitSubAdd(_ ctx: MapacheParser.SubAddContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func enterMultDiv(_ ctx: MapacheParser.MultDivContext) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	open func exitMultDiv(_ ctx: MapacheParser.MultDivContext) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	open func enterEveryRule(_ ctx: ParserRuleContext) { }
 	/**
 	 * {@inheritDoc}

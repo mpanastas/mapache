@@ -378,4 +378,52 @@ public protocol MapacheListener: ParseTreeListener {
 	   - ctx: the parse tree
 	 */
 	func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#andOr}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterAndOr(_ ctx: MapacheParser.AndOrContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#andOr}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitAndOr(_ ctx: MapacheParser.AndOrContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#equality}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterEquality(_ ctx: MapacheParser.EqualityContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#equality}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitEquality(_ ctx: MapacheParser.EqualityContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#subAdd}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterSubAdd(_ ctx: MapacheParser.SubAddContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#subAdd}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitSubAdd(_ ctx: MapacheParser.SubAddContext)
+	/**
+	 * Enter a parse tree produced by {@link MapacheParser#multDiv}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func enterMultDiv(_ ctx: MapacheParser.MultDivContext)
+	/**
+	 * Exit a parse tree produced by {@link MapacheParser#multDiv}.
+	 - Parameters:
+	   - ctx: the parse tree
+	 */
+	func exitMultDiv(_ ctx: MapacheParser.MultDivContext)
 }

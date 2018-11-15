@@ -13,11 +13,13 @@ class MapacheWalker: MapacheBaseListener{
     
     
     let wizard = Wizard.shared
-
+    
+    // MARK: - Context functions
+    
     override func enterMapache(_ ctx: MapacheParser.MapacheContext) {
         wizard.enterMapache(ctx)
     }
-
+    
     override func exitMapache(_ ctx: MapacheParser.MapacheContext) {
         wizard.exitMapache(ctx)
     }
@@ -25,7 +27,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterProgram(_ ctx: MapacheParser.ProgramContext) {
         wizard.enterProgram(ctx)
     }
-
+    
     override func exitProgram(_ ctx: MapacheParser.ProgramContext) {
         wizard.exitProgram(ctx)
     }
@@ -33,7 +35,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
         wizard.enterAsignacion(ctx)
     }
-
+    
     override func exitAsignacion(_ ctx: MapacheParser.AsignacionContext) {
         wizard.exitAsignacion(ctx)
     }
@@ -41,7 +43,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterLlamada(_ ctx: MapacheParser.LlamadaContext) {
         wizard.enterLlamada(ctx)
     }
-
+    
     override func exitLlamada(_ ctx: MapacheParser.LlamadaContext) {
         wizard.exitLlamada(ctx)
     }
@@ -49,7 +51,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterCondicion(_ ctx: MapacheParser.CondicionContext) {
         wizard.enterCondicion(ctx)
     }
-
+    
     override func exitCondicion(_ ctx: MapacheParser.CondicionContext) {
         wizard.exitCondicion(ctx)
     }
@@ -57,7 +59,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterVariable(_ ctx: MapacheParser.VariableContext) {
         wizard.enterVariable(ctx)
     }
-
+    
     override func exitVariable(_ ctx: MapacheParser.VariableContext) {
         wizard.exitVariable(ctx)
     }
@@ -65,7 +67,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         wizard.enterFuncion(ctx)
     }
-
+    
     override func exitFuncion(_ ctx: MapacheParser.FuncionContext) {
         wizard.exitFuncion(ctx)
     }
@@ -73,7 +75,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterBloque(_ ctx: MapacheParser.BloqueContext) {
         wizard.enterBloque(ctx)
     }
-
+    
     override func exitBloque(_ ctx: MapacheParser.BloqueContext) {
         wizard.exitBloque(ctx)
     }
@@ -81,7 +83,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
         wizard.enterBloquefunc(ctx)
     }
-
+    
     override func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
         wizard.exitBloquefunc(ctx)
     }
@@ -89,7 +91,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) {
         wizard.enterEstatuto(ctx)
     }
-
+    
     override func exitEstatuto(_ ctx: MapacheParser.EstatutoContext) {
         wizard.exitEstatuto(ctx)
     }
@@ -97,7 +99,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterExpresion(_ ctx: MapacheParser.ExpresionContext) {
         wizard.enterExpresion(ctx)
     }
-  
+    
     override func exitExpresion(_ ctx: MapacheParser.ExpresionContext) {
         wizard.exitExpresion(ctx)
     }
@@ -105,7 +107,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterExpBool(_ ctx: MapacheParser.ExpBoolContext) {
         wizard.enterExpBool(ctx)
     }
-
+    
     override func exitExpBool(_ ctx: MapacheParser.ExpBoolContext) {
         wizard.exitExpBool(ctx)
     }
@@ -113,7 +115,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterExp(_ ctx: MapacheParser.ExpContext) {
         wizard.enterExp(ctx)
     }
-
+    
     override func exitExp(_ ctx: MapacheParser.ExpContext) {
         wizard.exitExp(ctx)
     }
@@ -121,7 +123,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterTermino(_ ctx: MapacheParser.TerminoContext) {
         wizard.enterTermino(ctx)
     }
-
+    
     override func exitTermino(_ ctx: MapacheParser.TerminoContext) {
         wizard.exitTermino(ctx)
     }
@@ -129,7 +131,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterFactor(_ ctx: MapacheParser.FactorContext) {
         wizard.enterFactor(ctx)
     }
-
+    
     override func exitFactor(_ ctx: MapacheParser.FactorContext) {
         wizard.exitFactor(ctx)
     }
@@ -137,7 +139,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterVector(_ ctx: MapacheParser.VectorContext) {
         wizard.enterVector(ctx)
     }
-
+    
     override func exitVector(_ ctx: MapacheParser.VectorContext) {
         wizard.exitVector(ctx)
     }
@@ -145,7 +147,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterCiclo(_ ctx: MapacheParser.CicloContext) {
         wizard.enterCiclo(ctx)
     }
-
+    
     override func exitCiclo(_ ctx: MapacheParser.CicloContext) {
         wizard.exitCiclo(ctx)
     }
@@ -153,7 +155,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
         wizard.enterCicloWhile(ctx)
     }
- 
+    
     override func exitCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
         wizard.exitCicloWhile(ctx)
     }
@@ -161,7 +163,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterCicloFor(_ ctx: MapacheParser.CicloForContext) {
         wizard.enterCicloFor(ctx)
     }
-
+    
     override func exitCicloFor(_ ctx: MapacheParser.CicloForContext) {
         wizard.exitCicloFor(ctx)
     }
@@ -169,7 +171,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterImprimir(_ ctx: MapacheParser.ImprimirContext) {
         wizard.enterImprimir(ctx)
     }
-
+    
     override func exitImprimir(_ ctx: MapacheParser.ImprimirContext) {
         wizard.exitImprimir(ctx)
     }
@@ -177,7 +179,7 @@ class MapacheWalker: MapacheBaseListener{
     override func enterTipo(_ ctx: MapacheParser.TipoContext) {
         wizard.enterTipo(ctx)
     }
-
+    
     override func exitTipo(_ ctx: MapacheParser.TipoContext) {
         wizard.exitTipo(ctx)
     }
@@ -262,6 +264,25 @@ class MapacheWalker: MapacheBaseListener{
         wizard.exitAsignacionVector(ctx)
     }
     
+    override func enterAndOr(_ ctx: MapacheParser.AndOrContext){
+        wizard.enterAndOr(ctx)
+    }
+    
+    override func enterEquality(_ ctx: MapacheParser.EqualityContext){
+        wizard.enterEquality(ctx)
+    }
+    
+    override func enterSubAdd(_ ctx: MapacheParser.SubAddContext){
+        wizard.enterSubAdd(ctx)
+    }
+    
+    override func enterMultDiv(_ ctx: MapacheParser.MultDivContext){
+        wizard.enterMultDiv(ctx)
+    }
+    
+    
+    // MARK: - Nodes functions
+    
     override func enterEveryRule(_ ctx: ParserRuleContext) {
         wizard.enterEveryRule(ctx)
     }
@@ -277,5 +298,5 @@ class MapacheWalker: MapacheBaseListener{
     override func visitErrorNode(_ node: ErrorNode) {
         wizard.visitErrorNode(node)
     }
-   
+    
 }

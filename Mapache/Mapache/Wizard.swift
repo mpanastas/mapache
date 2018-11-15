@@ -782,10 +782,26 @@ extension Wizard {
     
     func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
     
+    func enterAndOr(_ ctx: MapacheParser.AndOrContext){
+        
+    }
+    
+    func enterEquality(_ ctx: MapacheParser.EqualityContext){
+        
+    }
+    
+    func enterSubAdd(_ ctx: MapacheParser.SubAddContext){
+        
+    }
+    
+    func enterMultDiv(_ ctx: MapacheParser.MultDivContext){
+        
+    }
+    
 }
 
 
-// MARK: - Walker nodes
+// MARK: - Walker nodes and rules
 extension Wizard {
     func enterEveryRule(_ ctx: ParserRuleContext) {
         
