@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - Functions for Virtual Machine
 extension Wizard {
-    func end() {
+    func sendResultToEditorVC() {
         if errors.isEmpty {
             editorVC.showResults(results: outputs, error: false)
         } else {
@@ -33,11 +33,11 @@ extension Wizard {
 // MARK: - Virtual Machine
 extension Wizard {
     
-    func execute(_ quadruples: [Quadruple]) { 
-        var quadCount = 0
+    func execute() {
+        var quadIndex = 0
         
-        while quadCount < quadruples.count {
-            let quadruple = quadruples[quadCount]
+        while quadIndex < quadsCount {
+            let quadruple = quadruples[quadIndex]
             
             switch quadruple.op {
             case .Sum :
@@ -63,14 +63,11 @@ extension Wizard {
             case .Or:
                 orOperator(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
             case .GoTo :
-                quadCount = quadruple.temp! - 1 // minus 1 because at the end we add 1
+                quadIndex = quadruple.temp! - 1 // minus 1 because at the end we add 1
             case .GoToTrue : // Go to if true
                break
             case .GoToFalse: // Go to if false
-                #warning ("TODO: LF. Make param as ref, inout")
-                if let newQuadCount = goToFalse(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!) {
-                    quadCount = newQuadCount
-                }
+                goToFalse(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!, quadIndex: &quadIndex)
             case .ERA :
                 era(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             case .GoSub:
@@ -83,20 +80,15 @@ extension Wizard {
             case .Print:
                 printOp(leftAddress: quadruple.operandLeft!)
             case .Verify:
-                
-                if !verify(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!) {
-                    quadCount = quadruples.count
-                }
+                verify(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!, quadIndex: &quadIndex)
             case .Return:
                 returnOp(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             case .End:
-                #warning ("TODO: LF. Make param as ref, inout")
-                end()
-                quadCount = quadruples.count
+                end(quadIndex: &quadIndex)
             case .FalseBottomMark:
                 break
             }
-            quadCount += 1
+            quadIndex += 1
         }
         
     }
@@ -475,13 +467,12 @@ extension Wizard {
      Error handling: N/A
      **/
     
-    func goToFalse(leftAddress: Address, tempAddress:Address) -> Int? {
+    func goToFalse(leftAddress: Address, tempAddress:Address, quadIndex: inout Int) {
         let (leftVal, _) = getValue(from: leftAddress)
         
         if (!(leftVal as! Bool)){
-            return tempAddress - 1
+            quadIndex = tempAddress - 1
         }
-        return nil
     }
   
     
@@ -492,16 +483,13 @@ extension Wizard {
      Error handling: N/A
      **/
     
-    func verify(leftAddress: Address, tempAddress: Address) -> Bool {
+    func verify(leftAddress: Address, tempAddress: Address, quadIndex: inout Int) {
         let (tempVal, _) = getValue(from: tempAddress)
         
         if leftAddress < tempVal as! Int || leftAddress < 0 {
             error("Error: Index in array is out of bounds")
-            end()
-            return false
-            
+            end(quadIndex: &quadIndex)
         }
-        return true
     }
     
 
@@ -597,6 +585,11 @@ extension Wizard {
             // To Do:ParseTestSuccessBlock(value)
         }
     }
+    
+    func end(quadIndex: inout Int) {
+        
+        sendResultToEditorVC()
+    }
 
 }
 
@@ -604,3 +597,4 @@ extension Wizard {
 
 // NOTES
 #warning ("TODO: Remove unnecesary comments. Ex: *more code*")
+#warning ("TODO: Move order of functions to have same order as switch")

@@ -69,7 +69,7 @@ class Wizard{
     
     // MARK: - Get variables
     // Quadruples count
-    var cont: Int {
+    var quadsCount: Int {
         get {
             return quadruples.count
         }
@@ -376,7 +376,7 @@ extension Wizard {
         #warning ("TODO: ")
         // PN2 If
         let end = jumps.pop()
-        fillGoTo(end!, with: cont)
+        fillGoTo(end!, with: quadsCount)
     }
     
     func enterVariable(_ ctx: MapacheParser.VariableContext) { }
@@ -461,7 +461,7 @@ extension Wizard {
         // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
         let funcCtx = ctx.parent as! MapacheParser.FuncionContext
         let funcName = getText(from: funcCtx.ID().first!)
-        functions[funcName]?.startQuadAddress = cont
+        functions[funcName]?.startQuadAddress = quadsCount
     }
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
@@ -599,7 +599,7 @@ extension Wizard {
     func enterCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
         #warning ("TODO: ")
         // PN1 While
-        jumps.push(cont)
+        jumps.push(quadsCount)
     }
     
     func exitCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
@@ -608,7 +608,7 @@ extension Wizard {
         let end = jumps.pop()
         let whileDir = jumps.pop()
         addQuad(.GoTo, nil, nil, whileDir)
-        fillGoTo(end!, with: cont)
+        fillGoTo(end!, with: quadsCount)
     }
     
     func enterCicloFor(_ ctx: MapacheParser.CicloForContext) {
@@ -706,7 +706,7 @@ extension Wizard {
         } else {
             let result = operands.pop()
             addQuad(.GoToFalse, result, nil, nil)
-            jumps.push(cont-1)
+            jumps.push(quadsCount-1)
         }
     }
     
@@ -718,8 +718,8 @@ extension Wizard {
         // PN3 If
         addQuad(.GoTo, nil, nil, nil)
         let f = jumps.pop()
-        jumps.push(cont-1)
-        fillGoTo(f!, with: cont)
+        jumps.push(quadsCount-1)
+        fillGoTo(f!, with: quadsCount)
     }
     
     func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
