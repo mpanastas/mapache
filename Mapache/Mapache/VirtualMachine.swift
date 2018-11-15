@@ -18,12 +18,14 @@ extension Wizard {
         }
     }
     
-    func output(_ outpu: String) {
-        
+    func output(_ output: String) {
+        if errors.isEmpty {
+            outputs.append(output)
+        }
     }
     
     func error(_ error: String) {
-        
+        errors.append(error)
     }
     
 }
