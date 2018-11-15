@@ -33,91 +33,68 @@ extension Wizard {
 // MARK: - Virtual Machine
 extension Wizard {
     
-    func quads(_ quadruples: [Quadruple]) { //the creation of quadruples is pending
+    func execute(_ quadruples: [Quadruple]) { 
         var quadCount = 0
         
-        while quadCount < quadruples.count { //check each quadruple
+        while quadCount < quadruples.count {
             let quadruple = quadruples[quadCount]
-            switch quadruple.op {
             
-            // Addition +
+            switch quadruple.op {
             case .Sum :
                 add(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Subtraction -
             case .Sub :
                 sub(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Multiplication *
             case .Mult:
                 multiply(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Division /
             case .Div:
                 divide(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Assign =
             case .Assign:
                assign(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
-            // Equal ==
             case .Equal:
                 equal(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Not equal !=
             case .NotEqual:
                 notEqual(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Less than <
             case .LessThan:
                 lessThan(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Greater than >
             case .GreaterThan:
                 greatThan(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // And &&
             case .And:
                 andOperator(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Or ||
             case .Or:
                 orOperator(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
-            // Go to
             case .GoTo :
-               quadCount = quadruple.temp! - 1
-            // Go to if true
-            case .GoToTrue :
+                quadCount = quadruple.temp! - 1 // minus 1 because at the end we add 1
+            case .GoToTrue : // Go to if true
                break
-            // Go to if false
-            case .GoToFalse:
+            case .GoToFalse: // Go to if false
+                #warning ("TODO: LF. Make param as ref, inout")
                 if let newQuadCount = goToFalse(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!) {
                     quadCount = newQuadCount
                 }
-             break
-            // ERA size
             case .ERA :
                 era(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
-                #warning ("TODO: ERA func ")
-            // Go to subrutine (go to function)
             case .GoSub:
                 goSub(leftAddress : quadruple.operandLeft!, tempAddress: quadruple.temp!)
-                  #warning ("TODO: GoSub func ")
-            // Set parameter
             case .Param:
                 param(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
-            // End procedure (end function)
             case .EndProc:
                  #warning ("TODO: endproc func ")
-            break
-            // Print
+                break
             case .Print:
                 printOp(leftAddress: quadruple.operandLeft!)
-            // Verify
             case .Verify:
+                
                 if !verify(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!) {
                     quadCount = quadruples.count
                 }
-            break
-            // Ret furn value of function
             case .Return:
-                #warning ("TODO: returnOp func ")
                 returnOp(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
-            // End main?
             case .End:
+                #warning ("TODO: LF. Make param as ref, inout")
                 end()
                 quadCount = quadruples.count
-            break
+            case .FalseBottomMark:
+                break
             }
             quadCount += 1
         }
@@ -429,8 +406,8 @@ extension Wizard {
      **/
     func andOperator(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         //code
-        let (leftVal, leftType) = getValue(from: leftAddress) //getValue in memory address
-        let (rightVal, rightType) = getValue(from: rightAddress) //getValue in memory address
+        let (leftVal, _) = getValue(from: leftAddress) //getValue in memory address
+        let (rightVal, _) = getValue(from: rightAddress) //getValue in memory address
         
         let numL = leftVal as! Bool
         let numR = rightVal as! Bool
@@ -445,8 +422,8 @@ extension Wizard {
      Error handling: N/A
      **/
     func orOperator(leftAddress:Address, rightAddress:Address, tempAddress:Address){
-        let (leftVal, leftType) = getValue(from: leftAddress)
-        let (rightVal, rightType) = getValue(from: rightAddress) //getValue in memory address
+        let (leftVal, _) = getValue(from: leftAddress)
+        let (rightVal, _) = getValue(from: rightAddress) //getValue in memory address
         
         let numL = leftVal as! Bool
         let numR = rightVal as! Bool
@@ -536,7 +513,7 @@ extension Wizard {
      **/
     
     func era(leftAddress:Address, tempAddress:Address){
-        //TO DO: era func
+        #warning ("TODO: era func")
     }
     
     /**
@@ -547,7 +524,7 @@ extension Wizard {
      **/
 
     func goSub(leftAddress:Address, tempAddress:Address){
-        //TO DO: code
+        #warning ("TODO: Code")
     }
     
     /**
@@ -589,6 +566,7 @@ extension Wizard {
      **/
     
     func returnOp(leftAddress:Address, tempAddress:Address){
+        #warning ("TODO: Return op")
         // Return addresss value
         
         
@@ -604,7 +582,7 @@ extension Wizard {
      **/
     func printOp(leftAddress:Address){
         let (outputVal, outputType) = getValue(from: leftAddress)
-        
+        #warning ("TODO: Falta esto maps")
         if outputType == .Int {
             let value = String(outputVal as! Int) + "\n"
             // To Do: ParseTestSuccessBlock(value)
@@ -621,3 +599,8 @@ extension Wizard {
     }
 
 }
+
+
+
+// NOTES
+#warning ("TODO: Remove unnecesary comments. Ex: *more code*")
