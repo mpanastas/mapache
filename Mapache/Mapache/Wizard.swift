@@ -17,17 +17,24 @@ class Wizard{
     // Singletone
     static let shared = Wizard()
     
-    // MARK: Variables
+    // MARK: - Constants
+    let constantsBaseAddress = 5000
+    let globalBaseAddress = 10000
+    let localBaseAddress = 15000
+    let tempBaseAddress = 20000
     
-    // Ops
+    // MARK: - Variables
+    
+    // Operators semantic cube
     var semanticCube: JSON!
     
-    // Quadruple
+    // Quadruples
     var quadruples = [Quadruple]()
     
-    
+    // Global function
     var global: Function!
-    // Function
+    
+    // Functions
     var functions = [Name:Function]()
     
     var currentFunction = "global"
@@ -35,23 +42,16 @@ class Wizard{
     // Pending jumps
     var jumps = Stack<Int>()
     
-    // Pending types
+    // Operators stack (pOper)
+    var operators = Stack<Op>()
+    
+    // Types stack (pTypes)
     var types = Stack<Type>()
     
-    // PilaO
+    // Operands stack (PilaO)
     var operands = Stack<Int>()
     
-    // Quadruples count
-    var cont: Int {
-        get {
-            return quadruples.count
-        }
-    }
     
-    let constantsBaseAddress = 5000
-    let globalBaseAddress = 10000
-    let localBaseAddress = 15000
-    let tempBaseAddress = 20000
     
     // MARK: Memory variables
     var constantsMemory: Memory!
@@ -59,13 +59,21 @@ class Wizard{
     var localMemory: Memory!
     var tempMemory: Memory!
     
+    // MARK: EditorVC variables
     var editorVC: EditorVC!
     
     var outputs: [String] = []
     var errors: [String] = []
     
+    // MARK: - Get variables
+    // Quadruples count
+    var cont: Int {
+        get {
+            return quadruples.count
+        }
+    }
     
-    // MARK: Constructor
+    // MARK: - Constructor
     
     init(){
         if let path = Bundle.main.path(forResource: "SemanticCube", ofType: "json") {
@@ -83,7 +91,7 @@ class Wizard{
     }
     
     
-    // MARK: Functions
+    // MARK: - Run functions
     
     func clearModels() {
         quadruples.removeAll()
@@ -125,7 +133,7 @@ class Wizard{
         }
     }
     
-    // MARK: Manage Quadruples
+    // MARK: - Manage Quadruples
     
     /// Create a Quad and add it to the quadruples array
     ///
@@ -148,7 +156,7 @@ class Wizard{
         quadruples[quadToFill].temp = direction
     }
     
-    // MARK: CTX functions
+    // MARK: - CTX functions
     
     func getText(from node: TerminalNode ) -> String {
         return (node.getSymbol()?.getText())!
@@ -173,7 +181,7 @@ class Wizard{
         return (ctx.VOID() != nil) ? .Void : getType(from: ctx.tipo().last!)
     }
     
-    // MARK: Manage Stacks
+    // MARK: - Manage Stacks
     func addOperandToStacks(address: Address, type: Type) {
         operands.push(address)
         types.push(type)
