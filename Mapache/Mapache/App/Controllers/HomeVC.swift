@@ -25,13 +25,23 @@ class HomeVC: UIViewController {
         setupNavBar()
     }
 
-    // MARK: - Custom functions
+    // MARK: - Setup functions
     
     func setupNavBar() {
         let logoView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
         logoView.image = #imageLiteral(resourceName: "logo")
         logoView.contentMode = .scaleAspectFit
         navigationItem.titleView = logoView
+    }
+    
+    // MARK: Tests functions
+    
+    func fillTests() {
+        testName()
+    }
+    
+    func testName(){
+        
     }
     
 }
@@ -42,7 +52,7 @@ extension HomeVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileCell", for: indexPath) as! FileCell
         return cell
     }
     
