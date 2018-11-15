@@ -76,45 +76,46 @@ extension Wizard {
                quadCount = quadruple.temp! - 1
             // Go to if true
             case .GoToTrue :
-                if (!(getValue(from: quadruple.operandLeft!).0 as! Bool)){
-                    quadCount = quadruple.temp! - 1
-                }
+               break
             // Go to if false
             case .GoToFalse:
-                if (!(getValue(from: quadruple.operandLeft!).0 as! Bool)){
-                    quadCount = quadruple.temp! - 1
+                if let newQuadCount = goToFalse(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!) {
+                    quadCount = newQuadCount
                 }
+             break
             // ERA size
             case .ERA :
                 era(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
+                #warning ("TODO: ERA func ")
             // Go to subrutine (go to function)
             case .GoSub:
                 goSub(leftAddress : quadruple.operandLeft!, tempAddress: quadruple.temp!)
+                  #warning ("TODO: GoSub func ")
             // Set parameter
             case .Param:
                 param(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             // End procedure (end function)
             case .EndProc:
-                
-                break
-                
+                 #warning ("TODO: endproc func ")
+            break
             // Print
             case .Print:
                 printOp(leftAddress: quadruple.operandLeft!)
             // Verify
             case .Verify:
-                if quadruple.operandLeft! < getValue(from:quadruple.temp!).0 as! Int || quadruple.operandLeft! < 0 {
-                    #warning ("TODO: Error(Index in array is out of bounds)")
+                if !verify(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!) {
                     quadCount = quadruples.count
-                    end()
                 }
-                break
+            break
             // Ret furn value of function
             case .Return:
+                #warning ("TODO: returnOp func ")
                 returnOp(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             // End main?
             case .End:
                 end()
+                quadCount = quadruples.count
+            break
             }
             quadCount += 1
         }
@@ -122,9 +123,12 @@ extension Wizard {
     }
     
     // MARK : Aritmetic Operation
-    
+
     /**
-     function to do the addition and save the result in the corresponding address
+     Description: function to do the addition and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address ; rightAddress , Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
    
     func add(leftAddress:Address, rightAddress:Address, tempAddress:Address){
@@ -139,19 +143,19 @@ extension Wizard {
             let numR = Float(rightVal as! Int)
             
             save(numL + numR, in: tempAddress)
-            return
+           
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
             save(numL + numR, in: tempAddress)
-            return
+           
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
             save(numL + numR, in: tempAddress)
-            return
+           
         }
         
         let numL = leftVal as! Float
@@ -160,8 +164,12 @@ extension Wizard {
         save(numL + numR, in: tempAddress)
     }
     
+
     /**
-     function to do the substraction and save the result in the corresponding address
+     Description: function to do the substraction and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address ; rightAddress , Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func sub(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         let (leftVal, leftType) = getValue(from:leftAddress)
@@ -172,19 +180,19 @@ extension Wizard {
             let numR = Float(rightVal as! Int)
             
             save(numL - numR, in: tempAddress)
-            return
+           
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
             save(numL - numR, in: tempAddress)
-            return
+          
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
             save(numL - numR, in: tempAddress)
-            return
+         
         }
         
         let numL = leftVal as! Float
@@ -193,8 +201,12 @@ extension Wizard {
         save(numL - numR, in: tempAddress)
     }
     
+    
     /**
-     function to do the division and save the result in the corresponding address
+     Description: function to do the division and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address ; rightAddress , Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func divide(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         let (leftVal, leftType) = getValue(from:leftAddress)
@@ -205,19 +217,19 @@ extension Wizard {
             let numR = Float(rightVal as! Int)
             
             save(numL / numR, in: tempAddress)
-            return
+           
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
             save(numL / numR, in: tempAddress)
-            return
+          
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
             save(numL / numR, in: tempAddress)
-            return
+       
         }
         
         let numL = leftVal as! Float
@@ -228,7 +240,10 @@ extension Wizard {
     }
     
     /**
-     function to do the multiplication and save the result in the corresponding address
+     Description: function to do the multiplication and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address ; rightAddress , Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func multiply(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         let (leftVal, leftType) = getValue(from:leftAddress)
@@ -239,19 +254,19 @@ extension Wizard {
             let numR = Float(rightVal as! Int)
             
             save(numL * numR, in: tempAddress)
-            return
+       
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
             save(numL * numR, in: tempAddress)
-            return
+        
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
             save(numL * numR, in: tempAddress)
-            return
+          
         }
         
         let numL = leftVal as! Float
@@ -261,9 +276,12 @@ extension Wizard {
     }
     
 
-/**
- function to assign value
- **/
+    /**
+     Description: function to assing the result in the corresponding address
+     Parameters: leftAddress, Type: Address  ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
+     **/
     
     func assign(leftAddress:Address, tempAddress:Address){
         let (leftVal, _) = getValue(from: leftAddress)
@@ -274,7 +292,10 @@ extension Wizard {
     // MARK : Logic Operation
     
     /**
-     function to evaluate lesser than and save the result in the corresponding address
+     Description: function to evaluate lesser than and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address; rightAddress, Type: Address  ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func lessThan(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         let (leftVal, leftType) = getValue(from:leftAddress)
@@ -285,19 +306,19 @@ extension Wizard {
             let numR = Float(rightVal as! Int)
             
             save(numL < numR, in: tempAddress)
-            return
+            
         } else if leftType == .Int && rightType == .Float {
             let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
             save(numL < numR, in: tempAddress)
-            return
+            
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
             
             save(numL < numR, in: tempAddress)
-            return
+            
         }
         
         let numL = leftVal as! Float
@@ -306,8 +327,12 @@ extension Wizard {
         save(numL < numR, in: tempAddress)
     }
     
+ 
     /**
-     function to evaluate greater than and save the result in the corresponding address
+     Description: function to evaluate greater than and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address; rightAddress, Type: Address  ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func greatThan(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         var (leftVal, leftType) = getValue(from:leftAddress)
@@ -333,30 +358,34 @@ extension Wizard {
             let numR = rightVal as! Int
             
             save(numL == numR, in: tempAddress)
-            return
+           
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
             save(numL == numR, in: tempAddress)
-            return
+          
         } else if leftType == .Int && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
             save(numL == numR, in: tempAddress)
-            return
+           
         } else if leftType == .Float && rightType != .Int {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
             save(numL < numR, in: tempAddress)
-            return
+          
         }
     }
     
+   
     /**
-     function to evaluate not equal than and save the result in the corresponding address
+     Description: function to evaluate not equal than and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address; rightAddress, Type: Address  ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func notEqual(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         let (leftVal, leftType) = getValue(from:leftAddress)
@@ -367,30 +396,34 @@ extension Wizard {
             let numR = rightVal as! Int
             
             save(numL == numR, in: tempAddress)
-            return
+          
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
             save(numL == numR, in: tempAddress)
-            return
+          
         } else if leftType == .String && rightType != .String {
             let numL = leftVal as! String
             let numR = rightVal as! String
             
             save(numL == numR, in: tempAddress)
-            return
+       
         } else if leftType == .Bool && rightType != .Bool {
             let numL = leftVal as! Bool
             let numR = rightVal as! Bool
             
             save(numL != numR, in: tempAddress)
-            return
+           
         }
     }
     
+   
     /**
-     function to evaluate "and" operator than and save the result in the corresponding address
+     Description: function to evaluate "and" operator than and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address; rightAddress, Type: Address  ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func andOperator(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         //code
@@ -402,9 +435,12 @@ extension Wizard {
         
         save(numL && numR, in: tempAddress) //from Virtual memory
     }
-    
+  
     /**
-     function to evaluate "or" operator and save the result in the corresponding address
+     Description: function to evaluate "or" operator and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address; rightAddress, Type: Address  ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func orOperator(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         let (leftVal, leftType) = getValue(from: leftAddress)
@@ -416,8 +452,12 @@ extension Wizard {
         save(numL || numR, in: tempAddress) //from Virtual memory
     }
     
+  
     /**
-     function to evaluate "==" operator and save the result in the corresponding address
+     Description: function to evaluate "==" operator and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address; rightAddress, Type: Address  ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func equal(leftAddress:Address, rightAddress:Address, tempAddress:Address){
         let (leftVal, leftType) = getValue(from: leftAddress)
@@ -450,22 +490,71 @@ extension Wizard {
     // MARK : Instructions
     
     /**
-     function to create ERA and save the result in the corresponding address
+     Description: function for the GoToFalse instruction
+     Parameters: leftAddress, Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
+    
+    func goToFalse(leftAddress: Address, tempAddress:Address) -> Int? {
+        let (leftVal, _) = getValue(from: leftAddress)
+        
+        if (!(leftVal as! Bool)){
+            return tempAddress - 1
+        }
+        return nil
+    }
+  
+    
+    /**
+     Description: function to verify the value inside the limits
+     Parameters: leftAddress, Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
+     **/
+    
+    func verify(leftAddress: Address, tempAddress: Address) -> Bool {
+        let (tempVal, _) = getValue(from: tempAddress)
+        
+        if leftAddress < tempVal as! Int || leftAddress < 0 {
+            error("Error: Index in array is out of bounds")
+            end()
+            return false
+            
+        }
+        return true
+    }
+    
+
+    /**
+     Description: function to create ERA and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
+     **/
+    
     func era(leftAddress:Address, tempAddress:Address){
         //TO DO: era func
     }
     
     /**
-     function to create GoSub and save the result in the corresponding address
+     Description: function to create GoSub and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
+
     func goSub(leftAddress:Address, tempAddress:Address){
         //TO DO: code
     }
     
     /**
-     function to create PARAM and save the result in the corresponding address
+     Description: function to create PARAM and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address ;  tempAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
+    
     func param(leftAddress:Address, tempAddress:Address){
         //get value
         let (leftVal, leftType) = getValue(from: leftAddress)
@@ -491,8 +580,12 @@ extension Wizard {
     
     
     /**
-     function to create RETURN and save the result in the corresponding address
+      Description: Function to create RETURN and save the result in the corresponding address
+      Parameters: leftAddress, Type: Address ;  tempAddress, Type: Address
+      Return value: N/A
+      Error handling: N/A
      **/
+    
     func returnOp(leftAddress:Address, tempAddress:Address){
         // Return addresss value
         
@@ -502,7 +595,10 @@ extension Wizard {
     }
     
     /**
-     function to create RETURN and save the result in the corresponding address
+     Description: function to create RETURN and save the result in the corresponding address
+     Parameters: leftAddress, Type: Address
+     Return value: N/A
+     Error handling: N/A
      **/
     func printOp(leftAddress:Address){
         let (outputVal, outputType) = getValue(from: leftAddress)
