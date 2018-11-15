@@ -11,26 +11,6 @@ import Antlr4
 import SwiftyJSON
 
 
-struct Stack<T> {
-    var array: [T] = []
-    
-    mutating func push(_ element: T) {
-        array.append(element)
-    }
-    mutating func pop() -> T? {
-        if !array.isEmpty {
-            let index = array.count - 1
-            let poppedValue = array.remove(at: index)
-            return poppedValue
-        } else {
-            return nil
-        }
-    }
-    
-    mutating func removeAll() {
-        array.removeAll()
-    }
-}
 
 class Wizard{
     
@@ -189,6 +169,10 @@ class Wizard{
         return .Void
     }
     
+    func getReturnType(from function: MapacheParser.FuncionContext) {
+        return (ctx.VOID() != nil) ? .Void : getType(from: ctx.tipo().last!)
+    }
+    
     // MARK: Manage Stacks
     func addOperandToStacks(address: Address, type: Type) {
         operands.push(address)
@@ -237,7 +221,6 @@ extension Wizard {
         case ..<constantsBaseAddress:
             #warning ("TODO: ")
             print("Error: address out of tables indexes")
-            break
         case ..<globalBaseAddress:
             constantsMemory.save(value, in: address)
         case ..<localBaseAddress:
@@ -256,12 +239,10 @@ extension Wizard {
     
     func getValue(from address: Address) -> (value: Any, type: Type) {
         
-        if address < 0 {
+        switch address {
+        case ..<0:
             let (arrayAddress,_) = getValue(from: -address)
             return getValue(from: arrayAddress as! Address)
-        }
-        
-        switch address {
         case ..<constantsBaseAddress:
             #warning ("TODO: ")
             print("Error: address out of tables indexes")
@@ -348,6 +329,8 @@ extension Wizard {
         // Checar si es vector o no
     }
     
+
+    
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         
         // PN1 Funcion
@@ -363,7 +346,8 @@ extension Wizard {
         }
         
         // If void, init with .Void if not get type from 'tipo'
-        let returnType = (ctx.VOID() != nil) ? .Void : getType(from: ctx.tipo().last!)
+        
+        let returnType = getReturnType(from: ctx)
         
         let startAddress = functions.count
         functions[funcName] = Function(returnType: returnType, startAddress: startAddress)
@@ -415,7 +399,6 @@ extension Wizard {
     func exitBloque(_ ctx: MapacheParser.BloqueContext) { }
     
     func enterBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
-        #warning ("TODO: ")
         // PN6 Funcion
         // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
         let funcCtx = ctx.parent as! MapacheParser.FuncionContext
@@ -426,7 +409,29 @@ extension Wizard {
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
         #warning ("TODO: Return")
         // PN? Funcion
-        // Check if function has return, if it does, create Quad
+        // Check if function has return
+        let funcCtx = ctx.parent as! MapacheParser.FuncionContext
+        let funcType = getReturnType(from: funcCtx)
+        
+        if ctx.RETURN() == nil {
+            // Function must be Void
+            if funcType != .Void {
+                print("Error: ")
+            }
+        } else {
+            // Function must not be Void
+            if funcType != .Void {
+                // Return type must be same type as func return type
+                //if funcType
+                
+            } else {
+                print("Error: ")
+            }
+        }
+        
+        // if it has return, create Quad
+        
+        
         //let temp = ctx.expresion()
         // check if expression is same type as function
         //addQuad(.Return, temp, nil, nil)
