@@ -87,22 +87,22 @@ class Memory {
         }
     }
     
-    func save(int: Int) -> Address {
+    func save(int: Int?) -> Address {
         ints.append(int)
         return intStartAddress + ints.count - 1
     }
     
-    func save(float: Float) -> Address {
+    func save(float: Float?) -> Address {
         floats.append(float)
         return floatStartAddress + floats.count - 1
     }
     
-    func save(char: Character) -> Address {
+    func save(char: Character?) -> Address {
         chars.append(char)
         return charStartAddress + chars.count - 1
     }
 
-    func save(bool: Bool) -> Address {
+    func save(bool: Bool?) -> Address {
         bools.append(bool)
         return boolStartAddress + bools.count - 1
     }

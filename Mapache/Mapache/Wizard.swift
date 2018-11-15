@@ -23,6 +23,8 @@ class Wizard{
     let localBaseAddress = 15000
     let tempBaseAddress = 20000
     
+    let globalFunc = "global"
+    
     // MARK: - Variables
     
     // Operators semantic cube
@@ -98,6 +100,8 @@ class Wizard{
         
         global = Function(returnType: .Void, startAddress: -1)
         
+        currentFunction = globalFunc
+        
         functions.removeAll()
         jumps.removeAll()
         types.removeAll()
@@ -171,8 +175,7 @@ class Wizard{
         let resultType = getResultType(typeL, typeR, oper)
         
         if resultType != .Error {
-            #warning ("TODO: Result address")
-            let resultAddress = -1
+            let resultAddress = getTempAddress(forType: resultType)
             addQuad(oper, opL, opR, resultAddress)
             addOperandToStacks(address: resultAddress, type: resultType)
         } else {
@@ -248,6 +251,28 @@ extension Wizard {
 //
 //    }
     
+//    func getNewAddress(forType type: Type) -> Address {
+//        if currentFunction == globalFunc {
+//            
+//        } else {
+//            
+//        }
+//    }
+    
+    func getTempAddress(forType type: Type) -> Address  {
+        switch type {
+        case .Int:
+            return tempMemory!.save(int: nil)
+        case .Float:
+            return tempMemory!.save(float: nil)
+        case .Char:
+            return tempMemory!.save(char: nil)
+        case .Bool:
+            return tempMemory!.save(bool: nil)
+        default:
+            return -1
+        }
+    }
     
     func save(_ value: Any, in address: Address) {
         switch address {
@@ -421,7 +446,7 @@ extension Wizard {
         // PN7 Funcion
         // Release the current varTable (local).
         //localMemory
-        currentFunction = "global"
+        currentFunction = globalFunc
         
         // Generate an action to end the procedure
         addQuad(.EndProc, nil, nil, nil)
@@ -480,22 +505,45 @@ extension Wizard {
     
     func enterExpBool(_ ctx: MapacheParser.ExpBoolContext) { }
     
-    func exitExpBool(_ ctx: MapacheParser.ExpBoolContext) { }
+    func exitExpBool(_ ctx: MapacheParser.ExpBoolContext) {
+        // PN ?: Hoja
+        switch operators.top()! {
+        case .And, .Or:
+            addExprQuad()
+        default:
+            break
+        }
+    }
     
     func enterExp(_ ctx: MapacheParser.ExpContext) { }
     
-    func exitExp(_ ctx: MapacheParser.ExpContext) { }
+    func exitExp(_ ctx: MapacheParser.ExpContext) {
+        // PN 9: Hoja
+        #warning ("TODO: Check if this was supposed to be in ExitExpBool")
+        switch operators.top()! {
+        case .LessThan, .GreaterThan, .Equal, .NotEqual:
+            addExprQuad()
+        default:
+            break
+        }
+    }
     
     func enterTermino(_ ctx: MapacheParser.TerminoContext) {
         
     }
     
     func exitTermino(_ ctx: MapacheParser.TerminoContext) {
-        
+        // PN 4: Hoja
+        switch operators.top()! {
+        case .Sum, .Sub:
+            addExprQuad()
+        default:
+            break
+        }
     }
     
     func enterFactor(_ ctx: MapacheParser.FactorContext) {
-        if ctx.OPEN_PAREN != nil {
+        if ctx.OPEN_PAREN() != nil {
             // PN 6: Hoja
             operators.push(.FalseBottomMark)
         }
@@ -513,16 +561,16 @@ extension Wizard {
                 addOperandToStacks(address: idVar.address, type: idVar.type)
             } else {
                 #warning ("TODO: Error")
+                print("Error: The id '\(id)' doesn't exists")
                 return
             }
             
         } else if ctx.CLOSE_PAREN() != nil {
             // PN 7: Hoja
-            operators.pop()
+            _ = operators.pop()
         }
         
         // PN 5: Hoja
-        
         switch operators.top()! {
         case .Mult, .Div:
             addExprQuad()
