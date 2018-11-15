@@ -783,19 +783,59 @@ extension Wizard {
     func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
     
     func enterAndOr(_ ctx: MapacheParser.AndOrContext){
+        let parent = ctx.parent as! MapacheParser.ExpresionContext
+        let oper: Op
         
+        if parent.AND() != nil {
+            oper = .And
+        } else {
+            oper = .Or
+        }
+        
+        operators.push(oper)
     }
     
     func enterEquality(_ ctx: MapacheParser.EqualityContext){
+        let parent = ctx.parent as! MapacheParser.ExpBoolContext
+        let oper: Op
         
+        if parent.LESS_THAN() != nil {
+            oper = .LessThan
+        } else if parent.GREATER_THAN() != nil {
+            oper = .GreaterThan
+        } else if parent.EQUAL() != nil {
+            oper = .Equal
+        } else {
+            oper = .NotEqual
+        }
+        
+        operators.push(oper)
     }
     
     func enterSubAdd(_ ctx: MapacheParser.SubAddContext){
+        let parent = ctx.parent as! MapacheParser.ExpContext
+        let oper: Op
         
+        if parent.PLUS() != nil {
+            oper = .Sum
+        } else {
+            oper = .Sub
+        }
+        
+        operators.push(oper)
     }
     
     func enterMultDiv(_ ctx: MapacheParser.MultDivContext){
+        let parent = ctx.parent as! MapacheParser.TerminoContext
+        let oper: Op
         
+        if parent.MULTIPLY() != nil {
+            oper = .Mult
+        } else {
+            oper = .Div
+        }
+        
+        operators.push(oper)
     }
     
 }
