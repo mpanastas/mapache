@@ -557,7 +557,11 @@ extension Wizard {
                 addOperandToStacks(address: charAddress, type: .Char)
             }
         } else if let floatNode = ctx.CONST_F() {
-            let float = Float(getText(from: floatNode))!
+            var float = Float(getText(from: floatNode))!
+            
+            if ctx.MINUS() != nil {
+                float = -float
+            }
             
             if let floatAddress = constantsMemory.find(float: float) {
                 addOperandToStacks(address: floatAddress, type: .Float)
@@ -566,7 +570,11 @@ extension Wizard {
                 addOperandToStacks(address: floatAddress, type: .Float)
             }
         } else if let intNode = ctx.CONST_I() {
-            let int = Int(getText(from: intNode))!
+            var int = Int(getText(from: intNode))!
+            
+            if ctx.MINUS() != nil {
+                int = -int
+            }
             
             if let intAddress = constantsMemory.find(int: int) {
                addOperandToStacks(address: intAddress, type: .Int)
