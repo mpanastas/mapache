@@ -71,11 +71,11 @@ extension Wizard {
             case .ERA :
                 era(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             case .GoSub:
-                goSub(leftAddress : quadruple.operandLeft!, tempAddress: quadruple.temp!)
+                goSub(leftAddress : quadruple.operandLeft!, tempAddress: quadruple.temp!, quadIndex: &quadIndex)
             case .Param:
                 param(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             case .EndProc:
-                 #warning ("TODO: endproc func ")
+                endProc(quadIndex: &quadIndex)
                 break
             case .Print:
                 printOp(leftAddress: quadruple.operandLeft!)
@@ -502,6 +502,18 @@ extension Wizard {
     
     func era(leftAddress:Address, tempAddress:Address){
         #warning ("TODO: era func")
+        /*
+        // Get function name from address
+        let functionName = getFunctionName(in: functionAddress)
+        
+        guard functionName != "Error" else {print("Error no function with start address"); return}
+        
+        // Generate instance of memory
+        let functionMemory = funcTable[functionName]?.memory.copy()
+        
+        // Add memory to stack
+        memoryStack.append(functionMemory!)
+         */
     }
     
     /**
@@ -511,8 +523,20 @@ extension Wizard {
      Error handling: N/A
      **/
 
-    func goSub(leftAddress:Address, tempAddress:Address){
+    func goSub(leftAddress:Address, tempAddress:Address, quadIndex: inout Int){
         #warning ("TODO: Code")
+        /*
+        let local = localMemory.copy()
+        
+        // Make top memory -> local memory
+        localMemory = memoryStack.popLast()!
+        
+        // Sleep local memory
+        memoryStack.append(local)
+        
+        // Save quadruple to return
+        quadruplesStack.append(quadrupleIndex)
+         */
     }
     
     /**
@@ -570,7 +594,9 @@ extension Wizard {
      **/
     func printOp(leftAddress:Address){
         let (outputVal, outputType) = getValue(from: leftAddress)
-        #warning ("TODO: Falta esto maps")
+        let result = "\(outputVal)"
+        output(result)
+        /*
         if outputType == .Int {
             let value = String(outputVal as! Int) + "\n"
             // To Do: ParseTestSuccessBlock(value)
@@ -584,17 +610,20 @@ extension Wizard {
             let value = outputVal as! String + "\n"
             // To Do:ParseTestSuccessBlock(value)
         }
+ */
     }
     
     func end(quadIndex: inout Int) {
-        
         sendResultToEditorVC()
+    }
+    
+    func endProc(quadIndex: inout Int){
+        #warning ("TODO: endproc func ")
+        /*
+         quadIndex = quadruplesStack.popLast()!
+         //Change memories
+         localMemory = memoryStack.popLast()!
+         */
     }
 
 }
-
-
-
-// NOTES
-#warning ("TODO: Remove unnecesary comments. Ex: *more code*")
-#warning ("TODO: Move order of functions to have same order as switch")
