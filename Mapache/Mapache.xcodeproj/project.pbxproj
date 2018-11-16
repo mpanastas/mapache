@@ -22,7 +22,9 @@
 		375C60E6219E35CF002CB9F4 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C60E5219E35CF002CB9F4 /* RoundedView.swift */; };
 		375C60E8219E35EE002CB9F4 /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C60E7219E35EE002CB9F4 /* FileCell.swift */; };
 		375C60EB219E361D002CB9F4 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C60EA219E361D002CB9F4 /* File.swift */; };
-		378FFAB82174294500EC10AE /* Antlr4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378FFAB12174286900EC10AE /* Antlr4.framework */; };
+		375C60FC219E5927002CB9F4 /* Antlr4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375C60F5219E582B002CB9F4 /* Antlr4.framework */; };
+		375C60FD219E5B50002CB9F4 /* Antlr4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375C60F5219E582B002CB9F4 /* Antlr4.framework */; };
+		375C60FE219E5B50002CB9F4 /* Antlr4.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 375C60F5219E582B002CB9F4 /* Antlr4.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		378FFABA2174311100EC10AE /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378FFAB92174311100EC10AE /* Typealiases.swift */; };
 		378FFABD2174443500EC10AE /* SemanticCube.json in Resources */ = {isa = PBXBuildFile; fileRef = 378FFABC2174443400EC10AE /* SemanticCube.json */; };
 		379DB621219CFDB900582502 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379DB620219CFDB900582502 /* Stack.swift */; };
@@ -65,28 +67,49 @@
 			remoteGlobalIDString = 373958202166D7F00030470E;
 			remoteInfo = Mapache;
 		};
-		378FFAB02174286900EC10AE /* PBXContainerItemProxy */ = {
+		375C60F4219E582B002CB9F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
+			containerPortal = 375C60ED219E582B002CB9F4 /* Antlr4.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "Antlr4::Antlr4::Product";
 			remoteInfo = Antlr4;
 		};
-		378FFAB22174286900EC10AE /* PBXContainerItemProxy */ = {
+		375C60F6219E582B002CB9F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
+			containerPortal = 375C60ED219E582B002CB9F4 /* Antlr4.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = "Antlr4::Antlr4Tests::Product";
 			remoteInfo = Antlr4Tests;
 		};
-		378FFAB62174293700EC10AE /* PBXContainerItemProxy */ = {
+		375C60FA219E591A002CB9F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
+			containerPortal = 375C60ED219E582B002CB9F4 /* Antlr4.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = "Antlr4::Antlr4";
+			remoteInfo = Antlr4;
+		};
+		375C60FF219E5B50002CB9F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 375C60ED219E582B002CB9F4 /* Antlr4.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = "Antlr4::Antlr4";
 			remoteInfo = Antlr4;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		375C6101219E5B50002CB9F4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				375C60FE219E5B50002CB9F4 /* Antlr4.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		029C5D5F50E7651C1EA07116 /* Pods-MapacheUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapacheUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapacheUITests/Pods-MapacheUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -110,7 +133,7 @@
 		375C60E5219E35CF002CB9F4 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		375C60E7219E35EE002CB9F4 /* FileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
 		375C60EA219E361D002CB9F4 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		378FFAA92174286900EC10AE /* Antlr4.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Antlr4.xcodeproj; path = ../../antlr4/runtime/Swift/Antlr4.xcodeproj; sourceTree = "<group>"; };
+		375C60ED219E582B002CB9F4 /* Antlr4.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Antlr4.xcodeproj; path = ../../antlr4/runtime/Swift/Antlr4.xcodeproj; sourceTree = "<group>"; };
 		378FFAB92174311100EC10AE /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		378FFABC2174443400EC10AE /* SemanticCube.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SemanticCube.json; sourceTree = "<group>"; };
 		379DB620219CFDB900582502 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
@@ -149,8 +172,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				378FFAB82174294500EC10AE /* Antlr4.framework in Frameworks */,
+				375C60FC219E5927002CB9F4 /* Antlr4.framework in Frameworks */,
 				2C5A32E721D1AEE0B2EDAA48 /* Pods_Mapache.framework in Frameworks */,
+				375C60FD219E5B50002CB9F4 /* Antlr4.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +210,7 @@
 		373958182166D7F00030470E = {
 			isa = PBXGroup;
 			children = (
-				378FFAA92174286900EC10AE /* Antlr4.xcodeproj */,
+				375C60ED219E582B002CB9F4 /* Antlr4.xcodeproj */,
 				373958232166D7F00030470E /* Mapache */,
 				373958382166D7F10030470E /* MapacheTests */,
 				373958432166D7F10030470E /* MapacheUITests */,
@@ -282,11 +306,11 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		378FFAAA2174286900EC10AE /* Products */ = {
+		375C60EE219E582B002CB9F4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				378FFAB12174286900EC10AE /* Antlr4.framework */,
-				378FFAB32174286900EC10AE /* Antlr4Tests.xctest */,
+				375C60F5219E582B002CB9F4 /* Antlr4.framework */,
+				375C60F7219E582B002CB9F4 /* Antlr4Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -381,11 +405,13 @@
 				3739581E2166D7F00030470E /* Frameworks */,
 				3739581F2166D7F00030470E /* Resources */,
 				646212EE95A50C2C1C66EC74 /* [CP] Embed Pods Frameworks */,
+				375C6101219E5B50002CB9F4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				378FFAB72174293700EC10AE /* PBXTargetDependency */,
+				375C60FB219E591A002CB9F4 /* PBXTargetDependency */,
+				375C6100219E5B50002CB9F4 /* PBXTargetDependency */,
 			);
 			name = Mapache;
 			productName = Mapache;
@@ -466,8 +492,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 378FFAAA2174286900EC10AE /* Products */;
-					ProjectRef = 378FFAA92174286900EC10AE /* Antlr4.xcodeproj */;
+					ProductGroup = 375C60EE219E582B002CB9F4 /* Products */;
+					ProjectRef = 375C60ED219E582B002CB9F4 /* Antlr4.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -480,18 +506,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		378FFAB12174286900EC10AE /* Antlr4.framework */ = {
+		375C60F5219E582B002CB9F4 /* Antlr4.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Antlr4.framework;
-			remoteRef = 378FFAB02174286900EC10AE /* PBXContainerItemProxy */;
+			remoteRef = 375C60F4219E582B002CB9F4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		378FFAB32174286900EC10AE /* Antlr4Tests.xctest */ = {
+		375C60F7219E582B002CB9F4 /* Antlr4Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = file;
 			path = Antlr4Tests.xctest;
-			remoteRef = 378FFAB22174286900EC10AE /* PBXContainerItemProxy */;
+			remoteRef = 375C60F6219E582B002CB9F4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -683,10 +709,15 @@
 			target = 373958202166D7F00030470E /* Mapache */;
 			targetProxy = 373958412166D7F10030470E /* PBXContainerItemProxy */;
 		};
-		378FFAB72174293700EC10AE /* PBXTargetDependency */ = {
+		375C60FB219E591A002CB9F4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Antlr4;
-			targetProxy = 378FFAB62174293700EC10AE /* PBXContainerItemProxy */;
+			targetProxy = 375C60FA219E591A002CB9F4 /* PBXContainerItemProxy */;
+		};
+		375C6100219E5B50002CB9F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Antlr4;
+			targetProxy = 375C60FF219E5B50002CB9F4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -830,6 +861,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8BAB77F7F67A0CAC129BB25E /* Pods-Mapache.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -852,6 +884,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 946B35C98E558FA4F9448482 /* Pods-Mapache.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

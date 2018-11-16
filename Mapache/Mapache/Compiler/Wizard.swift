@@ -194,7 +194,7 @@ class Wizard{
     }
     
     func getType(from ctx: MapacheParser.TipoContext) -> Type {
- 
+        
         if ctx.INT() != nil {
             return .Int
         } else if ctx.FLOAT() != nil {
@@ -234,33 +234,33 @@ extension Wizard {
         tempMemory.reset()
     }
     
-//    func save(int: Int){
-//
-//    }
-//
-//    func save(float: Float){
-//
-//    }
-//
-//    func save(bool: Bool) {
-//
-//    }
-//
-//    func save(char: Character) {
-//
-//    }
-//
-//    func save(string: String) {
-//
-//    }
+    //    func save(int: Int){
+    //
+    //    }
+    //
+    //    func save(float: Float){
+    //
+    //    }
+    //
+    //    func save(bool: Bool) {
+    //
+    //    }
+    //
+    //    func save(char: Character) {
+    //
+    //    }
+    //
+    //    func save(string: String) {
+    //
+    //    }
     
-//    func getNewAddress(forType type: Type) -> Address {
-//        if currentFunction == globalFunc {
-//            
-//        } else {
-//            
-//        }
-//    }
+    //    func getNewAddress(forType type: Type) -> Address {
+    //        if currentFunction == globalFunc {
+    //
+    //        } else {
+    //
+    //        }
+    //    }
     
     func getTempAddress(forType type: Type) -> Address  {
         switch type {
@@ -295,7 +295,7 @@ extension Wizard {
     
     func saveParam(_ value: Any, in address: Address) {
         #warning ("TODO: ")
-
+        
     }
     
     func getValue(from address: Address) -> (value: Any, type: Type) {
@@ -389,7 +389,7 @@ extension Wizard {
         // Checar si es vector o no
     }
     
-
+    
     
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         
@@ -543,12 +543,12 @@ extension Wizard {
     func exitTermino(_ ctx: MapacheParser.TerminoContext) {
         // PN 4: Hoja
         if let oper = operators.top() {
-        switch oper {
-        case .Sum, .Sub:
-            addExprQuad()
-        default:
-            break
-        }
+            switch oper {
+            case .Sum, .Sub:
+                addExprQuad()
+            default:
+                break
+            }
         }
     }
     
@@ -560,7 +560,7 @@ extension Wizard {
     }
     
     func exitFactor(_ ctx: MapacheParser.FactorContext) {
-
+        
         if let idNode = ctx.ID() {
             // PN 1: Hoja
             let id = getText(from: idNode)
@@ -690,7 +690,7 @@ extension Wizard {
             }
             
             if let intAddress = constantsMemory.find(int: int) {
-               addOperandToStacks(address: intAddress, type: .Int)
+                addOperandToStacks(address: intAddress, type: .Int)
             } else {
                 let intAddress = constantsMemory.save(int: int)
                 addOperandToStacks(address: intAddress, type: .Int)
