@@ -83,12 +83,11 @@ class Wizard{
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let jsonObj = try JSON(data: data)
                 semanticCube = jsonObj["semanticCube"]
-                //print(semanticCube)
             } catch let error {
-                print("parse error: \(error.localizedDescription)")
+                compileError("Parse error \(error.localizedDescription)")
             }
         } else {
-            print("Invalid filename/path.")
+            compileError("Couldn't find semanticCube")
         }
     }
     
@@ -133,8 +132,12 @@ class Wizard{
             
             print(semanticCube["Float"]["Int"]["*"])
         } catch {
-            print("parse error: \(error.localizedDescription)")
+            compileError("parse error: \(error.localizedDescription)")
         }
+    }
+    
+    func compileError(_ message: String) {
+        editorVC.showCompileError(message)
     }
     
     // MAR: - Semantic cube functions
@@ -179,7 +182,7 @@ class Wizard{
             addQuad(oper, opL, opR, resultAddress)
             addOperandToStacks(address: resultAddress, type: resultType)
         } else {
-            print("Error: Type mismatch")
+            compileError("Type mismatch")
         }
         
     }
@@ -278,7 +281,7 @@ extension Wizard {
         switch address {
         case ..<constantsBaseAddress:
             #warning ("TODO: ")
-            print("Error: address out of tables indexes")
+            compileError("Address out of tables indexes")
         case ..<globalBaseAddress:
             constantsMemory.save(value, in: address)
         case ..<localBaseAddress:
@@ -302,8 +305,7 @@ extension Wizard {
             let (arrayAddress,_) = getValue(from: -address)
             return getValue(from: arrayAddress as! Address)
         case ..<constantsBaseAddress:
-            #warning ("TODO: ")
-            print("Error: address out of tables indexes")
+            compileError("Address out of tables indexes")
             return (-1, .Void)
         case ..<globalBaseAddress:
             return constantsMemory.getValue(from: address)
@@ -399,7 +401,7 @@ extension Wizard {
         let funcName = getText(from: ctx.ID().first!)
         
         if functions.keys.contains(funcName) {
-            #warning ("TODO: Error. Function already exists")
+            compileError("Function already exists")
             return
         }
         
@@ -428,7 +430,7 @@ extension Wizard {
             // Insert parameter into the current (local) varTable
             // Insert the type to every parameter uploaded into the varTable.
             if (functions[funcName]?.variables.keys.contains(paramId))!{
-                #warning ("TODO: Error. Parameter already exists")
+                compileError("Parameter already exists")
                 return
             }
             
@@ -474,7 +476,7 @@ extension Wizard {
         if ctx.RETURN() == nil {
             // Function must be Void
             if funcType != .Void {
-                print("Error: ")
+                compileError("Function needs return")
             }
         } else {
             // Function must not be Void
@@ -483,7 +485,7 @@ extension Wizard {
                 //if funcType
                 
             } else {
-                print("Error: ")
+                compileError("Return type must be same type as function return type")
             }
         }
         
@@ -568,8 +570,7 @@ extension Wizard {
             } else if let idVar = global.variables[id] {
                 addOperandToStacks(address: idVar.address, type: idVar.type)
             } else {
-                #warning ("TODO: Error")
-                print("Error: The id '\(id)' doesn't exists")
+                compileError("The id '\(id)' doesn't exists")
                 return
             }
             
@@ -716,7 +717,7 @@ extension Wizard {
         // PN2 While
         let expType = types.pop()
         if (expType != .Bool) {
-            //error type-mismatch
+            compileError("Type-mismatch")
         } else {
             let result = operands.pop()
             addQuad(.GoToFalse, result, nil, nil)

@@ -45,6 +45,7 @@ class EditorVC: UIViewController {
         }
     }
     
+    
     // MARK: - Custom functions
     
     private func cleanResults() {
@@ -63,6 +64,13 @@ class EditorVC: UIViewController {
         
         // stop loading to consoletextview
     }
+    
+    func showCompileError(_ message: String) {
+        consoleTextView.textColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+        let text = "COMPILE ERROR: \n\(message) "
+        consoleTextView.text = text
+    }
+    
     
     // MARK: - IBActions
     
