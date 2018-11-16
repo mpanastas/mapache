@@ -25,7 +25,7 @@ cicloWhile  : WHILE OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque;
 cicloFor    : FOR ID IN exp DOTS exp BY forRango exp forListo bloque;
 imprimir    : PRINT OPEN_PAREN (TEXT | expresion) CLOSE_PAREN SEMICOLON;
 tipo        : INT | FLOAT | BOOL | CHAR;
-cte         : CONST_B | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
+cte         : 'true' | 'false' | CONST_C | ((MINUS)? CONST_F) | ((MINUS)? CONST_I);
 
 
 condicionLista      : ;
@@ -143,7 +143,6 @@ FALSE               : F A L S E ;
 TEXT                : QUOTE .*? QUOTE;
 CONST_I             : DIGIT+;
 CONST_F             : DIGIT+ DOT DIGIT+;
-CONST_B             : (TRUE|FALSE) ;
 CONST_C             : APOS [A-Za-z0-9_] APOS; // to do
 
 ID                  : [A-Za-z][A-Za-z0-9_]*;

@@ -16,16 +16,17 @@ open class MapacheParser: Parser {
 
 	public
 	enum Tokens: Int {
-		case EOF = -1, MAPACHE = 1, INT = 2, CHAR = 3, FLOAT = 4, BOOL = 5, VOID = 6, 
-                 FUNC = 7, RETURN = 8, VAR = 9, PRINT = 10, IF = 11, ELSE = 12, 
-                 WHILE = 13, FOR = 14, IN = 15, DOTS = 16, BY = 17, PLUS = 18, 
-                 MINUS = 19, MULTIPLY = 20, DIVISION = 21, ASSIGN = 22, 
-                 EQUAL = 23, NOT = 24, NOT_EQUAL = 25, LESS_THAN = 26, GREATER_THAN = 27, 
-                 AND = 28, OR = 29, OPEN_BRACKET = 30, CLOSE_BRACKET = 31, 
-                 OPEN_PAREN = 32, CLOSE_PAREN = 33, OPEN_CURLY = 34, CLOSE_CURLY = 35, 
-                 COMMA = 36, COLON = 37, DOT = 38, SEMICOLON = 39, ARROW = 40, 
-                 TRUE = 41, FALSE = 42, TEXT = 43, CONST_I = 44, CONST_F = 45, 
-                 CONST_B = 46, CONST_C = 47, ID = 48, WS = 49
+		case EOF = -1, T__0 = 1, T__1 = 2, MAPACHE = 3, INT = 4, CHAR = 5, FLOAT = 6, 
+                 BOOL = 7, VOID = 8, FUNC = 9, RETURN = 10, VAR = 11, PRINT = 12, 
+                 IF = 13, ELSE = 14, WHILE = 15, FOR = 16, IN = 17, DOTS = 18, 
+                 BY = 19, PLUS = 20, MINUS = 21, MULTIPLY = 22, DIVISION = 23, 
+                 ASSIGN = 24, EQUAL = 25, NOT = 26, NOT_EQUAL = 27, LESS_THAN = 28, 
+                 GREATER_THAN = 29, AND = 30, OR = 31, OPEN_BRACKET = 32, 
+                 CLOSE_BRACKET = 33, OPEN_PAREN = 34, CLOSE_PAREN = 35, 
+                 OPEN_CURLY = 36, CLOSE_CURLY = 37, COMMA = 38, COLON = 39, 
+                 DOT = 40, SEMICOLON = 41, ARROW = 42, TRUE = 43, FALSE = 44, 
+                 TEXT = 45, CONST_I = 46, CONST_F = 47, CONST_C = 48, ID = 49, 
+                 WS = 50
 	}
 
 	public
@@ -51,15 +52,16 @@ open class MapacheParser: Parser {
 	]
 
 	private static let _LITERAL_NAMES: [String?] = [
+		nil, "'true'", "'false'"
 	]
 	private static let _SYMBOLIC_NAMES: [String?] = [
-		nil, "MAPACHE", "INT", "CHAR", "FLOAT", "BOOL", "VOID", "FUNC", "RETURN", 
-		"VAR", "PRINT", "IF", "ELSE", "WHILE", "FOR", "IN", "DOTS", "BY", "PLUS", 
-		"MINUS", "MULTIPLY", "DIVISION", "ASSIGN", "EQUAL", "NOT", "NOT_EQUAL", 
-		"LESS_THAN", "GREATER_THAN", "AND", "OR", "OPEN_BRACKET", "CLOSE_BRACKET", 
-		"OPEN_PAREN", "CLOSE_PAREN", "OPEN_CURLY", "CLOSE_CURLY", "COMMA", "COLON", 
-		"DOT", "SEMICOLON", "ARROW", "TRUE", "FALSE", "TEXT", "CONST_I", "CONST_F", 
-		"CONST_B", "CONST_C", "ID", "WS"
+		nil, nil, nil, "MAPACHE", "INT", "CHAR", "FLOAT", "BOOL", "VOID", "FUNC", 
+		"RETURN", "VAR", "PRINT", "IF", "ELSE", "WHILE", "FOR", "IN", "DOTS", 
+		"BY", "PLUS", "MINUS", "MULTIPLY", "DIVISION", "ASSIGN", "EQUAL", "NOT", 
+		"NOT_EQUAL", "LESS_THAN", "GREATER_THAN", "AND", "OR", "OPEN_BRACKET", 
+		"CLOSE_BRACKET", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_CURLY", "CLOSE_CURLY", 
+		"COMMA", "COLON", "DOT", "SEMICOLON", "ARROW", "TRUE", "FALSE", "TEXT", 
+		"CONST_I", "CONST_F", "CONST_C", "ID", "WS"
 	]
 	public
 	static let VOCABULARY = Vocabulary(_LITERAL_NAMES, _SYMBOLIC_NAMES)
@@ -387,7 +389,7 @@ open class MapacheParser: Parser {
 		 	if (//closure
 		 	 { () -> Bool in
 		 	      let testSet: Bool = {  () -> Bool in
-		 	   let testArray: [Int] = [_la, MapacheParser.Tokens.MINUS.rawValue,MapacheParser.Tokens.OPEN_PAREN.rawValue,MapacheParser.Tokens.CONST_I.rawValue,MapacheParser.Tokens.CONST_F.rawValue,MapacheParser.Tokens.CONST_B.rawValue,MapacheParser.Tokens.CONST_C.rawValue,MapacheParser.Tokens.ID.rawValue]
+		 	   let testArray: [Int] = [_la, MapacheParser.Tokens.T__0.rawValue,MapacheParser.Tokens.T__1.rawValue,MapacheParser.Tokens.MINUS.rawValue,MapacheParser.Tokens.OPEN_PAREN.rawValue,MapacheParser.Tokens.CONST_I.rawValue,MapacheParser.Tokens.CONST_F.rawValue,MapacheParser.Tokens.CONST_C.rawValue,MapacheParser.Tokens.ID.rawValue]
 		 	    return  Utils.testBitLeftShiftArray(testArray, 0)
 		 	}()
 		 	      return testSet
@@ -1953,11 +1955,12 @@ open class MapacheParser: Parser {
 		 		try match(MapacheParser.Tokens.TEXT.rawValue)
 
 		 		break
+		 	case .T__0:fallthrough
+		 	case .T__1:fallthrough
 		 	case .MINUS:fallthrough
 		 	case .OPEN_PAREN:fallthrough
 		 	case .CONST_I:fallthrough
 		 	case .CONST_F:fallthrough
-		 	case .CONST_B:fallthrough
 		 	case .CONST_C:fallthrough
 		 	case .ID:
 		 		setState(265)
@@ -2055,10 +2058,6 @@ open class MapacheParser: Parser {
 
 	public class CteContext: ParserRuleContext {
 			open
-			func CONST_B() -> TerminalNode? {
-				return getToken(MapacheParser.Tokens.CONST_B.rawValue, 0)
-			}
-			open
 			func CONST_C() -> TerminalNode? {
 				return getToken(MapacheParser.Tokens.CONST_C.rawValue, 0)
 			}
@@ -2100,44 +2099,30 @@ open class MapacheParser: Parser {
 	    		try! exitRule()
 	    }
 		do {
-		 	setState(283)
+		 	setState(284)
 		 	try _errHandler.sync(self)
 		 	switch(try getInterpreter().adaptivePredict(_input,22, _ctx)) {
 		 	case 1:
 		 		try enterOuterAlt(_localctx, 1)
 		 		setState(273)
-		 		try match(MapacheParser.Tokens.CONST_B.rawValue)
+		 		try match(MapacheParser.Tokens.T__0.rawValue)
 
 		 		break
 		 	case 2:
 		 		try enterOuterAlt(_localctx, 2)
 		 		setState(274)
-		 		try match(MapacheParser.Tokens.CONST_C.rawValue)
+		 		try match(MapacheParser.Tokens.T__1.rawValue)
 
 		 		break
 		 	case 3:
 		 		try enterOuterAlt(_localctx, 3)
-		 		setState(276)
-		 		try _errHandler.sync(self)
-		 		_la = try _input.LA(1)
-		 		if (//closure
-		 		 { () -> Bool in
-		 		      let testSet: Bool = _la == MapacheParser.Tokens.MINUS.rawValue
-		 		      return testSet
-		 		 }()) {
-		 			setState(275)
-		 			try match(MapacheParser.Tokens.MINUS.rawValue)
-
-		 		}
-
-		 		setState(278)
-		 		try match(MapacheParser.Tokens.CONST_F.rawValue)
-
+		 		setState(275)
+		 		try match(MapacheParser.Tokens.CONST_C.rawValue)
 
 		 		break
 		 	case 4:
 		 		try enterOuterAlt(_localctx, 4)
-		 		setState(280)
+		 		setState(277)
 		 		try _errHandler.sync(self)
 		 		_la = try _input.LA(1)
 		 		if (//closure
@@ -2145,12 +2130,32 @@ open class MapacheParser: Parser {
 		 		      let testSet: Bool = _la == MapacheParser.Tokens.MINUS.rawValue
 		 		      return testSet
 		 		 }()) {
-		 			setState(279)
+		 			setState(276)
 		 			try match(MapacheParser.Tokens.MINUS.rawValue)
 
 		 		}
 
-		 		setState(282)
+		 		setState(279)
+		 		try match(MapacheParser.Tokens.CONST_F.rawValue)
+
+
+		 		break
+		 	case 5:
+		 		try enterOuterAlt(_localctx, 5)
+		 		setState(281)
+		 		try _errHandler.sync(self)
+		 		_la = try _input.LA(1)
+		 		if (//closure
+		 		 { () -> Bool in
+		 		      let testSet: Bool = _la == MapacheParser.Tokens.MINUS.rawValue
+		 		      return testSet
+		 		 }()) {
+		 			setState(280)
+		 			try match(MapacheParser.Tokens.MINUS.rawValue)
+
+		 		}
+
+		 		setState(283)
 		 		try match(MapacheParser.Tokens.CONST_I.rawValue)
 
 

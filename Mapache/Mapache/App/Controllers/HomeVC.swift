@@ -53,7 +53,7 @@ class HomeVC: UIViewController {
     
     func fillTests() {
         testExpr()
-        testExpr2()
+        testTypes()
         testExpr3()
     }
     
@@ -71,15 +71,26 @@ class HomeVC: UIViewController {
         files.append(file)
     }
     
-    func testExpr2(){
+    func testTypes(){
         let code =
         """
         mapache {
-            var res: int;
-            res = 5 * (6-1) + 3;
+            var intEx: int;
+            var floatEx: float;
+            var boolEx: bool;
+            var charEx: char;
+
+            intEx = 1;
+            floatEx = 3.1416;
+            boolEx = true;
+            charEx = 'w';
+
+            floatEx = 3.1416;
+            floatEx = 5.26;
+
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Types", code)
         files.append(file)
     }
     func testExpr3(){

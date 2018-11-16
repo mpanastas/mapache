@@ -507,12 +507,15 @@ extension Wizard {
     
     func exitExpBool(_ ctx: MapacheParser.ExpBoolContext) {
         // PN ?: Hoja
-        switch operators.top()! {
-        case .And, .Or:
-            addExprQuad()
-        default:
-            break
+        if let oper = operators.top() {
+            switch oper {
+            case .And, .Or:
+                addExprQuad()
+            default:
+                break
+            }
         }
+        
     }
     
     func enterExp(_ ctx: MapacheParser.ExpContext) { }
@@ -520,12 +523,15 @@ extension Wizard {
     func exitExp(_ ctx: MapacheParser.ExpContext) {
         // PN 9: Hoja
         #warning ("TODO: Check if this was supposed to be in ExitExpBool")
-        switch operators.top()! {
-        case .LessThan, .GreaterThan, .Equal, .NotEqual:
-            addExprQuad()
-        default:
-            break
+        if let oper = operators.top() {
+            switch oper {
+            case .LessThan, .GreaterThan, .Equal, .NotEqual:
+                addExprQuad()
+            default:
+                break
+            }
         }
+        
     }
     
     func enterTermino(_ ctx: MapacheParser.TerminoContext) {
@@ -534,11 +540,13 @@ extension Wizard {
     
     func exitTermino(_ ctx: MapacheParser.TerminoContext) {
         // PN 4: Hoja
-        switch operators.top()! {
+        if let oper = operators.top() {
+        switch oper {
         case .Sum, .Sub:
             addExprQuad()
         default:
             break
+        }
         }
     }
     
@@ -571,12 +579,15 @@ extension Wizard {
         }
         
         // PN 5: Hoja
-        switch operators.top()! {
-        case .Mult, .Div:
-            addExprQuad()
-        default:
-            break
+        if let oper = operators.top() {
+            switch oper {
+            case .Mult, .Div:
+                addExprQuad()
+            default:
+                break
+            }
         }
+        
     }
     
     func enterVector(_ ctx: MapacheParser.VectorContext) {
@@ -645,16 +656,9 @@ extension Wizard {
     
     func enterCte(_ ctx: MapacheParser.CteContext) {
         
-        if let boolNode = ctx.CONST_B() {
-            let bool = getText(from: boolNode).lowercased() == "true" ? true : false
-            
-            if let boolAddress = constantsMemory.find(bool: bool) {
-                addOperandToStacks(address: boolAddress, type: .Bool)
-            } else {
-                let boolAddress = constantsMemory.save(bool: bool)
-                addOperandToStacks(address: boolAddress, type: .Bool)
-            }
-        } else if let charNode = ctx.CONST_C() {
+        
+        
+        if let charNode = ctx.CONST_C() {
             let charText = getText(from: charNode)
             let char = Character(charText[1])
             
@@ -689,6 +693,16 @@ extension Wizard {
             } else {
                 let intAddress = constantsMemory.save(int: int)
                 addOperandToStacks(address: intAddress, type: .Int)
+            }
+        } else {
+            let boolText = ctx.getText()
+            let bool = boolText == "true" ? true : false
+            
+            if let boolAddress = constantsMemory.find(bool: bool) {
+                addOperandToStacks(address: boolAddress, type: .Bool)
+            } else {
+                let boolAddress = constantsMemory.save(bool: bool)
+                addOperandToStacks(address: boolAddress, type: .Bool)
             }
         }
         
