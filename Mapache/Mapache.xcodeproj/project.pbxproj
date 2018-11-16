@@ -209,8 +209,8 @@
 		373958232166D7F00030470E /* Mapache */ = {
 			isa = PBXGroup;
 			children = (
-				375C60E4219E3546002CB9F4 /* Compiler */,
 				375C60E0219E352B002CB9F4 /* App */,
+				375C60E4219E3546002CB9F4 /* Compiler */,
 				37DE852C219A8E1300AA2FDC /* Extensions */,
 				373958282166D7F00030470E /* Main.storyboard */,
 				3739582B2166D7F10030470E /* Assets.xcassets */,
