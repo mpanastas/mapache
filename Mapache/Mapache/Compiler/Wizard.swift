@@ -41,19 +41,21 @@ class Wizard{
     
     var currentFunction = "global"
     
+    var argNum = 0
+    
     // Pending jumps
     var jumps = Stack<Int>()
     
-    // Operators stack (pOper)
+    /// Operators stack (pOper)
     var operators = Stack<Op>()
     
-    // Types stack (pTypes)
+    /// Types stack (pTypes)
     var types = Stack<Type>()
     
-    // Operands stack (PilaO)
+    /// Operands stack (PilaO)
     var operands = Stack<Int>()
     
-    
+    var stop = false
     
     // MARK: Memory variables
     var constantsMemory: Memory!
@@ -98,6 +100,7 @@ class Wizard{
         quadruples.removeAll()
         
         global = Function(returnType: .Void, startAddress: -1)
+        stop = false
         
         currentFunction = globalFunc
         
@@ -129,15 +132,14 @@ class Wizard{
             let walker = ParseTreeWalker()
             let extractor = MapacheWalker.init()
             try walker.walk(extractor, tree)
-            
-            print(semanticCube["Float"]["Int"]["*"])
         } catch {
-            compileError("parse error: \(error.localizedDescription)")
+            compileError("Parse error: \(error.localizedDescription)")
         }
     }
     
     func compileError(_ message: String) {
         editorVC.showCompileError(message)
+        stop = true
     }
     
     // MAR: - Semantic cube functions
@@ -262,6 +264,16 @@ extension Wizard {
     //        }
     //    }
     
+    func getParamType(from funcName: String, paramNum: Int) -> Type {
+        
+        return .Error
+    }
+    
+    func getFuncAddress(with name: String) -> Address {
+        #warning ("TODO: Get func address from it's name")
+        return -1
+    }
+    
     func getTempAddress(forType type: Type) -> Address  {
         switch type {
         case .Int:
@@ -343,39 +355,43 @@ extension Wizard {
     }
     
     func enterLlamada(_ ctx: MapacheParser.LlamadaContext) {
-        #warning ("TODO: ")
+
+        
+        let funcName = getText(from: ctx.ID()!)
+        
         // PN1 Llamada
         // Verify that the function exists into the dirFunc table.
+        if !functions.keys.contains(funcName) {
+            compileError("Function does not exists")
+            return
+        }
         
         // PN2 Llamada
         // Generate action ERA size (Activation Record Expansion -NEW -size)
-        let funcName = ctx.ID()
-        #warning ("TODO: Get func start address")
-        let funcStartAddress = -1
+        let funcStartAddress = getFuncAddress(with: funcName)
         addQuad(.ERA, funcStartAddress, nil, nil)
-        // Start the parameter counter (k) in 1.
-        // Add a pointer to the first parameter type in the ParameterTable
         
+        // Start the parameter counter (k) in 1.
+        argNum = 1
+        // Add a pointer to the first parameter type in the ParameterTable
     }
     
     func exitLlamada(_ ctx: MapacheParser.LlamadaContext) {
-        #warning ("TODO: ")
+        
         // PN5 Llamada
         // Verify that the last parameter points to null (coherence in number of parameters)
+        argNum = 0
         
         // PN6 Llamada
         // Generate action GoSub, procedure-name, initial-address
-        let funcName = ctx.ID()
-        
-        #warning ("TODO: Get func start address")
-        let funcStartAddress = -1
+        let funcName = getText(from: ctx.ID()!)
+        let funcStartAddress = getFuncAddress(with: funcName)
         addQuad(.GoSub, funcStartAddress, nil, nil)
     }
     
     func enterCondicion(_ ctx: MapacheParser.CondicionContext) { }
     
     func exitCondicion(_ ctx: MapacheParser.CondicionContext) {
-        #warning ("TODO: ")
         // PN2 If
         let end = jumps.pop()
         fillGoTo(end!, with: quadsCount)
@@ -392,7 +408,6 @@ extension Wizard {
     
     
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
-        
         // PN1 Funcion
         // Reset Virtual Memory directions
         resetLocalMemory()
@@ -419,7 +434,6 @@ extension Wizard {
         let paramsTypeCtx = ctx.tipo()
         
         let paramsIds = paramsIdsCtx.map({getText(from: $0)})
-        print(paramsIds)
         
         let paramsType = paramsTypeCtx.map({getType(from: $0)})
         
@@ -444,10 +458,8 @@ extension Wizard {
     }
     
     func exitFuncion(_ ctx: MapacheParser.FuncionContext) {
-        #warning ("TODO: ")
         // PN7 Funcion
         // Release the current varTable (local).
-        //localMemory
         currentFunction = globalFunc
         
         // Generate an action to end the procedure
@@ -467,7 +479,7 @@ extension Wizard {
     }
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
-        #warning ("TODO: Return")
+        
         // PN? Funcion
         // Check if function has return
         let funcCtx = ctx.parent as! MapacheParser.FuncionContext
@@ -483,18 +495,18 @@ extension Wizard {
             if funcType != .Void {
                 // Return type must be same type as func return type
                 //if funcType
+                let (operVal, operType) = getOperandAndType()
+                if operType == funcType {
+                    // Create Return Quad
+                    addQuad(.Return, operVal, nil, nil)
+                } else {
+                    compileError("Return type must be same type as function return type")
+                }
                 
             } else {
-                compileError("Return type must be same type as function return type")
+                compileError("Function is Void, can't have a return")
             }
         }
-        
-        // if it has return, create Quad
-        
-        
-        //let temp = ctx.expresion()
-        // check if expression is same type as function
-        //addQuad(.Return, temp, nil, nil)
     }
     
     func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) { }
@@ -602,20 +614,16 @@ extension Wizard {
     }
     
     func enterCiclo(_ ctx: MapacheParser.CicloContext) {
-        #warning ("TODO: ")
-        // PN1 Ciclo
     }
     
     func exitCiclo(_ ctx: MapacheParser.CicloContext) { }
     
     func enterCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
-        #warning ("TODO: ")
         // PN1 While
         jumps.push(quadsCount)
     }
     
     func exitCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
-        #warning ("TODO: ")
         // PN3 While
         let end = jumps.pop()
         let whileDir = jumps.pop()
@@ -656,8 +664,6 @@ extension Wizard {
     func exitTipo(_ ctx: MapacheParser.TipoContext) { }
     
     func enterCte(_ ctx: MapacheParser.CteContext) {
-        
-        
         
         if let charNode = ctx.CONST_C() {
             let charText = getText(from: charNode)
@@ -712,7 +718,6 @@ extension Wizard {
     func exitCte(_ ctx: MapacheParser.CteContext) { }
     
     func enterCondicionLista(_ ctx: MapacheParser.CondicionListaContext) {
-        #warning ("TODO: ")
         // PN1 If
         // PN2 While
         let expType = types.pop()
@@ -729,7 +734,6 @@ extension Wizard {
     }
     
     func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext) {
-        #warning ("TODO: ")
         // PN3 If
         addQuad(.GoTo, nil, nil, nil)
         let f = jumps.pop()
@@ -740,28 +744,28 @@ extension Wizard {
     func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
     
     func enterArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) {
-        #warning ("TODO: ")
         // PN3 Llamada
-        let argument = operands.pop()
-        let argumentType = types.pop()
+        let (argVal, argType) = getOperandAndType()
         
         // Verify argumentType against current Parameter (#k) in parameterTable.
-        if argumentType != argumentType {
-            
-        }
-        // Generate action Parameter, argument, argument#k
+        let parentCtx = ctx.parent as! MapacheParser.LlamadaContext
+        let funcName = getText(from: parentCtx.ID()!)
         
-        addQuad(.Param, nil, nil, argument) // Param nil nil argument
-        // Maybe we dont need argument number, if we do, the instruction should be:
-        // Param argument nil k (k is the argument number, index)
+        let paramType = getParamType(from: funcName, paramNum: argNum)
+        if argType != paramType {
+            compileError("Argument does not match parameter type")
+        }
+        
+        // Generate action Parameter, argument, argument#k
+        addQuad(.Param, argVal, nil, argNum) // Param nil nil argument
     }
     
     func exitArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
     
     func enterArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) {
-        #warning ("TODO: ")
         // PN4 Llamada
         //k = k + 1, move to the next parameter
+        argNum += 1
     }
     
     func exitArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) { }
