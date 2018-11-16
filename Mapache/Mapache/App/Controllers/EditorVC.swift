@@ -10,6 +10,9 @@ import UIKit
 
 class EditorVC: UIViewController {
 
+    
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var editorTextView: UITextView!
     
     @IBOutlet weak var consoleTextView: UITextView!
@@ -20,30 +23,29 @@ class EditorVC: UIViewController {
         }
     }
     
-    
-    
+    // MARK: - Variables
+    var file: File?
     
     // MARK: - Override
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setup()
     }
     
     // MARK: - Setup functions
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setup() {
+        if let file = file {
+            title = file.name
+            editorTextView.text = file.code
+        } else {
+            title = "New file"
+            editorTextView.text = ""
+        }
     }
-    */
+    
+    // MARK: - Custom functions
     
     private func cleanResults() {
         consoleTextView.text = ""
@@ -58,7 +60,11 @@ class EditorVC: UIViewController {
         }
         
         consoleTextView.text = text
+        
+        // stop loading to consoletextview
     }
+    
+    // MARK: - IBActions
     
     @IBAction private func runCode(_ sender: Any) {
         cleanResults()
@@ -73,8 +79,8 @@ class EditorVC: UIViewController {
                         
                         self.view.layoutIfNeeded()
         },completion: nil)
+        
+        // add loading to consoletextview
     }
-
-    
     
 }

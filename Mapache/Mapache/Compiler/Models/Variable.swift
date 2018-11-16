@@ -15,7 +15,7 @@ struct Variable {
     var address: Address!
     var arrSize: Int?
     
-    init(_ type: Type, _ address: Int, _ arrSize: Int? = nil){
+    init(_ type: Type, _ address: Address, _ arrSize: Int? = nil){
         self.type = type
         self.address = address
         self.arrSize = arrSize

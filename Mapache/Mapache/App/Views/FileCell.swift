@@ -10,4 +10,9 @@ import UIKit
 
 class FileCell: UICollectionViewCell {
     
+    @IBOutlet weak var nameLbl: UILabel!
+    
+    func setupCell(with file: File) {
+        nameLbl.text = file.name
+    }
 }

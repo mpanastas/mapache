@@ -17,42 +17,98 @@ class HomeVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     
+    // MARK: - Variables
+    
+    var files: [File] = []
+    
+    var selectedFile: File?
+    
     // MARK: Override
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavBar()
+        
+        fillTests()
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openEditor" {
+            let editorVC = segue.destination as! EditorVC
+            editorVC.file = selectedFile
+            selectedFile = nil
+        }
+    }
+    
+    
+    
     // MARK: - Setup functions
     
     func setupNavBar() {
-        let logoView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-        logoView.image = #imageLiteral(resourceName: "logo")
-        logoView.contentMode = .scaleAspectFit
-        navigationItem.titleView = logoView
+        title = "Home"
     }
     
     // MARK: Tests functions
     
     func fillTests() {
-        testName()
+        testExpr()
+        testExpr2()
+        testExpr3()
     }
     
-    func testName(){
-        
+    #warning ("TODO: Change tests")
+    
+    func testExpr(){
+        let code =
+        """
+        mapache {
+            var res: int;
+            res = 5 * (6-1) + 3;
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    
+    func testExpr2(){
+        let code =
+        """
+        mapache {
+            var res: int;
+            res = 5 * (6-1) + 3;
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    func testExpr3(){
+        let code =
+        """
+        mapache {
+            var res: int;
+            res = 5 * (6-1) + 3;
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
     }
     
 }
 
 extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return files.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row == 0  {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "createFileCell", for: indexPath)
+        }
+        
+        let file = files[indexPath.row - 1]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileCell", for: indexPath) as! FileCell
+        cell.setupCell(with: file)
         return cell
     }
     
@@ -61,6 +117,10 @@ extension HomeVC: UICollectionViewDataSource {
 
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row > 0  {
+            selectedFile = files[indexPath.row - 1]
+        }
+    
         performSegue(withIdentifier: "openEditor", sender: self)
     }
     
