@@ -66,20 +66,25 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache{
-        func factorial(a: Int ) -> Int {
-            var n:Int;
-            n = a;
-            var ans:Int;
-            ans = 0;
-            if (n == 1) {
-            ans = 1;
-            } else {
-            ans = n*factorial(n-1);
+
+            func factorial(a: Int ) -> Int {
+                var n:Int;
+                n = a;
+                var ans:Int;
+                ans = 0;
+
+                if (n == 1) {
+                    ans = 1;
+                } else {
+                    ans = n*factorial(n-1);
+                }
+                return ans;
             }
-            return ans;
-        }
-        factorial(5);
-        factorial(6);
+            
+            var facto:Int;
+            facto = factorial(5);
+            print(facto);
+            
         }
         """
         let file = File("Factorial Recursive", code)
