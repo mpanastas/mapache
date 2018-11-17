@@ -62,18 +62,21 @@ class HomeVC: UIViewController {
         search()
     }
     
-    func factorialR(){
+    func factorialR(){ #warning ("TODO: ")
         let code =
         """
         mapache{
         func factorial(a: Int ) -> Int {
             var n:Int;
             n = a;
+            var ans:Int;
+            ans = 0;
             if (n == 1) {
-            return 1;
+            ans = 1;
             } else {
-            return n*factorial(n-1);
+            ans = n*factorial(n-1);
             }
+            return ans;
         }
         factorial(5);
         factorial(6);
