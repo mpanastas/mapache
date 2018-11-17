@@ -61,7 +61,18 @@ class Memory {
     // MARK: - Custom functions
     
     func save(_ value: Any, in address: Address) {
-        #warning ("TODO: ")
+        switch address {
+        case ..<floatStartAddress:
+            ints[address - intStartAddress] = value as? Int
+        case ..<charStartAddress:
+            floats[address - floatStartAddress] = value as? Float
+        case ..<boolStartAddress:
+            chars[address - charStartAddress] = value as? Character
+        case ..<stringStartAddress:
+            bools[address - boolStartAddress] = value as? Bool
+        default:
+            strings[address - stringStartAddress] = value as? String
+        }
     }
     
     func save(_ type: Type) -> Address {
