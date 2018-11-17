@@ -256,14 +256,6 @@ class MapacheWalker: MapacheBaseListener{
         wizard.exitForListo(ctx)
     }
     
-    override func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) {
-        wizard.enterAsignacionVector(ctx)
-    }
-    
-    override func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) {
-        wizard.exitAsignacionVector(ctx)
-    }
-    
     override func enterAndOr(_ ctx: MapacheParser.AndOrContext){
         wizard.enterAndOr(ctx)
     }
