@@ -367,18 +367,6 @@ public protocol MapacheListener: ParseTreeListener {
 	 */
 	func exitForListo(_ ctx: MapacheParser.ForListoContext)
 	/**
-	 * Enter a parse tree produced by {@link MapacheParser#asignacionVector}.
-	 - Parameters:
-	   - ctx: the parse tree
-	 */
-	func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext)
-	/**
-	 * Exit a parse tree produced by {@link MapacheParser#asignacionVector}.
-	 - Parameters:
-	   - ctx: the parse tree
-	 */
-	func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext)
-	/**
 	 * Enter a parse tree produced by {@link MapacheParser#andOr}.
 	 - Parameters:
 	   - ctx: the parse tree

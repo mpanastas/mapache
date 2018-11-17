@@ -64,6 +64,23 @@ class Memory {
         #warning ("TODO: ")
     }
     
+    func save(_ type: Type) -> Address {
+        switch type {
+        case .Int:
+            return save(int: nil)
+        case .Float:
+            return save(float: nil)
+        case .Char:
+            return save(char: nil)
+        case .Bool:
+            return save(bool: nil)
+        case .String:
+            return save(string: nil)
+        default:
+            return -1
+        }
+    }
+    
     func reset() {
         ints.removeAll()
         floats.removeAll()
@@ -107,7 +124,7 @@ class Memory {
         return boolStartAddress + bools.count - 1
     }
     
-    func save(string: String) -> Address {
+    func save(string: String?) -> Address {
         strings.append(string)
         return stringStartAddress + strings.count - 1
     }

@@ -405,19 +405,6 @@ open class MapacheBaseListener: MapacheListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	open func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	open func enterAndOr(_ ctx: MapacheParser.AndOrContext) { }
 	/**
 	 * {@inheritDoc}

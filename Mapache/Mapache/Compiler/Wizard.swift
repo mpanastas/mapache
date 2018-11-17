@@ -180,7 +180,7 @@ class Wizard{
         let resultType = getResultType(typeL, typeR, oper)
         
         if resultType != .Error {
-            let resultAddress = getTempAddress(forType: resultType)
+            let resultAddress = tempMemory.save(resultType)
             addQuad(oper, opL, opR, resultAddress)
             addOperandToStacks(address: resultAddress, type: resultType)
         } else {
@@ -265,28 +265,17 @@ extension Wizard {
     //    }
     
     func getParamType(from funcName: String, paramNum: Int) -> Type {
-        
+        if let type = functions[funcName]?.paramsSecuence[paramNum-1] {
+            return type
+        }
         return .Error
     }
     
-    func getFuncAddress(with name: String) -> Address {
-        #warning ("TODO: Get func address from it's name")
-        return -1
-    }
-    
-    func getTempAddress(forType type: Type) -> Address  {
-        switch type {
-        case .Int:
-            return tempMemory!.save(int: nil)
-        case .Float:
-            return tempMemory!.save(float: nil)
-        case .Char:
-            return tempMemory!.save(char: nil)
-        case .Bool:
-            return tempMemory!.save(bool: nil)
-        default:
-            return -1
+    func getFuncAddress(with funcName: String) -> Address {
+        if let address = functions[funcName]?.startAddress {
+            return address
         }
+        return -1
     }
     
     func save(_ value: Any, in address: Address) {
@@ -331,6 +320,26 @@ extension Wizard {
     }
     
     
+    func getVariable(withId id: String) -> Variable? {
+        if currentFunction == globalFunc {
+            
+            guard let idVar = global.variables[id] else {
+                compileError("Variable '\(id)' does not exists")
+                return nil
+            }
+            return idVar
+        } else {
+            if let idVar = functions[currentFunction]?.variables[id] {
+                return idVar
+            } else if let idVar = global.variables[id] {
+                return idVar
+            } else {
+                compileError("Variable '\(id)' does not exists")
+                return nil
+            }
+        }
+    }
+    
 }
 
 
@@ -345,13 +354,26 @@ extension Wizard {
     func exitProgram(_ ctx: MapacheParser.ProgramContext) { }
     
     func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
-        #warning ("TODO: ")
         // PN1 Asignacion
+        let id = getText(from: ctx.ID()!)
+        
+        guard let variable = getVariable(withId: id) else { return }
+        addOperandToStacks(address: variable.address, type: variable.type)
     }
     
     func exitAsignacion(_ ctx: MapacheParser.AsignacionContext) {
-        #warning ("TODO: ")
-        // PN3 Asignacion
+        // PN2 Asignacion
+        let (resultVal, resultType) = getOperandAndType()
+        let (idVal, idType) = getOperandAndType()
+        
+        // Checar cubo semantico
+        let assignType = getResultType(idType, resultType, .Assign)
+        if assignType == .Error {
+            compileError("Can't assign this")
+        } else {
+            addQuad(.Assign, resultVal, nil, idVal)
+        }
+        
     }
     
     func enterLlamada(_ ctx: MapacheParser.LlamadaContext) {
@@ -420,13 +442,12 @@ extension Wizard {
             return
         }
         
-        // If void, init with .Void if not get type from 'tipo'
-        
         let returnType = getReturnType(from: ctx)
         
         let startAddress = functions.count
-        functions[funcName] = Function(returnType: returnType, startAddress: startAddress)
         currentFunction = funcName
+        functions[currentFunction] = Function(returnType: returnType, startAddress: startAddress)
+        
         
         // PN2 Funcion
         var paramsIdsCtx = ctx.ID()
@@ -443,13 +464,12 @@ extension Wizard {
             let paramType = paramsType[i]
             // Insert parameter into the current (local) varTable
             // Insert the type to every parameter uploaded into the varTable.
-            if (functions[funcName]?.variables.keys.contains(paramId))!{
+            if (functions[currentFunction]?.variables.keys.contains(paramId))!{
                 compileError("Parameter already exists")
                 return
             }
             
-            #warning ("TODO: Create virtual address")
-            let virtualAddress = -1 //getVirtualAddress(forType: Type)
+            let virtualAddress = localMemory.save(paramType)
             functions[funcName]?.variables[paramId] = Variable(paramType, virtualAddress)
             
             // At the same time into the parameterTable (to create the function's signature)
@@ -536,7 +556,6 @@ extension Wizard {
     
     func exitExp(_ ctx: MapacheParser.ExpContext) {
         // PN 9: Hoja
-        #warning ("TODO: Check if this was supposed to be in ExitExpBool")
         if let oper = operators.top() {
             switch oper {
             case .LessThan, .GreaterThan, .Equal, .NotEqual:
@@ -582,7 +601,7 @@ extension Wizard {
             } else if let idVar = global.variables[id] {
                 addOperandToStacks(address: idVar.address, type: idVar.type)
             } else {
-                compileError("The id '\(id)' doesn't exists")
+                compileError("The variable '\(id)' does not exists")
                 return
             }
             
@@ -604,17 +623,42 @@ extension Wizard {
     }
     
     func enterVector(_ ctx: MapacheParser.VectorContext) {
-        #warning ("TODO: ")
+
         // PN1 Acceso vector
+        let id = getText(from: ctx.ID()!)
+        
+        guard let _ = getVariable(withId: id) else { return }
+        
+        operators.push(.FalseBottomMark)
     }
     
     func exitVector(_ ctx: MapacheParser.VectorContext) {
-        #warning ("TODO: ")
-        // PN2 Acceso vector
+        // PN3 Acceso vector
+        let id = getText(from: ctx.ID()!)
+        
+        let resultType = types.top()!
+        if resultType != .Int {
+            compileError("Array index not an integer")
+            return
+        }
+        
+        let resultVal = operands.top()!
+        let variable = getVariable(withId: id)!
+        addQuad(.Verify, resultVal, nil, variable.arrSize!)
+        
+        // PN5 Acceso vector
+        let arrStartAddress = variable.address!
+        let (indexVal, _) = getOperandAndType()
+        let realIndexAddress = tempMemory.save(int: nil)
+        
+        let arrBaseAddress = constantsMemory.save(int: arrStartAddress)
+        
+        addQuad(.Sum, indexVal, arrBaseAddress, realIndexAddress)
+        addOperandToStacks(address: -realIndexAddress, type: variable.type)
+        _ = operators.pop() // Pop FalseBottomMark
     }
     
-    func enterCiclo(_ ctx: MapacheParser.CicloContext) {
-    }
+    func enterCiclo(_ ctx: MapacheParser.CicloContext) {}
     
     func exitCiclo(_ ctx: MapacheParser.CicloContext) { }
     
@@ -792,15 +836,6 @@ extension Wizard {
     
     func exitForListo(_ ctx: MapacheParser.ForListoContext) { }
     
-    func enterAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) {
-        #warning ("TODO: ")
-        // PN2 Asignacion
-        // Checar si es vector. No es necesario, si entra a esta funcion SI es vector
-        // Parecido a EnterVector/ExitVector
-    }
-    
-    func exitAsignacionVector(_ ctx: MapacheParser.AsignacionVectorContext) { }
-    
     func enterAndOr(_ ctx: MapacheParser.AndOrContext){
         let parent = ctx.parent as! MapacheParser.ExpresionContext
         let oper: Op
@@ -862,9 +897,7 @@ extension Wizard {
 
 // MARK: - Walker nodes and rules
 extension Wizard {
-    func enterEveryRule(_ ctx: ParserRuleContext) {
-        
-    }
+    func enterEveryRule(_ ctx: ParserRuleContext) {}
     
     func exitEveryRule(_ ctx: ParserRuleContext) { }
     
