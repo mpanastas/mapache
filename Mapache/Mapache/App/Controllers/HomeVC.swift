@@ -54,7 +54,6 @@ class HomeVC: UIViewController {
     func fillTests() {
         testExpr()
         testTypes()
-        testExpr3()
         factorialR()
         factorial()
         fiboR()
@@ -62,8 +61,6 @@ class HomeVC: UIViewController {
         bubblesort()
         search()
     }
-    
-    #warning ("TODO: Change tests")
     
     func factorialR(){
         let code =
@@ -82,7 +79,7 @@ class HomeVC: UIViewController {
         factorial(6);
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Factorial Recursive", code)
         files.append(file)
     }
     
@@ -104,7 +101,7 @@ class HomeVC: UIViewController {
             }
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Factorial Iterative", code)
         files.append(file)
     }
     
@@ -121,7 +118,7 @@ class HomeVC: UIViewController {
         fibonacci(5);
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Fibonacci Recursive", code)
         files.append(file)
     }
     
@@ -153,7 +150,7 @@ class HomeVC: UIViewController {
         res = fibo(5);
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Fibonacci Iterative", code)
         files.append(file)
     }
     
@@ -183,7 +180,7 @@ class HomeVC: UIViewController {
             }
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Sort", code)
         files.append(file)
     }
     
@@ -205,7 +202,7 @@ class HomeVC: UIViewController {
             print("false");
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Search", code)
         files.append(file)
     }
     
@@ -242,18 +239,6 @@ class HomeVC: UIViewController {
         let file = File("Types", code)
         files.append(file)
     }
-    func testExpr3(){
-        let code =
-        """
-        mapache {
-            var res:Int;
-            res = 5 * (6-1) + 3;
-        }
-        """
-        let file = File("Expresion", code)
-        files.append(file)
-    }
-    
 }
 
 extension HomeVC: UICollectionViewDataSource {
