@@ -59,11 +59,155 @@ class HomeVC: UIViewController {
     
     #warning ("TODO: Change tests")
     
+    func factorialR(){
+        let code =
+        """
+        mapache{
+        func factorial(a: Int ) -> Int {
+            var n:Int;
+            var = a;
+            if (n == 1) {
+            return 1;
+            } else {
+            return n*factorial(n-1);
+            }
+        }
+        factorial(5);
+        factorial(6);
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    
+    
+    func factorial(){
+        let code =
+        """
+        mapache{
+            fun factorial ( n: int) -> Double{
+            var mult:Int;
+            mult = n;
+            var retVal: Int;
+            retVal = 1;
+                while (mult > 0) {
+                retVal * mult ;
+                mult = mult - 1;
+                }
+            return retVal;
+            }
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    
+    func fiboR(){
+        let code =
+        """
+        mapache {
+            func fibonacci(n:Int) -> Void {
+                if n > 1 {
+                fibonacci(n-1);
+                }
+            print(n);
+            }
+        fibonacci(5);
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    
+    func fibo(){
+        let code =
+        """
+        mapache{
+            func fibo(int n) -> Int {
+            if( n <1 || n== 1 ){
+            return n;
+            }
+            var fibo:Int;
+            fibo = 1;
+            var fiboPrev:Int;
+            fiboPrev = 1;
+            var cont:Int;
+            cont = 2;
+                while (cont < n)
+                {
+                var temp:Int;
+                temp = fibo;
+                fibo += fiboPrev;
+                fiboPrev= temp;
+                n=n+1;
+                }
+            return fibo;
+            }
+        var res:Int;
+        res = fibo(5);
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    
+    
+    func bubblesort(){
+        let code =
+        """
+        mapache{
+        var a[6]:Int;
+        a = [4,3,1,9,0,3];
+        var i:Int;
+        i = 1;
+            while( i != n)
+            {
+            var j:int;
+            j = 0;
+                while(j < n)
+                {
+                    if (a[j] > a[j+1])
+                    {
+                    var temp:int;
+                    temp = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = temp;
+                    }
+                }
+            }
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    
+    func search(){
+        let code =
+        """
+        mapache{
+            var array[5]:Int;
+            var = [1,2,3,4,5]
+            var key:Int;
+            key = 2;
+            var i:Int=0;
+                while (i < array.count) {
+                    if (item == key) {
+                    print("true");
+                    }
+                i= i+1;
+                }
+            print("false");
+        }
+        """
+        let file = File("Expresion", code)
+        files.append(file)
+    }
+    
     func testExpr(){
         let code =
         """
         mapache {
-            var res: int;
+            var res:Int;
             res = 5 * (6-1) + 3;
         }
         """
@@ -87,7 +231,6 @@ class HomeVC: UIViewController {
 
             floatEx = 3.1416;
             floatEx = 5.26;
-
         }
         """
         let file = File("Types", code)
@@ -97,7 +240,7 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache {
-            var res: int;
+            var res:Int;
             res = 5 * (6-1) + 3;
         }
         """
