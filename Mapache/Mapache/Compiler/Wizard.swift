@@ -34,7 +34,7 @@ class Wizard{
     var quadruples = [Quadruple]()
     
     // Global function
-    var global: Function!
+    //var global: Function!
     
     // Functions
     var functions = [Name:Function]()
@@ -77,6 +77,12 @@ class Wizard{
         }
     }
     
+    var isGlobal: Bool {
+        get {
+            return currentFunction == globalFunc
+        }
+    }
+    
     // MARK: - Constructor
     
     init(){
@@ -99,7 +105,6 @@ class Wizard{
     func clearModels() {
         quadruples.removeAll()
         
-        global = Function(returnType: .Void, startAddress: -1)
         stop = false
         
         currentFunction = globalFunc
@@ -116,6 +121,8 @@ class Wizard{
         
         outputs.removeAll()
         errors.removeAll()
+        
+        functions[currentFunction] = Function(returnType: .Void, startAddress: -1)
     }
     
     func runCode(input: String, vc: EditorVC){
@@ -321,23 +328,15 @@ extension Wizard {
     
     
     func getVariable(withId id: String) -> Variable? {
-        if currentFunction == globalFunc {
-            
-            guard let idVar = global.variables[id] else {
-                compileError("Variable '\(id)' does not exists")
-                return nil
-            }
+        if let idVar = functions[currentFunction]?.variables[id] {
+            return idVar
+        } else if let idVar = functions[globalFunc]?.variables[id] {
             return idVar
         } else {
-            if let idVar = functions[currentFunction]?.variables[id] {
-                return idVar
-            } else if let idVar = global.variables[id] {
-                return idVar
-            } else {
-                compileError("Variable '\(id)' does not exists")
-                return nil
-            }
+            compileError("Variable '\(id)' does not exists")
+            return nil
         }
+        
     }
     
 }
@@ -377,7 +376,7 @@ extension Wizard {
     }
     
     func enterLlamada(_ ctx: MapacheParser.LlamadaContext) {
-
+        
         
         let funcName = getText(from: ctx.ID()!)
         
@@ -399,7 +398,6 @@ extension Wizard {
     }
     
     func exitLlamada(_ ctx: MapacheParser.LlamadaContext) {
-        
         // PN5 Llamada
         // Verify that the last parameter points to null (coherence in number of parameters)
         argNum = 0
@@ -419,13 +417,45 @@ extension Wizard {
         fillGoTo(end!, with: quadsCount)
     }
     
-    func enterVariable(_ ctx: MapacheParser.VariableContext) { }
+    // VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
+    func enterVariable(_ ctx: MapacheParser.VariableContext) {
+    }
     
     func exitVariable(_ ctx: MapacheParser.VariableContext) {
-        #warning ("TODO: ")
+        
         // PN Declaracion de variables
-        // Checar si es vector o no
+        
+        // Validate that variable does not exists
+        let varName = getText(from: ctx.ID()!)
+        if (functions[currentFunction]?.variables.keys.contains(varName))! {
+            // Var already exists
+            compileError("Variable '\(varName)' already exists")
+            return
+        }
+        
+        let varType = getType(from: ctx.tipo()!)
+        
+        if let arrSizeNode = ctx.CONST_I() {
+            // Variable is vector
+            let arrSize = Int(getText(from: arrSizeNode))!
+            let varAddress = isGlobal ? globalMemory.save(varType) : localMemory.save(varType)
+            
+            for _ in 1..<arrSize {
+                _ = isGlobal ? globalMemory.save(varType) : localMemory.save(varType)
+            }
+            #warning ("TODO: Check if address is going to be negative or positive")
+            let variable = Variable(varType, -varAddress, arrSize)
+            functions[currentFunction]?.variables[varName] = variable
+        } else {
+            // Variable isn't a vector
+            let varAddress = isGlobal ? globalMemory.save(varType) : localMemory.save(varType)
+            let variable = Variable(varType, varAddress)
+            functions[currentFunction]?.variables[varName] = variable
+        }
+        
     }
+    
+    
     
     
     
@@ -595,16 +625,9 @@ extension Wizard {
         if let idNode = ctx.ID() {
             // PN 1: Hoja
             let id = getText(from: idNode)
+            guard let idVar = getVariable(withId: id) else { return}
             
-            if let idVar = functions[currentFunction]?.variables[id] {
-                addOperandToStacks(address: idVar.address, type: idVar.type)
-            } else if let idVar = global.variables[id] {
-                addOperandToStacks(address: idVar.address, type: idVar.type)
-            } else {
-                compileError("The variable '\(id)' does not exists")
-                return
-            }
-            
+            addOperandToStacks(address: idVar.address, type: idVar.type)
         } else if ctx.CLOSE_PAREN() != nil {
             // PN 7: Hoja
             _ = operators.pop()
@@ -623,7 +646,7 @@ extension Wizard {
     }
     
     func enterVector(_ ctx: MapacheParser.VectorContext) {
-
+        
         // PN1 Acceso vector
         let id = getText(from: ctx.ID()!)
         
