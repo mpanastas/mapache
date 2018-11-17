@@ -55,6 +55,12 @@ class HomeVC: UIViewController {
         testExpr()
         testTypes()
         testExpr3()
+        factorialR()
+        factorial()
+        fiboR()
+        fibo()
+        bubblesort()
+        search()
     }
     
     #warning ("TODO: Change tests")
