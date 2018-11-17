@@ -280,9 +280,30 @@ extension HomeVC: UICollectionViewDelegate {
         if indexPath.row > 0  {
             selectedFile = files[indexPath.row - 1]
         }
-    
         performSegue(withIdentifier: "openEditor", sender: self)
     }
-    
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+extension HomeVC: UICollectionViewDelegateFlowLayout {
+    
+    /// Sets the size of the cell
+    ///
+    /// - Parameters:
+    ///   - collectionView: collectionView asking for the cell size
+    ///   - collectionViewLayout: collectionViewLayout of the collectionView
+    ///   - indexPath: indexPath asking for the cell size
+    /// - Returns: the CGSize of the cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // Compact Regular == iPhone.portrait
+        let isCompactRegular = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
+        
+        let viewWidth = view.frame.width
+        
+        // Width is equal to viewWidth/4 on iPhone and to viewWidth/6 for iPad
+        let side: CGFloat = isCompactRegular ? (viewWidth)/3 : viewWidth/6
+        
+        return CGSize(width: side, height: 150)
+    }
+}
