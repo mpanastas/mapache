@@ -68,7 +68,7 @@ class HomeVC: UIViewController {
         mapache{
         func factorial(a: Int ) -> Int {
             var n:Int;
-            var = a;
+            n = a;
             if (n == 1) {
             return 1;
             } else {
@@ -88,15 +88,16 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache{
-            fun factorial ( n: int) -> Double{
+            func factorial (n: Int) -> Double{
             var mult:Int;
             mult = n;
             var retVal: Int;
             retVal = 1;
-                while (mult > 0) {
+
+            while (mult > 0) {
                 retVal * mult ;
                 mult = mult - 1;
-                }
+            }
             return retVal;
             }
         }
@@ -110,7 +111,7 @@ class HomeVC: UIViewController {
         """
         mapache {
             func fibonacci(n:Int) -> Void {
-                if n > 1 {
+                if (n > 1) {
                 fibonacci(n-1);
                 }
             print(n);
