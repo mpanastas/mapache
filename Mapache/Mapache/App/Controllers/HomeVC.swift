@@ -96,17 +96,17 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache{
-            func factorial (n: Int) -> Double{
-            var mult:Int;
-            mult = n;
-            var retVal: Int;
-            retVal = 1;
+            func factorial (n: Int) -> Int {
+                var mult:Int;
+                mult = n;
+                var retVal: Int;
+                retVal = 1;
 
-            while (mult > 0) {
-                retVal * mult ;
-                mult = mult - 1;
-            }
-            return retVal;
+                while (mult > 0) {
+                    retVal = retVal * mult ;
+                    mult = mult - 1;
+                }
+                return retVal;
             }
         }
         """
@@ -120,11 +120,12 @@ class HomeVC: UIViewController {
         mapache {
             func fibonacci(n:Int) -> Void {
                 if (n > 1) {
-                fibonacci(n-1);
+                    fibonacci(n-1);
                 }
-            print(n);
+                print(n);
             }
-        fibonacci(5);
+        
+            fibonacci(5);
         }
         """
         let file = File("Fibonacci Recursive", code)
@@ -134,29 +135,33 @@ class HomeVC: UIViewController {
     func fibo(){
         let code =
         """
-        mapache{
-            func fibo(int n) -> Int {
-            if( n <1 || n== 1 ){
-            return n;
-            }
-            var fibo:Int;
-            fibo = 1;
-            var fiboPrev:Int;
-            fiboPrev = 1;
-            var cont:Int;
-            cont = 2;
-                while (cont < n)
-                {
-                var temp:Int;
-                temp = fibo;
-                fibo += fiboPrev;
-                fiboPrev= temp;
-                n=n+1;
+        mapache {
+            func fibo(n: Int) -> Int {
+                var ans: Int;
+                if (n<1 || n==1) {
+                    ans = n;
+                } else {
+                    var fibo: Int;
+                    fibo = 1;
+                    var fiboPrev: Int;
+                    fiboPrev = 1;
+                    var cont: Int;
+                    cont = 2;
+                
+                    while (cont < n) {
+                        var temp: Int;
+                        temp = fibo;
+                        fibo = fibo + fiboPrev;
+                        fiboPrev = temp;
+                        cont = cont+1;
+                    }
+                    ans = fibo;
                 }
-            return fibo;
+
+                return ans;
             }
-        var res:Int;
-        res = fibo(5);
+
+            print(fibo(5));
         }
         """
         let file = File("Fibonacci Iterative", code)
@@ -169,7 +174,14 @@ class HomeVC: UIViewController {
         """
         mapache{
         var a[6]:Int;
-        a = [4,3,1,9,0,3];
+        a[0] = 4;
+        a[1] = 3;
+        a[2] = 1;
+        a[3] = 9;
+        a[4] = 0;
+        a[5] = 3;
+
+        
         var i:Int;
         i = 1;
             while( i != n)
