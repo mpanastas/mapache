@@ -69,6 +69,8 @@ class Wizard{
     var outputs: [String] = []
     var errors: [String] = []
     
+    
+    
     // MARK: - Get variables
     // Quadruples count
     var quadsCount: Int {
@@ -344,15 +346,25 @@ extension Wizard {
 
 // MARK: - Walker rules
 extension Wizard {
-    func enterMapache(_ ctx: MapacheParser.MapacheContext) { }
+    func enterMapache(_ ctx: MapacheParser.MapacheContext) {
+        if stop { return }
+    }
     
-    func exitMapache(_ ctx: MapacheParser.MapacheContext) { }
+    func exitMapache(_ ctx: MapacheParser.MapacheContext) {
+        if stop { return }
+    }
     
-    func enterProgram(_ ctx: MapacheParser.ProgramContext) { }
+    func enterProgram(_ ctx: MapacheParser.ProgramContext) {
+        if stop { return }
+    }
     
-    func exitProgram(_ ctx: MapacheParser.ProgramContext) { }
+    func exitProgram(_ ctx: MapacheParser.ProgramContext) {
+        if stop { return }
+    }
     
     func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
+        if stop { return }
+        
         // PN1 Asignacion
         let id = getText(from: ctx.ID()!)
         
@@ -361,6 +373,8 @@ extension Wizard {
     }
     
     func exitAsignacion(_ ctx: MapacheParser.AsignacionContext) {
+        if stop { return }
+        
         // PN2 Asignacion
         let (resultVal, resultType) = getOperandAndType()
         let (idVal, idType) = getOperandAndType()
@@ -372,11 +386,10 @@ extension Wizard {
         } else {
             addQuad(.Assign, resultVal, nil, idVal)
         }
-        
     }
     
     func enterLlamada(_ ctx: MapacheParser.LlamadaContext) {
-        
+        if stop { return }
         
         let funcName = getText(from: ctx.ID()!)
         
@@ -398,6 +411,8 @@ extension Wizard {
     }
     
     func exitLlamada(_ ctx: MapacheParser.LlamadaContext) {
+        if stop { return }
+        
         // PN5 Llamada
         // Verify that the last parameter points to null (coherence in number of parameters)
         argNum = 0
@@ -412,16 +427,19 @@ extension Wizard {
     func enterCondicion(_ ctx: MapacheParser.CondicionContext) { }
     
     func exitCondicion(_ ctx: MapacheParser.CondicionContext) {
+        if stop { return }
+        
         // PN2 If
         let end = jumps.pop()
         fillGoTo(end!, with: quadsCount)
     }
     
-    // VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
+    
     func enterVariable(_ ctx: MapacheParser.VariableContext) {
     }
     
     func exitVariable(_ ctx: MapacheParser.VariableContext) {
+        if stop { return }
         
         // PN Declaracion de variables
         
@@ -455,11 +473,9 @@ extension Wizard {
         
     }
     
-    
-    
-    
-    
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
+        if stop { return }
+        
         // PN1 Funcion
         // Reset Virtual Memory directions
         resetLocalMemory()
@@ -508,6 +524,8 @@ extension Wizard {
     }
     
     func exitFuncion(_ ctx: MapacheParser.FuncionContext) {
+        if stop { return }
+        
         // PN7 Funcion
         // Release the current varTable (local).
         currentFunction = globalFunc
@@ -521,6 +539,8 @@ extension Wizard {
     func exitBloque(_ ctx: MapacheParser.BloqueContext) { }
     
     func enterBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
+        if stop { return }
+        
         // PN6 Funcion
         // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
         let funcCtx = ctx.parent as! MapacheParser.FuncionContext
@@ -529,6 +549,7 @@ extension Wizard {
     }
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
+        if stop { return }
         
         // PN? Funcion
         // Check if function has return
@@ -570,6 +591,7 @@ extension Wizard {
     func enterExpBool(_ ctx: MapacheParser.ExpBoolContext) { }
     
     func exitExpBool(_ ctx: MapacheParser.ExpBoolContext) {
+        if stop { return }
         // PN ?: Hoja
         if let oper = operators.top() {
             switch oper {
@@ -585,6 +607,7 @@ extension Wizard {
     func enterExp(_ ctx: MapacheParser.ExpContext) { }
     
     func exitExp(_ ctx: MapacheParser.ExpContext) {
+        if stop { return }
         // PN 9: Hoja
         if let oper = operators.top() {
             switch oper {
@@ -602,6 +625,8 @@ extension Wizard {
     }
     
     func exitTermino(_ ctx: MapacheParser.TerminoContext) {
+        if stop { return }
+        
         // PN 4: Hoja
         if let oper = operators.top() {
             switch oper {
@@ -614,6 +639,8 @@ extension Wizard {
     }
     
     func enterFactor(_ ctx: MapacheParser.FactorContext) {
+        if stop { return }
+        
         if ctx.OPEN_PAREN() != nil {
             // PN 6: Hoja
             operators.push(.FalseBottomMark)
@@ -621,6 +648,7 @@ extension Wizard {
     }
     
     func exitFactor(_ ctx: MapacheParser.FactorContext) {
+        if stop { return }
         
         if let idNode = ctx.ID() {
             // PN 1: Hoja
@@ -646,6 +674,7 @@ extension Wizard {
     }
     
     func enterVector(_ ctx: MapacheParser.VectorContext) {
+        if stop { return }
         
         // PN1 Acceso vector
         let id = getText(from: ctx.ID()!)
@@ -656,6 +685,8 @@ extension Wizard {
     }
     
     func exitVector(_ ctx: MapacheParser.VectorContext) {
+        if stop { return }
+        
         // PN3 Acceso vector
         let id = getText(from: ctx.ID()!)
         
@@ -686,11 +717,15 @@ extension Wizard {
     func exitCiclo(_ ctx: MapacheParser.CicloContext) { }
     
     func enterCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
+        if stop { return }
+        
         // PN1 While
         jumps.push(quadsCount)
     }
     
     func exitCicloWhile(_ ctx: MapacheParser.CicloWhileContext) {
+        if stop { return }
+        
         // PN3 While
         let end = jumps.pop()
         let whileDir = jumps.pop()
@@ -699,11 +734,15 @@ extension Wizard {
     }
     
     func enterCicloFor(_ ctx: MapacheParser.CicloForContext) {
+        if stop { return }
+        
         #warning ("TODO: ")
         // PN1 For
     }
     
     func exitCicloFor(_ ctx: MapacheParser.CicloForContext) {
+        if stop { return }
+        
         #warning ("TODO: ")
         // PN4 For
     }
@@ -711,6 +750,8 @@ extension Wizard {
     func enterImprimir(_ ctx: MapacheParser.ImprimirContext) { }
     
     func exitImprimir(_ ctx: MapacheParser.ImprimirContext) {
+        if stop { return }
+        
         if let textNode = ctx.TEXT() {
             let string = getText(from: textNode)
             if let stringAddress = constantsMemory.find(string: string) {
@@ -731,6 +772,7 @@ extension Wizard {
     func exitTipo(_ ctx: MapacheParser.TipoContext) { }
     
     func enterCte(_ ctx: MapacheParser.CteContext) {
+        if stop { return }
         
         if let charNode = ctx.CONST_C() {
             let charText = getText(from: charNode)
@@ -785,6 +827,8 @@ extension Wizard {
     func exitCte(_ ctx: MapacheParser.CteContext) { }
     
     func enterCondicionLista(_ ctx: MapacheParser.CondicionListaContext) {
+        if stop { return }
+        
         // PN1 If
         // PN2 While
         let expType = types.pop()
@@ -801,6 +845,8 @@ extension Wizard {
     }
     
     func enterCondicionElse(_ ctx: MapacheParser.CondicionElseContext) {
+        if stop { return }
+        
         // PN3 If
         addQuad(.GoTo, nil, nil, nil)
         let f = jumps.pop()
@@ -811,6 +857,8 @@ extension Wizard {
     func exitCondicionElse(_ ctx: MapacheParser.CondicionElseContext) { }
     
     func enterArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) {
+        if stop { return }
+        
         // PN3 Llamada
         let (argVal, argType) = getOperandAndType()
         
@@ -830,6 +878,8 @@ extension Wizard {
     func exitArgumentoListo(_ ctx: MapacheParser.ArgumentoListoContext) { }
     
     func enterArgumentoNuevo(_ ctx: MapacheParser.ArgumentoNuevoContext) {
+        if stop { return }
+        
         // PN4 Llamada
         //k = k + 1, move to the next parameter
         argNum += 1
@@ -846,6 +896,8 @@ extension Wizard {
     func exitParamListo(_ ctx: MapacheParser.ParamListoContext) { }
     
     func enterForRango(_ ctx: MapacheParser.ForRangoContext) {
+        if stop { return }
+        
         #warning ("TODO: ")
         // PN2 For
     }
@@ -853,6 +905,8 @@ extension Wizard {
     func exitForRango(_ ctx: MapacheParser.ForRangoContext) { }
     
     func enterForListo(_ ctx: MapacheParser.ForListoContext) {
+        if stop { return }
+        
         #warning ("TODO: ")
         // PN3 For
     }
@@ -860,6 +914,8 @@ extension Wizard {
     func exitForListo(_ ctx: MapacheParser.ForListoContext) { }
     
     func enterAndOr(_ ctx: MapacheParser.AndOrContext){
+        if stop { return }
+        
         let parent = ctx.parent as! MapacheParser.ExpresionContext
         let oper: Op
         
@@ -873,6 +929,8 @@ extension Wizard {
     }
     
     func enterEquality(_ ctx: MapacheParser.EqualityContext){
+        if stop { return }
+        
         let parent = ctx.parent as! MapacheParser.ExpBoolContext
         let oper: Op
         
@@ -890,6 +948,8 @@ extension Wizard {
     }
     
     func enterSubAdd(_ ctx: MapacheParser.SubAddContext){
+        if stop { return }
+        
         let parent = ctx.parent as! MapacheParser.ExpContext
         let oper: Op
         
@@ -903,6 +963,8 @@ extension Wizard {
     }
     
     func enterMultDiv(_ ctx: MapacheParser.MultDivContext){
+        if stop { return }
+        
         let parent = ctx.parent as! MapacheParser.TerminoContext
         let oper: Op
         
