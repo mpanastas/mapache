@@ -475,6 +475,11 @@ extension Wizard {
     
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         if stop { return }
+        if let parent = ctx.parent as? MapacheParser.EstatutoContext {
+            if (parent.parent as? MapacheParser.BloquefuncContext) != nil {
+                compileError("Can't declare function inside another function")
+            }
+        }
         
         // PN1 Funcion
         // Reset Virtual Memory directions
