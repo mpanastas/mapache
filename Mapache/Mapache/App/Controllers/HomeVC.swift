@@ -180,25 +180,41 @@ class HomeVC: UIViewController {
         a[3] = 9;
         a[4] = 0;
         a[5] = 3;
-
         
-        var i:Int;
-        i = 1;
-            while( i != n)
-            {
-            var j:int;
-            j = 0;
-                while(j < n)
-                {
-                    if (a[j] > a[j+1])
-                    {
-                    var temp:int;
-                    temp = a[j];
-                    a[j] = a[j+1];
-                    a[j+1] = temp;
+        var tam:Int;
+        tam = 6;
+
+            func sort() -> Void {
+                var i:Int;
+                i = 1;
+                    while( i != tam) {
+                    var j:int;
+                    j = 0;
+                        while(j < tam) {
+                            if (a[j] > a[j+1]) {
+                            var temp:int;
+                            temp = a[j];
+                            a[j] = a[j+1];
+                            a[j+1] = temp;
+                            }
+                        }
                     }
                 }
+
+            func printA() -> Void {
+                var cont:Int;
+                cont = 0;
+                while(cont < tam) {
+                    print(a[cont]);
+                    cont = cont + 1;
+                }
             }
+        
+        print("Arreglo Original");
+        printA();
+        sort();
+        print("Arreglo Ordenado");
+        printA();
         }
         """
         let file = File("Sort", code)
@@ -210,17 +226,31 @@ class HomeVC: UIViewController {
         """
         mapache{
             var array[5]:Int;
-            var = [1,2,3,4,5]
-            var key:Int;
-            key = 2;
-            var i:Int=0;
-                while (i < array.count) {
+            a[0] = 1;
+            a[1] = 2;
+            a[2] = 3;
+            a[3] = 9;
+            a[4] = 4;
+            a[5] = 3;
+            
+            var tam:Int;
+            tam = 5;
+
+            var i:Int;
+            i = 0;
+
+            func search(key:Int) -> Void {
+                while (i < tam) {
                     if (item == key) {
                     print("true");
                     }
                 i= i+1;
                 }
-            print("false");
+                print("false");
+                
+            }
+
+            search(2);
         }
         """
         let file = File("Search", code)
