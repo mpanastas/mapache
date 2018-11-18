@@ -12,7 +12,7 @@ condicion   : IF OPEN_PAREN expresion CLOSE_PAREN condicionLista bloque (ELSE co
 variable    : VAR ID (OPEN_BRACKET CONST_I CLOSE_BRACKET)? COLON tipo SEMICOLON;
 funcion     : FUNC ID OPEN_PAREN (ID paramNuevo COLON tipo paramListo (COMMA ID paramNuevo COLON tipo paramListo)*)? CLOSE_PAREN  ARROW (VOID | tipo) bloquefunc;
 bloque      : OPEN_CURLY estatuto* CLOSE_CURLY;
-bloquefunc  : OPEN_CURLY estatuto* (RETURN expresion)? CLOSE_CURLY;
+bloquefunc  : OPEN_CURLY estatuto* (RETURN expresion SEMICOLON)? CLOSE_CURLY;
 estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion | (llamada SEMICOLON) );
 expresion   : expBool ( andOr (AND | OR) expBool)?;
 expBool     : exp (equality (LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL) exp)?;
