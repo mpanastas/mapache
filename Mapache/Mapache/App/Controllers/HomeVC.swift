@@ -62,7 +62,7 @@ class HomeVC: UIViewController {
         search()
     }
     
-    func factorialR(){ #warning ("TODO: ")
+    func factorialR(){
         let code =
         """
         mapache{
@@ -81,9 +81,7 @@ class HomeVC: UIViewController {
                 return ans;
             }
             
-            var facto:Int;
-            facto = factorial(5);
-            print(facto);
+            print(factorial(5));
             
         }
         """
@@ -108,6 +106,8 @@ class HomeVC: UIViewController {
                 }
                 return retVal;
             }
+
+            print(factorial(5));
         }
         """
         let file = File("Factorial Iterative", code)
@@ -173,48 +173,48 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache{
-        var a[6]:Int;
-        a[0] = 4;
-        a[1] = 3;
-        a[2] = 1;
-        a[3] = 9;
-        a[4] = 0;
-        a[5] = 3;
+            var a[6]:Int;
+            a[0] = 4;
+            a[1] = 3;
+            a[2] = 1;
+            a[3] = 9;
+            a[4] = 0;
+            a[5] = 3;
         
-        var tam:Int;
-        tam = 6;
+            var tam:Int;
+            tam = 6;
 
             func sort() -> Void {
                 var i:Int;
                 i = 1;
                     while( i != tam) {
-                    var j:int;
-                    j = 0;
+                        var j:int;
+                        j = 0;
                         while(j < tam) {
                             if (a[j] > a[j+1]) {
-                            var temp:int;
-                            temp = a[j];
-                            a[j] = a[j+1];
-                            a[j+1] = temp;
+                                var temp:int;
+                                temp = a[j];
+                                a[j] = a[j+1];
+                                a[j+1] = temp;
+                                }
                             }
                         }
-                    }
-                }
+                 }
 
             func printA() -> Void {
                 var cont:Int;
                 cont = 0;
-                while(cont < tam) {
-                    print(a[cont]);
-                    cont = cont + 1;
+                    while(cont < tam) {
+                        print(a[cont]);
+                        cont = cont + 1;
+                        }
                 }
-            }
         
-        print("Arreglo Original");
-        printA();
-        sort();
-        print("Arreglo Ordenado");
-        printA();
+            print("Arreglo Original");
+            printA();
+            sort();
+            print("Arreglo Ordenado");
+            printA();
         }
         """
         let file = File("Sort", code)
@@ -267,6 +267,34 @@ class HomeVC: UIViewController {
         }
         """
         let file = File("Expresion", code)
+        files.append(file)
+    }
+    
+    func testFuncs(){
+        let code =
+        """
+        mapache {
+            func sum(a:Int, b:Int) -> Int {
+            var ans:Int;
+            ans = a+b;
+            return ans;
+            }
+
+        var a:Int;
+        a = sum(2,3);
+
+            func sub(a:Int, b:Int) -> Int {
+            var ans:Int;
+            ans = a-b;
+            return ans;
+            }
+
+        var b:Int;
+        b = sub(2,3);
+        }
+
+        """
+        let file = File("testFuncs", code)
         files.append(file)
     }
     
