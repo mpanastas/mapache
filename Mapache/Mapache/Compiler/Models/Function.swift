@@ -11,13 +11,14 @@ import Foundation
 struct Function {
     
     var returnType: Type!
-    var startAddress: Address!
+    var address: Address!
     var quadAddress: Int!
     var variables = [Name: Variable]() 
     var paramsSecuence = [Type]() // used to know parameters of function
     
-    init(returnType: Type, startAddress: Address, quadAddress: Int) {
+    init(returnType: Type, address: Address, quadAddress: Int) {
         self.returnType = returnType
-        self.startAddress = startAddress
+        self.address = address
+        self.quadAddress = quadAddress
     }
 }

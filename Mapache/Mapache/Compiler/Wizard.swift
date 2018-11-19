@@ -69,7 +69,7 @@ class Wizard{
     var localsHistory = Stack<Memory>()
     var tempsHistory = Stack<Memory>()
     
-    var callsHistory= Stack<Int>()
+    var callsHistory = Stack<Int>()
     
     // MARK: EditorVC variables
     var editorVC: EditorVC!
@@ -133,7 +133,7 @@ class Wizard{
         outputs.removeAll()
         errors.removeAll()
         
-        functions[currentFunction] = Function(returnType: .Void, startAddress: -1)
+        functions[currentFunction] = Function(returnType: .Void, address: -1, quadAddress: -1)
     }
     
     func runCode(input: String, vc: EditorVC){
@@ -300,7 +300,7 @@ extension Wizard {
     }
     
     func getFuncAddress(with funcName: String) -> Address {
-        if let address = functions[funcName]?.startAddress {
+        if let address = functions[funcName]?.address {
             return address
         }
         return -1
@@ -546,7 +546,7 @@ extension Wizard {
         
         let startAddress = functions.count
         currentFunction = funcName
-        functions[currentFunction] = Function(returnType: returnType, startAddress: startAddress, quadAddress: quadsCount)
+        functions[currentFunction] = Function(returnType: returnType, address: startAddress, quadAddress: quadsCount)
         
         
         // PN2 Funcion
@@ -595,11 +595,11 @@ extension Wizard {
     func enterBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
         if stop { return }
         
-        // PN6 Funcion
-        // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
-        let funcCtx = ctx.parent as! MapacheParser.FuncionContext
-        let funcName = getText(from: funcCtx.ID().first!)
-        functions[funcName]?.startQuadAddress = quadsCount
+//        // PN6 Funcion
+//        // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
+//        let funcCtx = ctx.parent as! MapacheParser.FuncionContext
+//        let funcName = getText(from: funcCtx.ID().first!)
+//        functions[funcName]?.add = quadsCount
     }
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
@@ -773,8 +773,7 @@ extension Wizard {
         // PN5 Acceso vector
         let arrStartAddress = variable.address!
         let (indexVal, _) = getOperandAndType()
-        tempGlobalMemory
-        let realIndexAddress = tempMemory.save(int: nil)
+        let realIndexAddress = getTempAddress(forType: .Int)
         
         let arrBaseAddress = constantsMemory.save(int: arrStartAddress)
         

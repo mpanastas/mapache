@@ -53,6 +53,10 @@ extension Wizard {
         return callsHistory.pop()!
     }
     
+    func getFuncWithAddress(_ address: Address) -> Function {
+        return functions.values.first(where: {$0.address == address})!
+    }
+    
 }
 
 // MARK: - Virtual Machine
@@ -96,7 +100,7 @@ extension Wizard {
             case .ERA :
                 era(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             case .GoSub:
-                goSub(leftAddress : quadruple.operandLeft!, tempAddress: quadruple.temp!, quadIndex: &quadIndex)
+                goSub(leftAddress : quadruple.operandLeft!, quadIndex: &quadIndex)
             case .Param:
                 param(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
             case .EndProc:
@@ -547,23 +551,15 @@ extension Wizard {
      Return value: N/A
      Error handling: N/A
      **/
-    
-    func goSub(leftAddress:Address, tempAddress:Address, quadIndex: inout Int){
-        #warning ("TODO: Code")
+    func goSub(leftAddress:Address, quadIndex: inout Int){
         saveCurrentMemory()
         addQuadToCallHistory(quadIndex)
-        /*
-         let local = localMemory.copy()
-         
-         // Make top memory -> local memory
-         localMemory = memoryStack.popLast()!
-         
-         // Sleep local memory
-         memoryStack.append(local)
-         
-         // Save quadruple to return
-         quadruplesStack.append(quadrupleIndex)
-         */
+        quadIndex = leftAddress - 1
+    }
+    
+    func endProc(quadIndex: inout Int){
+        quadIndex = getLastQuadFromCallHistory()
+        recoverLastMemory()
     }
     
     /**
@@ -572,7 +568,6 @@ extension Wizard {
      Return value: N/A
      Error handling: N/A
      **/
-    
     func param(leftAddress:Address, tempAddress:Address){
         //get value
         let (leftVal, leftType) = getValue(from: leftAddress)
@@ -644,13 +639,6 @@ extension Wizard {
         sendResultToEditorVC()
     }
     
-    func endProc(quadIndex: inout Int){
-        #warning ("TODO: endproc func ")
-        /*
-         quadIndex = quadruplesStack.popLast()!
-         //Change memories
-         localMemory = memoryStack.popLast()!
-         */
-    }
+
     
 }
