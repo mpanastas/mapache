@@ -55,6 +55,7 @@ class HomeVC: UIViewController {
         testExpr()
         testTypes()
         factorialR()
+        VoidReturn()
         factorial()
         fiboR()
         fibo()
