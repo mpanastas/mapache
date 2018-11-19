@@ -425,8 +425,8 @@ extension Wizard {
             }
             
         }else{
-            leftVal = getValue(from: leftAddress)
-            rightVal = getValue(from: rightAddress)
+            (leftVal, leftType) = getValue(from: leftAddress)
+            (rightVal, rightType) = getValue(from: rightAddress)
         }
         
         if leftType == .Int && rightType == .Int {
