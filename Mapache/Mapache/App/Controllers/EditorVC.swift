@@ -23,6 +23,8 @@ class EditorVC: UIViewController {
         }
     }
     
+    @IBOutlet weak var editorBottom: NSLayoutConstraint!
+    
     // MARK: - Variables
     var file: File?
     
@@ -33,6 +35,28 @@ class EditorVC: UIViewController {
 
         setup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let notifier = NotificationCenter.default
+        notifier.addObserver(self,
+                             selector: #selector(keyboardWillShow),
+                             name: UIWindow.keyboardWillShowNotification,
+                             object: nil)
+        notifier.addObserver(self,
+                             selector: #selector(keyboardWillHide),
+                             name: UIWindow.keyboardWillHideNotification,
+                             object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
+    }
+    
     
     // MARK: - Setup functions
     private func setup() {
@@ -47,6 +71,32 @@ class EditorVC: UIViewController {
     
     
     // MARK: - Custom functions
+    
+    // MARK: Keyboard
+    
+    @objc func keyboardWillShow(notif: Notification){
+        keyboardWillMove(notif: notif, hidding: false)
+    }
+    
+    @objc func keyboardWillHide(notif: Notification){
+        keyboardWillMove(notif: notif, hidding: true)
+    }
+    
+    private func keyboardWillMove(notif: Notification, hidding: Bool){
+        let userInfo = notif.userInfo!
+        
+        let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        let keyboardEndFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+        let convertedKeyboardEndFrame = view.convert(keyboardEndFrame, from: view.window)
+        let rawAnimationCurve = notif.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
+        let animationCurve = UIView.AnimationOptions.init(rawValue: rawAnimationCurve)
+        
+        editorBottom.constant = hidding ? consoleTextView.frame.height : view.bounds.maxY - convertedKeyboardEndFrame.minY
+        
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, animationCurve], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
     
     private func cleanResults() {
         consoleTextView.text = ""

@@ -173,7 +173,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZoU-yo-JuA">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZoU-yo-JuA">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="403"/>
                                 <string key="text">mapache {
 var ej:int;  var ej2: int;
@@ -197,9 +197,9 @@ hi();
 }</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iTn-on-cHe">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iTn-on-cHe">
                                 <rect key="frame" x="0.0" y="403" width="375" height="200"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -216,7 +216,7 @@ hi();
                             <constraint firstItem="iTn-on-cHe" firstAttribute="trailing" secondItem="4R2-dN-jcf" secondAttribute="trailing" id="BFB-ky-cIC"/>
                             <constraint firstItem="iTn-on-cHe" firstAttribute="leading" secondItem="4R2-dN-jcf" secondAttribute="leading" id="Ib0-la-43S"/>
                             <constraint firstItem="ZoU-yo-JuA" firstAttribute="trailing" secondItem="4R2-dN-jcf" secondAttribute="trailing" id="Mal-8d-oe2"/>
-                            <constraint firstItem="iTn-on-cHe" firstAttribute="top" secondItem="ZoU-yo-JuA" secondAttribute="bottom" id="O54-J5-czv"/>
+                            <constraint firstItem="ZoU-yo-JuA" firstAttribute="bottom" secondItem="iTn-on-cHe" secondAttribute="top" id="O54-J5-czv"/>
                             <constraint firstItem="ZoU-yo-JuA" firstAttribute="leading" secondItem="4R2-dN-jcf" secondAttribute="leading" id="jhx-qE-rCN"/>
                             <constraint firstAttribute="bottom" secondItem="iTn-on-cHe" secondAttribute="bottom" id="xSI-fQ-qlt"/>
                         </constraints>
@@ -232,6 +232,7 @@ hi();
                     <connections>
                         <outlet property="consoleTextView" destination="iTn-on-cHe" id="sg2-2S-p9j"/>
                         <outlet property="consoleTextViewHeight" destination="mev-pE-XO7" id="dez-jH-EV8"/>
+                        <outlet property="editorBottom" destination="O54-J5-czv" id="HIW-Xo-vDZ"/>
                         <outlet property="editorTextView" destination="ZoU-yo-JuA" id="qp4-u1-Yy5"/>
                     </connections>
                 </viewController>

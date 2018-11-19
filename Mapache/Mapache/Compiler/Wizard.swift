@@ -382,11 +382,14 @@ extension Wizard {
 extension Wizard {
     func enterMapache(_ ctx: MapacheParser.MapacheContext) {
         if stop { return }
+        
     }
     
     func exitMapache(_ ctx: MapacheParser.MapacheContext) {
         if stop { return }
-        print("exitMapache")
+       
+        addQuad(.End, nil, nil, nil)
+        execute()
     }
     
     func enterProgram(_ ctx: MapacheParser.ProgramContext) {
@@ -395,8 +398,6 @@ extension Wizard {
     
     func exitProgram(_ ctx: MapacheParser.ProgramContext) {
         if stop { return }
-        
-        print("exitProgram")
     }
     
     func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {

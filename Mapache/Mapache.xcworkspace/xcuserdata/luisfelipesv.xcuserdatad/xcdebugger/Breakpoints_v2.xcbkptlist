@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mapache/Compiler/Wizard.swift"
-            timestampString = "564203470.831445"
+            filePath = "Mapache/Compiler/VirtualMachine.swift"
+            timestampString = "564310520.212283"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1053"
-            endingLineNumber = "1053"
-            landmarkName = "enterMultDiv(_:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "getCurrentFuncName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mapache/Compiler/VirtualMachine.swift"
-            timestampString = "564305710.617648"
+            filePath = "Mapache/Compiler/Memory.swift"
+            timestampString = "564310520.212363"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "getCurrentFuncName()"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "save(_:in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

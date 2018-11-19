@@ -263,6 +263,7 @@ class HomeVC: UIViewController {
         mapache {
             var res:Int;
             res = 5 * (6-1) + 3;
+            print(res);
         }
         """
         let file = File("Expresion", code)
@@ -285,6 +286,12 @@ class HomeVC: UIViewController {
 
             floatEx = 3.1416;
             floatEx = 5.26;
+
+            print(intEx);
+            print(floatEx);
+            print(boolEx);
+            print(charEx);
+            print("Letrero");
         }
         """
         let file = File("Types", code)
