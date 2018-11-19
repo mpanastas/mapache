@@ -328,7 +328,9 @@ extension Wizard {
         #warning ("TODO: ")
         
     }
-    
+    func getFuncName(of function: Function) -> String {
+        return functions.someKey(forValue: function)!
+    }
     func getValue(from address: Address) -> (value: Any, type: Type) {
         
         switch address {
@@ -336,8 +338,12 @@ extension Wizard {
             let (arrayAddress,_) = getValue(from: -address)
             return getValue(from: arrayAddress as! Address)
         case ..<constantsBaseAddress:
-            compileError("Address out of tables indexes")
-            return (-1, .Void)
+            let function = getFuncWithAddress(address)
+            let funcName = getFuncName(of: function)
+            let globalReturnVar = functions[funcName]?.variables[funcName]
+            let globalReturnAddress = (globalReturnVar?.address)!
+            
+            return getValue(from: globalReturnAddress)
         case ..<globalBaseAddress:
             return constantsMemory.getValue(from: address)
         case ..<localBaseAddress:

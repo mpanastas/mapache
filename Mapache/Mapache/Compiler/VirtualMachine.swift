@@ -70,7 +70,7 @@ extension Wizard {
             print(funcName)
         }
  
-        return functions.someKey(forValue: function)!
+        return getFuncName(of: function)
     }
     func deleteLastFuncAddress() {
         _ = funcAddressHistory.pop()
@@ -645,8 +645,10 @@ extension Wizard {
      Error handling: N/A
      **/
     func printOp(leftAddress:Address){
-        let (outputVal, outputType) = getValue(from: leftAddress)
+        let (outputVal, _) = getValue(from: leftAddress)
         let result = "\(outputVal)"
+        print("PRINT: ")
+        print(result)
         output(result)
         /*
          if outputType == .Int {
@@ -666,6 +668,7 @@ extension Wizard {
     }
     
     func end(quadIndex: inout Int) {
+        quadIndex = quadsCount
         sendResultToEditorVC()
     }
     
