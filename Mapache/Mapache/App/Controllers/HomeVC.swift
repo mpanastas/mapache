@@ -120,9 +120,10 @@ class HomeVC: UIViewController {
         mapache {
             func fibonacci(n:Int) -> Void {
                 if (n > 1) {
-                    fibonacci(n-1);
+                    var ans:Int;
+                    ans = fibonacci(n-1) - fibonacci(n-2);
+                    print(ans);
                 }
-                print(n);
             }
         
             fibonacci(5);
@@ -263,6 +264,7 @@ class HomeVC: UIViewController {
         mapache {
             var res:Int;
             res = 5 * (6-1) + 3;
+            res = 2 * 3 * 4;
             print(res);
         }
         """
