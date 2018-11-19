@@ -247,8 +247,6 @@ class Wizard{
     }
     
     func getOperandAndType() -> (operand: Address, type: Type) {
-        
-        
         let operand = operands.pop()!
         let type = types.pop()!
         return (operand, type)
@@ -504,6 +502,7 @@ extension Wizard {
         if let arrSizeNode = ctx.CONST_I() {
             // Variable is vector
             let arrSize = Int(getText(from: arrSizeNode))!
+            
             let varAddress = isGlobal ? globalMemory.save(varType) : localMemory.save(varType)
             
             for _ in 1..<arrSize {
@@ -548,6 +547,10 @@ extension Wizard {
         currentFunction = funcName
         functions[currentFunction] = Function(returnType: returnType, address: startAddress, quadAddress: quadsCount)
         
+        // Create global var with func name for return
+        let returnVarAddress =  globalMemory.save(returnType)
+        let returnVar = Variable(returnType, returnVarAddress)
+        functions[globalFunc]?.variables[funcName] = returnVar
         
         // PN2 Funcion
         var paramsIdsCtx = ctx.ID()
