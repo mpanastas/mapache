@@ -30,6 +30,31 @@ extension Wizard {
     
 }
 
+extension Wizard {
+    
+    func saveCurrentMemory(){
+        localsHistory.push(localMemory)
+        tempsHistory.push(tempMemory)
+        
+        localMemory.reset()
+        tempMemory.reset()
+    }
+    
+    func recoverLastMemory(){
+        localMemory = localsHistory.pop()!
+        tempMemory = tempsHistory.pop()!
+    }
+    
+    func addQuadToCallHistory(_ quad: Int) {
+        callsHistory.push(quad)
+    }
+    
+    func getLastQuadFromCallHistory() -> Int {
+        return callsHistory.pop()!
+    }
+    
+}
+
 // MARK: - Virtual Machine
 extension Wizard {
     
@@ -525,6 +550,8 @@ extension Wizard {
     
     func goSub(leftAddress:Address, tempAddress:Address, quadIndex: inout Int){
         #warning ("TODO: Code")
+        saveCurrentMemory()
+        addQuadToCallHistory(quadIndex)
         /*
          let local = localMemory.copy()
          

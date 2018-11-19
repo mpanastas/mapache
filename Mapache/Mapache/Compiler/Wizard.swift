@@ -22,6 +22,7 @@ class Wizard{
     let globalBaseAddress = 10000
     let localBaseAddress = 15000
     let tempBaseAddress = 20000
+    let tempGlobalAddress = 25000
     
     let globalFunc = "global"
     
@@ -62,6 +63,13 @@ class Wizard{
     var globalMemory: Memory!
     var localMemory: Memory!
     var tempMemory: Memory!
+    var tempGlobalMemory: Memory!
+    
+    // For VM
+    var localsHistory = Stack<Memory>()
+    var tempsHistory = Stack<Memory>()
+    
+    var callsHistory= Stack<Int>()
     
     // MARK: EditorVC variables
     var editorVC: EditorVC!
@@ -120,6 +128,7 @@ class Wizard{
         globalMemory = Memory(baseAddress: globalBaseAddress)
         localMemory = Memory(baseAddress: localBaseAddress)
         tempMemory = Memory(baseAddress: tempBaseAddress)
+        tempGlobalMemory = Memory(baseAddress: tempGlobalAddress)
         
         outputs.removeAll()
         errors.removeAll()
@@ -167,7 +176,7 @@ class Wizard{
     ///   - opL: Left Operand
     ///   - opR: Right Operand
     ///   - temp: Temp var \ Sometimes direction for some instructions
-    private func addQuad(_ op: Op, _ opL: Int?, _ opR: Int?, _ temp: Int?){
+    private func addQuad(_ op: Op, _ opL: Address?, _ opR: Address?, _ temp: Address?){
         let quad = Quadruple(op, opL, opR, temp)
         quadruples.append(quad)
     }
@@ -181,6 +190,14 @@ class Wizard{
         quadruples[quadToFill].temp = direction
     }
     
+    func getTempAddress(forType type: Type) -> Address {
+        if isGlobal {
+            return tempGlobalMemory.save(type)
+        } else {
+            return tempMemory.save(type)
+        }
+    }
+    
     func addExprQuad(){
         let (opR, typeR) = getOperandAndType()
         let (opL, typeL) = getOperandAndType()
@@ -189,7 +206,7 @@ class Wizard{
         let resultType = getResultType(typeL, typeR, oper)
         
         if resultType != .Error {
-            let resultAddress = tempMemory.save(resultType)
+            let resultAddress = getTempAddress(forType: resultType)
             addQuad(oper, opL, opR, resultAddress)
             addOperandToStacks(address: resultAddress, type: resultType)
         } else {
@@ -230,6 +247,8 @@ class Wizard{
     }
     
     func getOperandAndType() -> (operand: Address, type: Type) {
+        
+        
         let operand = operands.pop()!
         let type = types.pop()!
         return (operand, type)
@@ -298,8 +317,10 @@ extension Wizard {
             globalMemory.save(value, in: address)
         case ..<tempBaseAddress:
             localMemory.save(value, in: address)
-        default:
+        case ..<tempGlobalAddress:
             tempMemory.save(value, in: address)
+        default:
+            tempGlobalMemory.save(value, in: address)
         }
     }
     
@@ -323,8 +344,10 @@ extension Wizard {
             return globalMemory.getValue(from: address)
         case ..<tempBaseAddress:
             return localMemory.getValue(from: address)
-        default:
+        case ..<tempGlobalAddress:
             return tempMemory.getValue(from: address)
+        default:
+            return tempGlobalMemory.getValue(from: address)
         }
     }
     
@@ -352,6 +375,7 @@ extension Wizard {
     
     func exitMapache(_ ctx: MapacheParser.MapacheContext) {
         if stop { return }
+        print("exitMapache")
     }
     
     func enterProgram(_ ctx: MapacheParser.ProgramContext) {
@@ -360,6 +384,8 @@ extension Wizard {
     
     func exitProgram(_ ctx: MapacheParser.ProgramContext) {
         if stop { return }
+        
+        print("exitProgram")
     }
     
     func enterAsignacion(_ ctx: MapacheParser.AsignacionContext) {
@@ -382,7 +408,7 @@ extension Wizard {
         // Checar cubo semantico
         let assignType = getResultType(idType, resultType, .Assign)
         if assignType == .Error {
-            compileError("Can't assign this")
+            compileError("Cant assig this type of expression to variable")
         } else {
             addQuad(.Assign, resultVal, nil, idVal)
         }
@@ -400,6 +426,17 @@ extension Wizard {
             return
         }
         
+        // Only void funcs on Estatutos
+        if (ctx.parent as? MapacheParser.EstatutoContext) != nil {
+            let returnType = (functions[funcName]?.returnType)!
+            if returnType != .Void {
+                compileError("Function has return type and can't be called like this")
+                return
+            }
+        }
+        
+        // if parent == EstatutoContext && returnType != Void
+        
         // PN2 Llamada
         // Generate action ERA size (Activation Record Expansion -NEW -size)
         let funcStartAddress = getFuncAddress(with: funcName)
@@ -408,11 +445,13 @@ extension Wizard {
         // Start the parameter counter (k) in 1.
         argNum = 1
         // Add a pointer to the first parameter type in the ParameterTable
+        operators.push(.FalseBottomMark)
     }
     
     func exitLlamada(_ ctx: MapacheParser.LlamadaContext) {
         if stop { return }
         
+        _ = operators.pop()
         // PN5 Llamada
         // Verify that the last parameter points to null (coherence in number of parameters)
         argNum = 0
@@ -422,6 +461,15 @@ extension Wizard {
         let funcName = getText(from: ctx.ID()!)
         let funcStartAddress = getFuncAddress(with: funcName)
         addQuad(.GoSub, funcStartAddress, nil, nil)
+        
+        // Check if function has return
+        let returnType = (functions[funcName]?.returnType)!
+        if returnType != .Void {
+            let tempAddress = getTempAddress(forType: returnType)
+            addQuad(.Assign, funcStartAddress, nil, tempAddress)
+            addOperandToStacks(address: tempAddress, type: returnType)
+        }
+        
     }
     
     func enterCondicion(_ ctx: MapacheParser.CondicionContext) { }
@@ -475,6 +523,7 @@ extension Wizard {
     
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         if stop { return }
+        
         if let parent = ctx.parent as? MapacheParser.EstatutoContext {
             if (parent.parent as? MapacheParser.BloquefuncContext) != nil {
                 compileError("Can't declare function inside another function")
@@ -497,7 +546,7 @@ extension Wizard {
         
         let startAddress = functions.count
         currentFunction = funcName
-        functions[currentFunction] = Function(returnType: returnType, startAddress: startAddress)
+        functions[currentFunction] = Function(returnType: returnType, startAddress: startAddress, quadAddress: quadsCount)
         
         
         // PN2 Funcion
@@ -584,6 +633,22 @@ extension Wizard {
             }
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) { }
     
@@ -708,6 +773,7 @@ extension Wizard {
         // PN5 Acceso vector
         let arrStartAddress = variable.address!
         let (indexVal, _) = getOperandAndType()
+        tempGlobalMemory
         let realIndexAddress = tempMemory.save(int: nil)
         
         let arrBaseAddress = constantsMemory.save(int: arrStartAddress)

@@ -10,11 +10,11 @@ import Foundation
 
 class Quadruple {
     var op: Op
-    var operandLeft: Int?
-    var operandRight: Int?
-    var temp: Int?
+    var operandLeft: Address?
+    var operandRight: Address?
+    var temp: Address?
     
-    init(_ op: Op,_ opL: Int?,_ opR: Int?,_ temp:Int?) {
+    init(_ op: Op,_ opL: Address?,_ opR: Address?,_ temp: Address?) {
         self.op = op
         self.operandLeft = opL
         self.operandRight = opR
