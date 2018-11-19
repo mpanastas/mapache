@@ -154,9 +154,6 @@ extension Wizard {
      **/
     
     func add(leftAddress:Address, rightAddress:Address, tempAddress:Address){
-        
-        // more code*
-        
         let (leftVal, leftType) = getValue(from: leftAddress)
         let (rightVal, rightType) = getValue(from: rightAddress)
         
@@ -179,11 +176,6 @@ extension Wizard {
             save(numL + numR, in: tempAddress)
             
         }
-        
-        //        let numL = leftVal as! Float
-        //        let numR = rightVal as! Float
-        //
-        //        save(numL + numR, in: tempAddress)
     }
     
     
@@ -216,9 +208,6 @@ extension Wizard {
             save(numL - numR, in: tempAddress)
             
         }
-        
-        #warning ("TODO: Test if we can simplify it to this")
-        // save(leftVal - rightVal, in: tempAddress)
     }
     
     /**
@@ -250,11 +239,6 @@ extension Wizard {
             save(numL * numR, in: tempAddress)
             
         }
-        
-        //      let numL = leftVal as! Float
-        //      let numR = rightVal as! Float
-        //
-        //      save(numL * numR, in: tempAddress)
     }
     
     
@@ -287,11 +271,6 @@ extension Wizard {
             save(numL / numR, in: tempAddress)
             
         }
-        
-        let numL = leftVal as! Float
-        let numR = rightVal as! Float
-        
-        save(numL / numR, in: tempAddress)
         
     }
     /**
@@ -410,11 +389,6 @@ extension Wizard {
             save(numL < numR, in: tempAddress)
             
         }
-        
-        let numL = leftVal as! Float
-        let numR = rightVal as! Float
-        
-        save(numL < numR, in: tempAddress)
     }
     
     
@@ -431,10 +405,12 @@ extension Wizard {
         if leftAddress < 0 || rightAddress < 0 {
             
             if leftAddress < 0 {
+                #warning ("TODO: check negative")
                 leftVal = getValue(from :(getValue(from: -1*leftAddress)).0 as! Int)
             }
             
             if rightAddress < 0 {
+                #warning ("TODO: check negative")
                 rightVal = getValue(from: (getValue(from: -1*leftAddress)).0 as! Int)
             }
             
