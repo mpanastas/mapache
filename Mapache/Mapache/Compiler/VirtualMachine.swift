@@ -450,12 +450,12 @@ extension Wizard {
             
             if leftAddress < 0 {
                 #warning ("TODO: check negative")
-                leftVal = getValue(from :(getValue(from: -1*leftAddress)).0 as! Int)
+                (leftVal, leftType) = getValue(from :(getValue(from: -leftAddress)).0 as! Int)
             }
             
             if rightAddress < 0 {
                 #warning ("TODO: check negative")
-                rightVal = getValue(from: (getValue(from: -1*leftAddress)).0 as! Int)
+                (rightVal, rightType) = getValue(from: (getValue(from: -leftAddress)).0 as! Int)
             }
             
         }else{
@@ -487,7 +487,7 @@ extension Wizard {
             
             save(numL > numR, in: tempAddress)
             
-        } 
+        }
     }
     
     
