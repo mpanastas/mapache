@@ -549,8 +549,10 @@ extension Wizard {
      Error handling: N/A
      **/
     
-    func era(leftAddress:Address, tempAddress:Address){
+    func era(leftAddress funcAddress:Address, tempAddress:Address){
         #warning ("TODO: era func")
+        let function = getFuncWithAddress(funcAddress)
+        
         /*
          // Get function name from address
          let functionName = getFunctionName(in: functionAddress)
