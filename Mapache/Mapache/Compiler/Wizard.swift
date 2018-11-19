@@ -375,6 +375,44 @@ extension Wizard {
         
     }
     
+    func printQuads() {
+        
+        func formatNumber(_ string: String) -> String{
+            var str = string
+            let length = str.count
+            let new = 5 - length
+            for _ in 0..<new {
+                str.insert(" ", at: str.startIndex)
+            }
+            return str
+        }
+        
+        print("#  Operators   Left  Right Temp ")
+        print("--------------------------------")
+        for index in 0..<quadsCount {
+            let quad = quadruples[index]
+            
+            var indexString = "\(index)"
+            var op = "\(quad.op)"
+            var left = quad.operandLeft?.description ?? "_____"
+            var right = quad.operandRight?.description ?? "_____"
+            var temp = quad.temp?.description ?? "_____"
+            
+            let length = op.count
+            let new = 11 - length
+            for _ in 1...new {
+                op += " "
+            }
+            let newIndexString = indexString + " "
+            indexString = indexString.count == 1 ? newIndexString : indexString
+            left = formatNumber(left)
+            right = formatNumber(right)
+            temp = formatNumber(temp)
+            
+            print(indexString, op, left, right, temp)
+           
+        }
+    }
 }
 
 
@@ -389,6 +427,7 @@ extension Wizard {
         if stop { return }
        
         addQuad(.End, nil, nil, nil)
+        printQuads()
         execute()
     }
     

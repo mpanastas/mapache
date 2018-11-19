@@ -182,7 +182,7 @@ extension Wizard {
         
 //        let numL = leftVal as! Float
 //        let numR = rightVal as! Float
-//        
+//
 //        save(numL + numR, in: tempAddress)
     }
     
@@ -216,11 +216,9 @@ extension Wizard {
             save(numL - numR, in: tempAddress)
             
         }
+        
         #warning ("TODO: Test if we can simplify it to this")
-//        let numL = leftVal as! Float
-//        let numR = rightVal as! Float
-//
-//        save(numL - numR, in: tempAddress)
+        // save(leftVal - rightVal, in: tempAddress)
     }
     
     
