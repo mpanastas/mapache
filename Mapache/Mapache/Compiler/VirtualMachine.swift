@@ -168,8 +168,8 @@ extension Wizard {
         let (rightVal, rightType) = getValue(from: rightAddress)
         
         if leftType == .Int && rightType == .Int {
-            let numL = (leftVal as! Int)
-            let numR = (rightVal as! Int)
+            let numL = leftVal as! Int
+            let numR = rightVal as! Int
             
             save(numL + numR, in: tempAddress)
             
@@ -182,6 +182,12 @@ extension Wizard {
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
+            
+            save(numL + numR, in: tempAddress)
+            
+        } else if leftType == .Float && rightType == .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
             
             save(numL + numR, in: tempAddress)
             
@@ -217,6 +223,12 @@ extension Wizard {
             
             save(numL - numR, in: tempAddress)
             
+        } else if leftType == .Float && rightType == .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
+            
+            save(numL - numR, in: tempAddress)
+            
         }
     }
     
@@ -249,6 +261,13 @@ extension Wizard {
             save(numL * numR, in: tempAddress)
             
         }
+        else if leftType == .Float && rightType == .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
+            
+            save(numL * numR, in: tempAddress)
+            
+        }
     }
     
     
@@ -263,8 +282,8 @@ extension Wizard {
         let (rightVal, rightType) = getValue(from:rightAddress)
         
         if leftType == .Int && rightType == .Int {
-            let numL = Float(leftVal as! Int)
-            let numR = Float(rightVal as! Int)
+            let numL = leftVal as! Int
+            let numR = rightVal as! Int
             
             save(numL / numR, in: tempAddress)
             
@@ -277,6 +296,13 @@ extension Wizard {
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
+            
+            save(numL / numR, in: tempAddress)
+            
+        }
+        else if leftType == .Float && rightType == .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
             
             save(numL / numR, in: tempAddress)
             
@@ -347,19 +373,19 @@ extension Wizard {
             let numL = leftVal as! Int
             let numR = rightVal as! Int
             
-            save(numL == numR, in: tempAddress)
+            save(numL != numR, in: tempAddress)
             
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            save(numL == numR, in: tempAddress)
+            save(numL != numR, in: tempAddress)
             
         } else if leftType == .Char && rightType != .Char {
             let numL = leftVal as! Character
             let numR = rightVal as! Character
             
-            save(numL == numR, in: tempAddress)
+            save(numL != numR, in: tempAddress)
             
         } else if leftType == .Bool && rightType != .Bool {
             let numL = leftVal as! Bool
@@ -368,6 +394,7 @@ extension Wizard {
             save(numL != numR, in: tempAddress)
             
         }
+        
     }
     
     /**
@@ -381,8 +408,8 @@ extension Wizard {
         let (rightVal, rightType) = getValue(from:rightAddress)
         
         if leftType == .Int && rightType == .Int {
-            let numL = Float(leftVal as! Int)
-            let numR = Float(rightVal as! Int)
+            let numL = leftVal as! Int
+            let numR = rightVal as! Int
             
             save(numL < numR, in: tempAddress)
             
@@ -395,6 +422,13 @@ extension Wizard {
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
+            
+            save(numL < numR, in: tempAddress)
+            
+        }
+        else if leftType == .Float && rightType == .Float {
+            let numL = leftVal as! Float
+            let numR = rightVal as! Float
             
             save(numL < numR, in: tempAddress)
             
@@ -433,27 +467,27 @@ extension Wizard {
             let numL = leftVal as! Int
             let numR = rightVal as! Int
             
-            save(numL == numR, in: tempAddress)
+            save(numL > numR, in: tempAddress)
             
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            save(numL == numR, in: tempAddress)
+            save(numL > numR, in: tempAddress)
             
         } else if leftType == .Int && rightType != .Float {
-            let numL = leftVal as! Float
+            let numL = Float(leftVal as! Int)
             let numR = rightVal as! Float
             
-            save(numL == numR, in: tempAddress)
+            save(numL > numR, in: tempAddress)
             
         } else if leftType == .Float && rightType != .Int {
             let numL = leftVal as! Float
-            let numR = rightVal as! Float
+            let numR = Float(rightVal as! Int)
             
-            save(numL < numR, in: tempAddress)
+            save(numL > numR, in: tempAddress)
             
-        }
+        } 
     }
     
     
