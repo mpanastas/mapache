@@ -63,7 +63,6 @@ extension Wizard {
     }
     
     func getCurrentFuncName() -> String {
-        #warning ("TODO: ")
         let function = getCurrentFunc()
         
         if let funcName = functions.someKey(forValue: function) {

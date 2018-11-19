@@ -308,9 +308,14 @@ extension Wizard {
     
     func save(_ value: Any, in address: Address) {
         switch address {
-        case ..<constantsBaseAddress:
-            #warning ("TODO: ")
+        case ..<0:
             compileError("Address out of tables indexes")
+        case ..<constantsBaseAddress:
+            let function = getFuncWithAddress(address)
+            let funcName = getFuncName(of: function)
+            let globalReturnVar = functions[funcName]?.variables[funcName]
+            let globalReturnAddress = (globalReturnVar?.address)!
+            save(value, in: globalReturnAddress)
         case ..<globalBaseAddress:
             constantsMemory.save(value, in: address)
         case ..<localBaseAddress:
