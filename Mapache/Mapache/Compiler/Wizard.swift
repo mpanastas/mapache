@@ -720,6 +720,7 @@ extension Wizard {
     
     
     
+    
     func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) {
         if currentFunction == globalFunc {
             if let globalJump = globalJumps.pop() {

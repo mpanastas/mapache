@@ -14,10 +14,10 @@ funcion     : FUNC ID OPEN_PAREN (ID paramNuevo COLON tipo paramListo (COMMA ID 
 bloque      : OPEN_CURLY estatuto* CLOSE_CURLY;
 bloquefunc  : OPEN_CURLY estatuto* (RETURN expresion SEMICOLON)? CLOSE_CURLY;
 estatuto    : (variable | asignacion | condicion | imprimir | ciclo | funcion | (llamada SEMICOLON) );
-expresion   : expBool ( andOr (AND | OR) expBool)?;
-expBool     : exp (equality (LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL) exp)?;
-exp         : termino (subAdd (PLUS | MINUS) termino)? ;
-termino     : factor (multDiv (MULTIPLY | DIVISION) factor)?;
+expresion   : expBool ( andOr (AND | OR) expresion)?;
+expBool     : exp (equality (LESS_THAN | GREATER_THAN | EQUAL | NOT_EQUAL) expBool)?;
+exp         : termino (subAdd (PLUS | MINUS) exp)? ;
+termino     : factor (multDiv (MULTIPLY | DIVISION) termino)?;
 factor      : (OPEN_PAREN expresion CLOSE_PAREN) | vector | cte | llamada | ID;
 vector      : ID OPEN_BRACKET exp CLOSE_BRACKET ;
 ciclo       : (cicloWhile | cicloFor);
