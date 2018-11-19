@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Memory {
+struct Memory {
     
     // MARK: - Constants
     private let intBase = 0
@@ -60,22 +60,33 @@ class Memory {
     
     // MARK: - Custom functions
     
-    func save(_ value: Any, in address: Address) {
+    mutating func save(_ value: Any, in address: Address) {
+        #warning ("TODO: Check if append is okay")
         switch address {
         case ..<floatStartAddress:
-            ints[address - intStartAddress] = value as? Int
+            let index = address - intStartAddress
+            if index >= ints.count {
+                ints.append(value as? Int)
+            } else {
+                ints[address - intStartAddress] = value as? Int
+            }
         case ..<charStartAddress:
             floats[address - floatStartAddress] = value as? Float
         case ..<boolStartAddress:
             chars[address - charStartAddress] = value as? Character
         case ..<stringStartAddress:
-            bools[address - boolStartAddress] = value as? Bool
+            let index = address - boolStartAddress
+            if index >= bools.count {
+                bools.append(value as? Bool)
+            } else {
+                bools[address - boolStartAddress] = value as? Bool
+            }
         default:
             strings[address - stringStartAddress] = value as? String
         }
     }
     
-    func save(_ type: Type) -> Address {
+    mutating func save(_ type: Type) -> Address {
         switch type {
         case .Int:
             return save(int: nil)
@@ -92,7 +103,7 @@ class Memory {
         }
     }
     
-    func reset() {
+    mutating func reset() {
         ints.removeAll()
         floats.removeAll()
         chars.removeAll()
@@ -115,27 +126,27 @@ class Memory {
         }
     }
     
-    func save(int: Int?) -> Address {
+    mutating func save(int: Int?) -> Address {
         ints.append(int)
         return intStartAddress + ints.count - 1
     }
     
-    func save(float: Float?) -> Address {
+    mutating func save(float: Float?) -> Address {
         floats.append(float)
         return floatStartAddress + floats.count - 1
     }
     
-    func save(char: Character?) -> Address {
+    mutating func save(char: Character?) -> Address {
         chars.append(char)
         return charStartAddress + chars.count - 1
     }
 
-    func save(bool: Bool?) -> Address {
+    mutating func save(bool: Bool?) -> Address {
         bools.append(bool)
         return boolStartAddress + bools.count - 1
     }
     
-    func save(string: String?) -> Address {
+    mutating func save(string: String?) -> Address {
         strings.append(string)
         return stringStartAddress + strings.count - 1
     }

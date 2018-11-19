@@ -32,12 +32,20 @@ extension Wizard {
 
 extension Wizard {
     
-    func saveCurrentMemory(){
+    func saveCurrentMemory() {
         localsHistory.push(localMemory)
         tempsHistory.push(tempMemory)
         
-        localMemory.reset()
-        tempMemory.reset()
+        localMemory = tempLocalMemory
+        tempMemory = tempTempMemory
+    }
+    
+    func createNewFuncMemory() {
+        tempLocalMemory = localMemory
+        tempTempMemory = tempMemory
+        
+        tempLocalMemory.reset()
+        tempTempMemory.reset()
     }
     
     func recoverLastMemory(){
@@ -68,7 +76,7 @@ extension Wizard {
         if let funcName = functions.someKey(forValue: function) {
             print(funcName)
         }
- 
+        
         return getFuncName(of: function)
     }
     func deleteLastFuncAddress() {
@@ -78,6 +86,8 @@ extension Wizard {
     func getFuncWithAddress(_ address: Address) -> Function {
         return functions.values.first(where: {$0.address == address})!
     }
+    
+    
     
 }
 
@@ -89,7 +99,7 @@ extension Wizard {
         
         while quadIndex < quadsCount {
             let quadruple = quadruples[quadIndex]
-            
+            print("Quad: ",quadIndex)
             switch quadruple.op {
             case .Sum :
                 add(leftAddress: quadruple.operandLeft!, rightAddress: quadruple.operandRight!, tempAddress: quadruple.temp!)
@@ -120,7 +130,7 @@ extension Wizard {
             case .GoToFalse: // Go to if false
                 goToFalse(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!, quadIndex: &quadIndex)
             case .ERA :
-                era(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
+                era(leftAddress: quadruple.operandLeft!)
             case .GoSub:
                 goSub(leftAddress : quadruple.operandLeft!, quadIndex: &quadIndex)
             case .Param:
@@ -160,7 +170,7 @@ extension Wizard {
         if leftType == .Int && rightType == .Int {
             let numL = (leftVal as! Int)
             let numR = (rightVal as! Int)
-
+            
             save(numL + numR, in: tempAddress)
             
         } else if leftType == .Int && rightType == .Float {
@@ -172,13 +182,6 @@ extension Wizard {
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
-            
-            save(numL + numR, in: tempAddress)
-            
-        }
-        else if leftType == .Float && rightType == .Float {
-            let numL = leftVal as! Float
-            let numR = rightVal as! Float
             
             save(numL + numR, in: tempAddress)
             
@@ -214,14 +217,7 @@ extension Wizard {
             
             save(numL - numR, in: tempAddress)
             
-        } else if leftType == .Float && rightType == .Float {
-            let numL = leftVal as! Float
-            let numR = rightVal as! Float
-            
-            save(numL - numR, in: tempAddress)
-            
         }
-        
     }
     
     /**
@@ -252,14 +248,7 @@ extension Wizard {
             
             save(numL * numR, in: tempAddress)
             
-        } else if leftType == .Float && rightType == .Float {
-            let numL = leftVal as! Float
-            let numR = rightVal as! Float
-            
-            save(numL * numR, in: tempAddress)
-            
         }
-
     }
     
     
@@ -274,8 +263,8 @@ extension Wizard {
         let (rightVal, rightType) = getValue(from:rightAddress)
         
         if leftType == .Int && rightType == .Int {
-            let numL = leftVal as! Int
-            let numR = rightVal as! Int
+            let numL = Float(leftVal as! Int)
+            let numR = Float(rightVal as! Int)
             
             save(numL / numR, in: tempAddress)
             
@@ -288,12 +277,6 @@ extension Wizard {
         } else if leftType == .Float && rightType == .Int {
             let numL = leftVal as! Float
             let numR = Float(rightVal as! Int)
-            
-            save(numL / numR, in: tempAddress)
-            
-        } else if leftType == .Float && rightType == .Float {
-            let numL = leftVal as! Float
-            let numR = rightVal as! Float
             
             save(numL / numR, in: tempAddress)
             
@@ -364,19 +347,19 @@ extension Wizard {
             let numL = leftVal as! Int
             let numR = rightVal as! Int
             
-            save(numL != numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            save(numL != numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             
         } else if leftType == .Char && rightType != .Char {
             let numL = leftVal as! Character
             let numR = rightVal as! Character
             
-            save(numL != numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             
         } else if leftType == .Bool && rightType != .Bool {
             let numL = leftVal as! Bool
@@ -415,14 +398,7 @@ extension Wizard {
             
             save(numL < numR, in: tempAddress)
             
-        } else if leftType == .Float && rightType == .Float {
-            let numL = leftVal as! Float
-            let numR = rightVal as! Float
-            
-            save(numL < numR, in: tempAddress)
-            
         }
-        
     }
     
     
@@ -448,7 +424,7 @@ extension Wizard {
                 rightVal = getValue(from: (getValue(from: -1*leftAddress)).0 as! Int)
             }
             
-        } else {
+        }else{
             leftVal = getValue(from: leftAddress)
             rightVal = getValue(from: rightAddress)
         }
@@ -457,25 +433,25 @@ extension Wizard {
             let numL = leftVal as! Int
             let numR = rightVal as! Int
             
-            save(numL > numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             
         } else if leftType == .Float && rightType != .Float {
             let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            save(numL > numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             
         } else if leftType == .Int && rightType != .Float {
-            let numL = Float(leftVal as! Int)
+            let numL = leftVal as! Float
             let numR = rightVal as! Float
             
-            save(numL > numR, in: tempAddress)
+            save(numL == numR, in: tempAddress)
             
         } else if leftType == .Float && rightType != .Int {
             let numL = leftVal as! Float
-            let numR = Float(rightVal as! Int)
+            let numR = rightVal as! Float
             
-            save(numL > numR, in: tempAddress)
+            save(numL < numR, in: tempAddress)
             
         }
     }
@@ -551,22 +527,9 @@ extension Wizard {
      Error handling: N/A
      **/
     
-    func era(leftAddress funcAddress:Address, tempAddress:Address){
-        #warning ("TODO: era func")
-        let function = getFuncWithAddress(funcAddress)
-        
-        /*
-         // Get function name from address
-         let functionName = getFunctionName(in: functionAddress)
-         
-         guard functionName != "Error" else {print("Error no function with start address"); return}
-         
-         // Generate instance of memory
-         let functionMemory = funcTable[functionName]?.memory.copy()
-         
-         // Add memory to stack
-         memoryStack.append(functionMemory!)
-         */
+    func era(leftAddress funcAddress:Address){
+        comingFuncAddress.push(funcAddress)
+        createNewFuncMemory()
     }
     
     /**
@@ -581,6 +544,8 @@ extension Wizard {
         
         let function = getFuncWithAddress(funcAddress)
         
+        _ = comingFuncAddress.pop()
+        
         saveCurrentFuncAddress(funcAddress)
         
         quadIndex = function.quadAddress - 1
@@ -593,27 +558,25 @@ extension Wizard {
      Return value: N/A
      Error handling: N/A
      **/
-    func param(leftAddress:Address, tempAddress:Address){
-        //get value
-        let (leftVal, leftType) = getValue(from: leftAddress)
+    func param(leftAddress tempAddress:Address, tempAddress paramCount:Address){
         
-        // Set Value in top memory of stack
-        switch leftType {
-        case .Int:
-            let value = leftVal as! Int
-            saveParam(value, in: tempAddress)
-        case .Float:
-            let value = leftVal as! Float
-            saveParam(value, in: tempAddress)
-        case .Char:
-            let value = leftVal as! Character
-            saveParam(value, in: tempAddress)
-        case .Bool:
-            let value = leftVal as! Bool
-            saveParam(value, in: tempAddress)
-        default:
-            break
+        func getParamAddress(from paramIndex: Int) -> Address {
+            
+            func getParam(fromFunc function: Function, paramIndex: Int) -> Variable {
+                let (_, varVal) = function.variables.first(where: {$1.paramIndex == paramIndex})!
+                return varVal
+            }
+            
+            let actualComingFuncAddress = comingFuncAddress.top()!
+            let function = getFuncWithAddress(actualComingFuncAddress)
+            let param = getParam(fromFunc: function, paramIndex: paramIndex)
+            return param.address
         }
+        
+        let (tempVal, _) = getValue(from: tempAddress)
+        let paramAddress = getParamAddress(from: paramCount-1)
+        tempLocalMemory.save(tempVal, in: paramAddress)
+        
     }
     
     /**
@@ -684,7 +647,7 @@ extension Wizard {
     
     func returnOp(leftAddress val:Address){
         let funcName = getCurrentFuncName()
-        let globalReturnVar = functions[funcName]?.variables[funcName]
+        let globalReturnVar = functions[globalFunc]?.variables[funcName]
         let globalReturnAddress = (globalReturnVar?.address)!
         
         let (returnVal, _) = getValue(from: val)
@@ -692,7 +655,7 @@ extension Wizard {
         save(returnVal, in: globalReturnAddress)
     }
     
-
+    
     /**
      Description: function to create END and save the result in the corresponding address
      Parameters: quadIndex : Int
@@ -704,6 +667,6 @@ extension Wizard {
         sendResultToEditorVC()
     }
     
-
+    
     
 }

@@ -14,10 +14,12 @@ struct Variable {
     var type: Type!
     var address: Address!
     var arrSize: Int?
+    var paramIndex: Int?
     
-    init(_ type: Type, _ address: Address, _ arrSize: Int? = nil){
+    init(_ type: Type, _ address: Address, _ arrSize: Int? = nil, paramIndex: Int? = nil){
         self.type = type
         self.address = address
         self.arrSize = arrSize
+        self.paramIndex = paramIndex
     }
 }

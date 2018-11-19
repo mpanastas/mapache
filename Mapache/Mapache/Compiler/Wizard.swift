@@ -46,6 +46,7 @@ class Wizard{
     
     // Pending jumps
     var jumps = Stack<Int>()
+    var globalJumps = Stack<Int>()
     
     /// Operators stack (pOper)
     var operators = Stack<Op>()
@@ -57,6 +58,7 @@ class Wizard{
     var operands = Stack<Int>()
     
     var funcAddressHistory = Stack<Int>()
+    var comingFuncAddress = Stack<Int>()
     
     var stop = false
     
@@ -66,6 +68,9 @@ class Wizard{
     var localMemory: Memory!
     var tempMemory: Memory!
     var tempGlobalMemory: Memory!
+    
+    var tempLocalMemory: Memory!
+    var tempTempMemory: Memory!
     
     // For VM
     var localsHistory = Stack<Memory>()
@@ -328,14 +333,11 @@ extension Wizard {
             tempGlobalMemory.save(value, in: address)
         }
     }
-    
-    func saveParam(_ value: Any, in address: Address) {
-        #warning ("TODO: ")
-        
-    }
+
     func getFuncName(of function: Function) -> String {
         return functions.someKey(forValue: function)!
     }
+    
     func getValue(from address: Address) -> (value: Any, type: Type) {
         
         switch address {
@@ -345,7 +347,7 @@ extension Wizard {
         case ..<constantsBaseAddress:
             let function = getFuncWithAddress(address)
             let funcName = getFuncName(of: function)
-            let globalReturnVar = functions[funcName]?.variables[funcName]
+            let globalReturnVar = functions[globalFunc]?.variables[funcName]
             let globalReturnAddress = (globalReturnVar?.address)!
             
             return getValue(from: globalReturnAddress)
@@ -399,10 +401,13 @@ extension Wizard {
             var temp = quad.temp?.description ?? "_____"
             
             let length = op.count
-            let new = 11 - length
-            for _ in 1...new {
-                op += " "
+            if length != 11 {
+                let new = 11 - length
+                for _ in 1...new {
+                    op += " "
+                }
             }
+            
             let newIndexString = indexString + " "
             indexString = indexString.count == 1 ? newIndexString : indexString
             left = formatNumber(left)
@@ -425,7 +430,9 @@ extension Wizard {
     
     func exitMapache(_ ctx: MapacheParser.MapacheContext) {
         if stop { return }
-       
+        if let globalJump = globalJumps.pop() {
+            fillGoTo(globalJump, with: quadsCount)
+        }
         addQuad(.End, nil, nil, nil)
         printQuads()
         execute()
@@ -433,6 +440,9 @@ extension Wizard {
     
     func enterProgram(_ ctx: MapacheParser.ProgramContext) {
         if stop { return }
+//        globalJumps.push(quadsCount)
+//        addQuad(.GoTo, nil, nil, nil)
+        
     }
     
     func exitProgram(_ ctx: MapacheParser.ProgramContext) {
@@ -575,6 +585,9 @@ extension Wizard {
     
     func enterFuncion(_ ctx: MapacheParser.FuncionContext) {
         if stop { return }
+        globalJumps.push(quadsCount)
+        addQuad(.GoTo, nil, nil, nil)
+        
         
         if let parent = ctx.parent as? MapacheParser.EstatutoContext {
             if (parent.parent as? MapacheParser.BloquefuncContext) != nil {
@@ -621,12 +634,13 @@ extension Wizard {
             // Insert parameter into the current (local) varTable
             // Insert the type to every parameter uploaded into the varTable.
             if (functions[currentFunction]?.variables.keys.contains(paramId))!{
-                compileError("Parameter already exists")
+                compileError("Parameter '\(paramId)' already exists")
                 return
             }
             
             let virtualAddress = localMemory.save(paramType)
-            functions[funcName]?.variables[paramId] = Variable(paramType, virtualAddress)
+            functions[funcName]?.variables[paramId] = Variable(paramType, virtualAddress, paramIndex: i)
+            
             
             // At the same time into the parameterTable (to create the function's signature)
             functions[funcName]?.paramsSecuence.append(paramType)
@@ -706,7 +720,13 @@ extension Wizard {
     
     
     
-    func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) { }
+    func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) {
+        if currentFunction == globalFunc {
+            if let globalJump = globalJumps.pop() {
+                fillGoTo(globalJump, with: quadsCount)
+            }
+        }
+    }
     
     func exitEstatuto(_ ctx: MapacheParser.EstatutoContext) { }
     
@@ -962,8 +982,9 @@ extension Wizard {
             compileError("Type-mismatch")
         } else {
             let result = operands.pop()
+            jumps.push(quadsCount)
             addQuad(.GoToFalse, result, nil, nil)
-            jumps.push(quadsCount-1)
+            
         }
     }
     
