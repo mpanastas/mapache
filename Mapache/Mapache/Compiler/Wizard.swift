@@ -56,6 +56,8 @@ class Wizard{
     /// Operands stack (PilaO)
     var operands = Stack<Int>()
     
+    var funcAddressHistory = Stack<Int>()
+    
     var stop = false
     
     // MARK: Memory variables
@@ -457,14 +459,14 @@ extension Wizard {
         // PN6 Llamada
         // Generate action GoSub, procedure-name, initial-address
         let funcName = getText(from: ctx.ID()!)
-        let funcStartAddress = getFuncAddress(with: funcName)
-        addQuad(.GoSub, funcStartAddress, nil, nil)
+        let funcAddress = getFuncAddress(with: funcName)
+        addQuad(.GoSub, funcAddress, nil, nil)
         
         // Check if function has return
         let returnType = (functions[funcName]?.returnType)!
         if returnType != .Void {
             let tempAddress = getTempAddress(forType: returnType)
-            addQuad(.Assign, funcStartAddress, nil, tempAddress)
+            addQuad(.Assign, funcAddress, nil, tempAddress)
             addOperandToStacks(address: tempAddress, type: returnType)
         }
         

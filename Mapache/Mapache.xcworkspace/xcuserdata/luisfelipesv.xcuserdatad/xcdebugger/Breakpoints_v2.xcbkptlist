@@ -15,8 +15,24 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1053"
             endingLineNumber = "1053"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "enterMultDiv(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mapache/Compiler/VirtualMachine.swift"
+            timestampString = "564305710.617648"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "getCurrentFuncName()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

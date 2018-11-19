@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct Function {
+struct Function: Equatable {
+    static func == (lhs: Function, rhs: Function) -> Bool {
+        return lhs.address == rhs.address
+    }
+    
     
     var returnType: Type!
     var address: Address!

@@ -53,6 +53,29 @@ extension Wizard {
         return callsHistory.pop()!
     }
     
+    func saveCurrentFuncAddress(_ address: Address) {
+        funcAddressHistory.push(address)
+    }
+    
+    func getCurrentFunc() -> Function {
+        let address = funcAddressHistory.top()!
+        return getFuncWithAddress(address)
+    }
+    
+    func getCurrentFuncName() -> String {
+        #warning ("TODO: ")
+        let function = getCurrentFunc()
+        
+        if let funcName = functions.someKey(forValue: function) {
+            print(funcName)
+        }
+ 
+        return functions.someKey(forValue: function)!
+    }
+    func deleteLastFuncAddress() {
+        _ = funcAddressHistory.pop()
+    }
+    
     func getFuncWithAddress(_ address: Address) -> Function {
         return functions.values.first(where: {$0.address == address})!
     }
@@ -111,7 +134,7 @@ extension Wizard {
             case .Verify:
                 verify(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!, quadIndex: &quadIndex)
             case .Return:
-                returnOp(leftAddress: quadruple.operandLeft!, tempAddress: quadruple.temp!)
+                returnOp(leftAddress: quadruple.operandLeft!)
             case .End:
                 end(quadIndex: &quadIndex)
             case .FalseBottomMark:
@@ -551,10 +574,14 @@ extension Wizard {
      Return value: N/A
      Error handling: N/A
      **/
-    func goSub(leftAddress:Address, quadIndex: inout Int){
+    func goSub(leftAddress funcAddress:Address, quadIndex: inout Int){
         saveCurrentMemory()
         addQuadToCallHistory(quadIndex)
-        quadIndex = leftAddress - 1
+        
+        let function = getFuncWithAddress(funcAddress)
+        #warning ("TODO: save function address")
+        
+        quadIndex = function.quadAddress - 1
     }
     
     func endProc(quadIndex: inout Int){
@@ -599,13 +626,14 @@ extension Wizard {
      Error handling: N/A
      **/
     
-    func returnOp(leftAddress:Address, tempAddress:Address){
-        #warning ("TODO: Return op")
-        // Return addresss value
+    func returnOp(leftAddress val:Address){
+        let funcName = getCurrentFuncName()
+        let globalReturnVar = functions[funcName]?.variables[funcName]
+        let globalReturnAddress = (globalReturnVar?.address)!
         
+        let (returnVal, _) = getValue(from: val)
         
-        // Memory that called current function
-        // To Do: memoryStack.last?.setValue(in: Address, tempAddress: value.0)
+        save(returnVal, in: globalReturnAddress)
     }
     
     /**
