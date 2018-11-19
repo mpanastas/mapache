@@ -117,6 +117,24 @@ class HomeVC: UIViewController {
     func fiboR(){
         let code =
         """
+        mapache{
+            func fib(n: Int) -> Int {
+                if( n > 1) {
+                return (fib(n-1) + fib(n-2))
+                } else {
+                return n;
+                }
+            print(fib(5));
+        }
+        """
+        let file = File("Fibonacci Recursive", code)
+        files.append(file)
+    }
+    
+    
+    func VoidReturn(){
+        let code =
+        """
         mapache {
             func fibonacci(n:Int) -> Void {
                 if (n > 1) {
@@ -129,7 +147,7 @@ class HomeVC: UIViewController {
             fibonacci(5);
         }
         """
-        let file = File("Fibonacci Recursive", code)
+        let file = File("Void Return", code)
         files.append(file)
     }
     
