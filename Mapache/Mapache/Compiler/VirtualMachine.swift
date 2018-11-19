@@ -579,13 +579,15 @@ extension Wizard {
         addQuadToCallHistory(quadIndex)
         
         let function = getFuncWithAddress(funcAddress)
-        #warning ("TODO: save function address")
+        
+        saveCurrentFuncAddress(funcAddress)
         
         quadIndex = function.quadAddress - 1
     }
     
     func endProc(quadIndex: inout Int){
         quadIndex = getLastQuadFromCallHistory()
+        deleteLastFuncAddress()
         recoverLastMemory()
     }
     
