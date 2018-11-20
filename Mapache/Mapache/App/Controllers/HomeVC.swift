@@ -255,7 +255,7 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache{
-            var array[5]:Int;
+            var a[6]:Int;
             a[0] = 1;
             a[1] = 2;
             a[2] = 3;
@@ -264,7 +264,7 @@ class HomeVC: UIViewController {
             a[5] = 3;
             
             var tam:Int;
-            tam = 5;
+            tam = 6;
 
             var i:Int;
             i = 0;
@@ -272,14 +272,12 @@ class HomeVC: UIViewController {
             func search(key:Int) -> Void {
                 while (i < tam) {
                     if (item == key) {
-                    print("true");
+                        print("found value in array");
                     }
-                i= i+1;
+                    i= i+1;
                 }
-                print("false");
-                
+                print("value not found in array");
             }
-
             search(2);
         }
         """
