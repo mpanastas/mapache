@@ -455,25 +455,8 @@ extension Wizard {
      Error handling: N/A
      **/
     func greatThan(leftAddress:Address, rightAddress:Address, tempAddress:Address){
-        var (leftVal, leftType) = getValue(from:leftAddress)
-        var (rightVal, rightType) = getValue(from:rightAddress)
-        
-        if leftAddress < 0 || rightAddress < 0 {
-            
-            if leftAddress < 0 {
-                #warning ("TODO: check negative")
-                (leftVal, leftType) = getValue(from :(getValue(from: -leftAddress)).0 as! Int)
-            }
-            
-            if rightAddress < 0 {
-                #warning ("TODO: check negative")
-                (rightVal, rightType) = getValue(from: (getValue(from: -leftAddress)).0 as! Int)
-            }
-            
-        }else{
-            (leftVal, leftType) = getValue(from: leftAddress)
-            (rightVal, rightType) = getValue(from: rightAddress)
-        }
+        let (leftVal, leftType) = getValue(from:leftAddress)
+        let (rightVal, rightType) = getValue(from:rightAddress)
         
         if leftType == .Int && rightType == .Int {
             let numL = leftVal as! Int

@@ -287,7 +287,9 @@ extension Wizard {
     func save(_ value: Any, in address: Address) {
         switch address {
         case ..<0:
-            compileError("Address out of tables indexes")
+            let (arrayAddress,_) = getValue(from: -address)
+//            return getValue(from: arrayAddress as! Address)
+            save(value, in: arrayAddress as! Int)
         case ..<constantsBaseAddress:
             let function = getFuncWithAddress(address)
             let funcName = getFuncName(of: function)
@@ -556,7 +558,7 @@ extension Wizard {
                 _ = isGlobal ? globalMemory.save(varType) : localMemory.save(varType)
             }
             #warning ("TODO: Check if address is going to be negative or positive")
-            let variable = Variable(varType, -varAddress, arrSize)
+            let variable = Variable(varType, varAddress, arrSize)
             functions[currentFunction]?.variables[varName] = variable
         } else {
             // Variable isn't a vector
