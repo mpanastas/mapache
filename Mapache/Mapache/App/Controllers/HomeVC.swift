@@ -119,7 +119,7 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache {
-            func fibonacci(n:Int) -> Int {
+            func fibonacci(n:Int) -> Void {
                 var ans:Int;
                 if (n > 1) {
                     ans = fibonacci(n-1) + fibonacci(n-2);
@@ -129,7 +129,7 @@ class HomeVC: UIViewController {
                 return ans;
             }
         
-            print(fibonacci(5));
+        fibonacci(5);
         }
         """
         let file = File("Fibonacci Recursive", code)
