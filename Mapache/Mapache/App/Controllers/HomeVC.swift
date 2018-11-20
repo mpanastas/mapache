@@ -52,17 +52,19 @@ class HomeVC: UIViewController {
     // MARK: Tests functions
     
     func fillTests() {
+        //Test
         testExpr()
         testTypes()
         factorialR()
-        VoidReturn()
         factorial()
         fiboR()
         fibo()
         bubblesort()
         search()
-        wOrder()
         order()
+        //Error Test
+        wOrder()
+        VoidReturn()
     }
     
     func factorialR(){
