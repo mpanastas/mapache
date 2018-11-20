@@ -271,7 +271,7 @@ class HomeVC: UIViewController {
 
             func search(key:Int) -> Void {
                 while (i < tam) {
-                    if (item == key) {
+                    if (a[i] == key) {
                         print("found value in array");
                     }
                     i= i+1;
