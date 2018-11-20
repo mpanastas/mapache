@@ -62,9 +62,18 @@ class HomeVC: UIViewController {
         bubblesort()
         search()
         order()
+        logicOp()
         //Error Test
         wOrder()
         VoidReturn()
+        assignE()
+        funcE()
+        returnE()
+        varE()
+        declarFunE()
+        funcExists()
+        paramE()
+        retE()
     }
     
     func factorialR(){
@@ -275,10 +284,11 @@ class HomeVC: UIViewController {
                 while (i < tam) {
                     if (a[i] == key) {
                         print("found value in array");
+                    }else{
+                    print("value not found in array");
                     }
                     i= i+1;
                 }
-                print("value not found in array");
             }
             search(2);
         }
@@ -401,6 +411,177 @@ class HomeVC: UIViewController {
         files.append(file)
     }
     
+    func logicOp(){
+        let code =
+        """
+        mapache{
+            var a:Bool;
+            a = true;
+            var b:Bool;
+            b = false;
+        
+            if(a && b){
+                print("true");
+            }else{
+             print("false");
+            }
+
+            if(a || b){
+                print("true");
+            }else{
+             print("false");
+            }
+            
+            if(a && a){
+                print("true");
+            }else{
+             print("false");
+            }
+
+            if(b || b){
+                print("false");
+            }else{
+             print("true");
+            }
+        }
+        """
+        let file = File("Logic Operands", code)
+        files.append(file)
+    }
+    
+    func assignE(){
+        let code =
+        """
+        mapache{
+            var x:Int;
+            var y: bool;
+
+            x = 4;
+            y = x;
+        }
+        """
+        let file = File("Assign Error", code)
+        files.append(file)
+    }
+    
+    func funcE(){
+        let code =
+        """
+        mapache{
+            var ans:Int;
+
+            ans = suma();
+            imprimit();
+        }
+        """
+        let file = File("Function Error", code)
+        files.append(file)
+    }
+    
+    func returnE(){
+        let code =
+        """
+        mapache{
+            func sum(a:Int, b:Int) -> Int{
+                return a+b;
+            }
+            sum();
+        }
+        """
+        let file = File("Return Error", code)
+        files.append(file)
+    }
+    
+    func varE(){
+        let code =
+        """
+        mapache{
+            var x:Int;
+            var x:Int;
+        }
+        """
+        let file = File("Variable Error", code)
+        files.append(file)
+    }
+    
+    func declarFunE(){
+        let code =
+        """
+        mapache{
+            func suma(a:Int , b:Int) -> Int {
+                func resta(a:Int, b:Int) -> Int{
+                    return a-b;
+                }
+                return a+b;
+            }
+            a = suma(2, 4);
+            print(a);
+        }
+        """
+        let file = File("Declar Func Error", code)
+        files.append(file)
+    }
+    
+    func funcExists(){
+        let code =
+        """
+        mapache{
+            func sum(a:Int, b:Int) -> Int{
+                return a+b;
+            }
+            func suma(a:Int, b:Int, c:Int) -> Float{
+                return a+b+c;
+            }
+            print(suma(1,2);
+        }
+        """
+        let file = File("Func Repeat", code)
+        files.append(file)
+    }
+    func paramE(){
+        let code =
+        """
+        mapache{
+            func sum(a:Int, a:Int) -> Int{
+                return a+a;
+            }
+            print(sum(3,4));
+        }
+        """
+        let file = File("Param Exists", code)
+        files.append(file)
+    }
+    func retE(){
+        let code =
+        """
+        mapache{
+            func sum(a:Int, b:Int) -> Int{
+                a+b;
+            }
+            var ans:Int;
+            ans = sum(3,4);
+        }
+        """
+        let file = File("Missing Return", code)
+        files.append(file)
+    }
+    func retTypeE(){
+        let code =
+        """
+        mapache{
+            func sum(a:Int, b:Int) -> Int{
+                var x:Bool;
+                x = true;
+
+                return x;
+            }
+            var ans:Int;
+            ans = sum(3,4);
+        }
+        """
+        let file = File("Type Return", code)
+        files.append(file)
+    }
     
 }
 
