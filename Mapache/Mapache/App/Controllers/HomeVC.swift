@@ -82,7 +82,6 @@ class HomeVC: UIViewController {
         let code =
         """
         mapache{
-
             func factorial(a: Int ) -> Int {
                 var n:Int;
                 n = a;
@@ -96,12 +95,10 @@ class HomeVC: UIViewController {
                 }
                 return ans;
             }
-            
             print(factorial(5));
-            
         }
         """
-        let file = File("Factorial Recursive", code)
+        let file = File("Factorial Recursive", code, .success)
         files.append(file)
     }
     
@@ -126,7 +123,7 @@ class HomeVC: UIViewController {
             print(factorial(5));
         }
         """
-        let file = File("Factorial Iterative", code)
+        let file = File("Factorial Iterative", code, .success)
         files.append(file)
     }
     
@@ -151,7 +148,7 @@ class HomeVC: UIViewController {
             print(fibonacciR(5));
         }
         """
-        let file = File("Fibonacci Recursive", code)
+        let file = File("Fibonacci Recursive", code, .success)
         files.append(file)
     }
     
@@ -171,7 +168,7 @@ class HomeVC: UIViewController {
             fibonacci(5);
         }
         """
-        let file = File("Void Return", code)
+        let file = File("Void Return", code, .success)
         files.append(file)
     }
     
@@ -207,7 +204,7 @@ class HomeVC: UIViewController {
             print(fibo(5));
         }
         """
-        let file = File("Fibonacci Iterative", code)
+        let file = File("Fibonacci Iterative", code, .success)
         files.append(file)
     }
     
@@ -262,7 +259,7 @@ class HomeVC: UIViewController {
             printArray();
         }
         """
-        let file = File("Sort", code)
+        let file = File("Sort", code, .success)
         files.append(file)
     }
     
@@ -298,7 +295,7 @@ class HomeVC: UIViewController {
             print(search(2));
         }
         """
-        let file = File("Search", code)
+        let file = File("Search", code, .success)
         files.append(file)
     }
     
@@ -312,7 +309,7 @@ class HomeVC: UIViewController {
             print(res);
         }
         """
-        let file = File("Expresion", code)
+        let file = File("Expresion", code, .success)
         files.append(file)
     }
     
@@ -340,7 +337,7 @@ class HomeVC: UIViewController {
         }
 
         """
-        let file = File("testFuncs", code)
+        let file = File("testFuncs", code, .success)
         files.append(file)
     }
     
@@ -368,7 +365,7 @@ class HomeVC: UIViewController {
             print("Letrero");
         }
         """
-        let file = File("Types", code)
+        let file = File("Types", code, .success)
         files.append(file)
     }
     
@@ -390,7 +387,7 @@ class HomeVC: UIViewController {
             }
         }
         """
-        let file = File("Wrong Order", code)
+        let file = File("Wrong Order", code, .error)
         files.append(file)
     }
     
@@ -412,7 +409,7 @@ class HomeVC: UIViewController {
             print(sub(1,2));
         }
         """
-        let file = File("Order", code)
+        let file = File("Order", code, .success)
         files.append(file)
     }
     
@@ -450,7 +447,7 @@ class HomeVC: UIViewController {
             }
         }
         """
-        let file = File("Logic Operands", code)
+        let file = File("Logic Operands", code, .success)
         files.append(file)
     }
     
@@ -465,7 +462,7 @@ class HomeVC: UIViewController {
             y = x;
         }
         """
-        let file = File("Assign Error", code)
+        let file = File("Assign Error", code, .error)
         files.append(file)
     }
     
@@ -479,7 +476,7 @@ class HomeVC: UIViewController {
             imprimit();
         }
         """
-        let file = File("Function Error", code)
+        let file = File("Function Error", code, .error)
         files.append(file)
     }
     
@@ -493,7 +490,7 @@ class HomeVC: UIViewController {
             sum();
         }
         """
-        let file = File("Return Error", code)
+        let file = File("Return Error", code, .error)
         files.append(file)
     }
     
@@ -505,7 +502,7 @@ class HomeVC: UIViewController {
             var x:Int;
         }
         """
-        let file = File("Variable Error", code)
+        let file = File("Variable Error", code, .error)
         files.append(file)
     }
     
@@ -523,7 +520,7 @@ class HomeVC: UIViewController {
             print(a);
         }
         """
-        let file = File("Declar Func Error", code)
+        let file = File("Declar Func Error", code, .error)
         files.append(file)
     }
     
@@ -540,7 +537,7 @@ class HomeVC: UIViewController {
             print(suma(1,2);
         }
         """
-        let file = File("Func Repeat", code)
+        let file = File("Func Repeat", code, .error)
         files.append(file)
     }
     func paramE(){
@@ -553,7 +550,7 @@ class HomeVC: UIViewController {
             print(sum(3,4));
         }
         """
-        let file = File("Param Exists", code)
+        let file = File("Param Exists", code, .error)
         files.append(file)
     }
     func retE(){
@@ -567,7 +564,7 @@ class HomeVC: UIViewController {
             ans = sum(3,4);
         }
         """
-        let file = File("Missing Return", code)
+        let file = File("Missing Return", code, .error)
         files.append(file)
     }
     func retTypeE(){
@@ -584,7 +581,7 @@ class HomeVC: UIViewController {
             ans = sum(3,4);
         }
         """
-        let file = File("Type Return", code)
+        let file = File("Type Return", code, .error)
         files.append(file)
     }
     func indexE(){
@@ -598,7 +595,7 @@ class HomeVC: UIViewController {
             array[index] = 0;
         }
         """
-        let file = File("Index Error", code)
+        let file = File("Index Error", code, .error)
         files.append(file)
     }
     func idError(){
@@ -608,7 +605,7 @@ class HomeVC: UIViewController {
             x = 1 + 2;
         }
         """
-        let file = File("Variable Id Error", code)
+        let file = File("Variable Id Error", code, .error)
         files.append(file)
     }
     
