@@ -12,7 +12,17 @@ class FileCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLbl: UILabel!
     
+    @IBOutlet weak var fileColor: UIView!
+    
     func setupCell(with file: File) {
         nameLbl.text = file.name
+        switch file.fileType {
+        case .new:
+            fileColor.backgroundColor = nil
+        case .error:
+            fileColor.backgroundColor = .textError
+        case .success:
+            fileColor.backgroundColor = .successColor
+        }
     }
 }
