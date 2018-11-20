@@ -103,7 +103,7 @@ class EditorVC: UIViewController {
     }
     
     func showResults(results: [String], error: Bool) {
-        consoleTextView.textColor = error ? #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        consoleTextView.textColor = error ? .textError : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         var text = ""
         for result in results {
@@ -116,7 +116,7 @@ class EditorVC: UIViewController {
     }
     
     func showCompileError(_ message: String) {
-        consoleTextView.textColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+        consoleTextView.textColor = .textError
         let text = "COMPILE ERROR: \n\(message) "
         consoleTextView.text = text
     }

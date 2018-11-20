@@ -25,5 +25,11 @@ extension UIColor {
         return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
+    public class var textError: UIColor {
+        return #colorLiteral(red: 1, green: 0.337254902, blue: 0.3490196078, alpha: 1)
+    }
 
+    public class var successColor: UIColor {
+        return #colorLiteral(red: 0.3810148835, green: 0.8283001781, blue: 1, alpha: 1)
+    }
 }

@@ -228,23 +228,23 @@ class HomeVC: UIViewController {
             func sort() -> Void {
                 var i:Int;
                 i = 1;
-                while( i != tam) {
+                while( i < tam) {
                     var j:int;
                     j = 0;
-                    while(j < tam) {
+                    while(j < tam - 1) {
                         if (a[j] > a[j+1]) {
                             var temp:int;
                             temp = a[j];
                             a[j] = a[j+1];
                             a[j+1] = temp;
-                            j = j+1;
                         }
+                        j = j+1;
                     }
                     i = i+1;
                 }
             }
 
-            func printA() -> Void {
+            func printArray() -> Void {
                 var cont:Int;
                 cont = 0;
                 while(cont < tam) {
@@ -253,11 +253,11 @@ class HomeVC: UIViewController {
                 }
             }
         
-            print("Arreglo Original");
-            printA();
+            print("Arreglo Original:");
+            printArray();
             sort();
-            print("Arreglo Ordenado");
-            printA();
+            print("Arreglo Ordenado:");
+            printArray();
         }
         """
         let file = File("Sort", code)
