@@ -459,7 +459,7 @@ extension Wizard {
         // PN1 Llamada
         // Verify that the function exists into the dirFunc table.
         if !functions.keys.contains(funcName) {
-            compileError("Function does not exists")
+            compileError("Function '\(funcName)' does not exists")
             return
         }
         
