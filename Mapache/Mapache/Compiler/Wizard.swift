@@ -469,13 +469,13 @@ extension Wizard {
         if (ctx.parent as? MapacheParser.EstatutoContext) != nil {
             // Only void funcs on Estatutos
             if returnType != .Void {
-                compileError("Function has return type and can't be called like this")
+                compileError("Function '\(funcName)' has return type and can't be called like this")
                 return
             }
         } else {
             // Only void funcs on Estatutos
             if returnType == .Void {
-                compileError("Function is Void and can't be called like this")
+                compileError("Function '\(funcName)' is Void and can't be called like this")
                 return
             }
         }
