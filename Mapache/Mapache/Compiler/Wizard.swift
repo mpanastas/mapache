@@ -269,34 +269,6 @@ extension Wizard {
         tempMemory.reset()
     }
     
-    //    func save(int: Int){
-    //
-    //    }
-    //
-    //    func save(float: Float){
-    //
-    //    }
-    //
-    //    func save(bool: Bool) {
-    //
-    //    }
-    //
-    //    func save(char: Character) {
-    //
-    //    }
-    //
-    //    func save(string: String) {
-    //
-    //    }
-    
-    //    func getNewAddress(forType type: Type) -> Address {
-    //        if currentFunction == globalFunc {
-    //
-    //        } else {
-    //
-    //        }
-    //    }
-    
     func getParamType(from funcName: String, paramNum: Int) -> Type {
         if let type = functions[funcName]?.paramsSecuence[paramNum-1] {
             return type
@@ -382,15 +354,17 @@ extension Wizard {
         func formatNumber(_ string: String) -> String{
             var str = string
             let length = str.count
-            let new = 5 - length
-            for _ in 0..<new {
-                str.insert(" ", at: str.startIndex)
-            }
+            let new = 6 - length
+           
+                for _ in 0..<new {
+                    str.insert(" ", at: str.startIndex)
+                }
+            
             return str
         }
         
-        print("#  Operators   Left  Right Temp ")
-        print("--------------------------------")
+        print("#  Operators   Left   Right  Temp  ")
+        print("-----------------------------------")
         for index in 0..<quadsCount {
             let quad = quadruples[index]
             
@@ -453,10 +427,12 @@ extension Wizard {
         if stop { return }
         
         // PN1 Asignacion
-        let id = getText(from: ctx.ID()!)
-        
-        guard let variable = getVariable(withId: id) else { return }
-        addOperandToStacks(address: variable.address, type: variable.type)
+        if ctx.ID() != nil {
+            let id = getText(from: ctx.ID()!)
+            
+            guard let variable = getVariable(withId: id) else { return }
+            addOperandToStacks(address: variable.address, type: variable.type)
+        }
     }
     
     func exitAsignacion(_ ctx: MapacheParser.AsignacionContext) {
@@ -469,7 +445,7 @@ extension Wizard {
         // Checar cubo semantico
         let assignType = getResultType(idType, resultType, .Assign)
         if assignType == .Error {
-            compileError("Cant assig this type of expression to variable")
+            compileError("Cant assign this type of expression to variable")
         } else {
             addQuad(.Assign, resultVal, nil, idVal)
         }
@@ -487,11 +463,18 @@ extension Wizard {
             return
         }
         
-        // Only void funcs on Estatutos
+        let returnType = (functions[funcName]?.returnType)!
+       
         if (ctx.parent as? MapacheParser.EstatutoContext) != nil {
-            let returnType = (functions[funcName]?.returnType)!
+            // Only void funcs on Estatutos
             if returnType != .Void {
                 compileError("Function has return type and can't be called like this")
+                return
+            }
+        } else {
+            // Only void funcs on Estatutos
+            if returnType == .Void {
+                compileError("Function is Void and can't be called like this")
                 return
             }
         }

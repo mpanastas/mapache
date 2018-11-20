@@ -46,6 +46,8 @@ extension Wizard {
         
         tempLocalMemory.reset()
         tempTempMemory.reset()
+        tempLocalMemory.allocateArrays()
+        tempTempMemory.allocateArrays()
     }
     
     func recoverLastMemory(){
@@ -96,6 +98,16 @@ extension Wizard {
     
     func execute() {
         var quadIndex = 0
+        localMemory.reset()
+        tempMemory.reset()
+        globalMemory.reset()
+        tempGlobalMemory.reset()
+        
+        localMemory.allocateArrays()
+        tempMemory.allocateArrays()
+        globalMemory.allocateArrays()
+        tempGlobalMemory.allocateArrays()
+        
         
         while quadIndex < quadsCount {
             let quadruple = quadruples[quadIndex]
@@ -663,13 +675,14 @@ extension Wizard {
      Error handling: N/A
      **/
     
-    func verify(leftAddress: Address, tempAddress: Address, quadIndex: inout Int) {
-        let (tempVal, _) = getValue(from: tempAddress)
+    func verify(leftAddress: Address, tempAddress tempVal: Address, quadIndex: inout Int) {
+        let (leftVal, _) = getValue(from: leftAddress)
         
-        if leftAddress <= tempVal as! Int || leftAddress < 0 {
+        if (leftVal as! Int) >= tempVal {
             error("Error: Index in array is out of bounds")
             end(quadIndex: &quadIndex)
         }
+
     }
     
     /**
