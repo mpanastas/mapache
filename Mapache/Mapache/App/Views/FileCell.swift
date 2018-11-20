@@ -15,7 +15,7 @@ class FileCell: UICollectionViewCell {
     @IBOutlet weak var fileColor: UIView!
     
     func setupCell(with file: File) {
-        nameLbl.text = file.name
+        nameLbl.text = file.title
         switch file.fileType {
         case .new:
             fileColor.backgroundColor = nil

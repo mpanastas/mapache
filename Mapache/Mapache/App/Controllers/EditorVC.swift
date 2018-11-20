@@ -71,7 +71,7 @@ class EditorVC: UIViewController {
     // MARK: - Setup functions
     private func setup() {
         if let file = file {
-            title = file.name
+            title = file.title
             editorTextView.text = file.code
         } else {
             title = "New file"

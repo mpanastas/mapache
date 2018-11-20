@@ -15,15 +15,15 @@ enum FileType {
 }
 
 struct File {
-    var name: String = "File"
+    var title: String = "File"
     var code: String = ""
     var description: String = ""
     var creationDate: Date = Date()
     var modifyDate: Date = Date()
     var fileType = FileType.new
     
-    init(_ name: String, _ code: String, _ type: FileType){
-        self.name = name
+    init(_ title: String, _ code: String, _ type: FileType){
+        self.title = title
         self.code = code
         self.fileType = type
     }

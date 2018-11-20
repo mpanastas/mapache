@@ -23,6 +23,9 @@ class HomeVC: UIViewController {
     
     var selectedFile: File?
     
+    var customFilesCode: [String] = []
+    var customFilesTitle: [String] = []
+    
     // MARK: Override
     
     override func viewDidLoad() {
@@ -30,7 +33,7 @@ class HomeVC: UIViewController {
         
         setupNavBar()
         
-        fillTests()
+        loadFiles()()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -49,10 +52,51 @@ class HomeVC: UIViewController {
         title = "Home"
     }
     
+    func loadFiles() {
+        files.removeAll()
+        loadCustomFiles()
+        loadSuccessTests()
+        loadCompileErrorTests()
+    }
+    
+    func loadCustomFiles() {
+        let defaults = UserDefaults.standard
+        let emptyArr: [String] = []
+        customFilesCode = defaults.stringArray(forKey: "customFilesCode") ?? emptyArr
+        customFilesTitle = defaults.stringArray(forKey: "customFilesTitle") ?? emptyArr
+        
+        for i in 0..<customFilesCode.count {
+            let code = customFilesCode[i]
+            let title = customFilesTitle[i]
+            let file = File(title, code, .new)
+            files.append(file)
+        }
+    }
+    
+    
+    func saveFile(_ newFile: File) {
+        customFilesCode.insert(newFile.code, at: 0)
+        customFilesTitle.insert(newFile.title, at: 0)
+        let defaults = UserDefaults.standard
+        defaults.set(customFilesCode, forKey: "customFilesCode")
+        defaults.set(customFilesTitle, forKey: "customFilesTitle")
+        
+        loadFiles()
+    }
+    
+    func updateFile(_ file: File, at index: Int) {
+        customFilesCode[index] = file.code
+        customFilesTitle[index] = file.name
+        let defaults = UserDefaults.standard
+        defaults.set(customFilesCode, forKey: "customFilesCode")
+        defaults.set(customFilesTitle, forKey: "customFilesTitle")
+        
+        loadFiles()
+    }
+    
     // MARK: Tests functions
     
-    func fillTests() {
-        //Test
+    func loadSuccessTests() {
         testExpr()
         testTypes()
         factorialR()
@@ -63,7 +107,9 @@ class HomeVC: UIViewController {
         search()
         order()
         logicOp()
-        //Error Test
+    }
+    
+    func loadCompileErrorTests() {
         wOrder()
         VoidReturn()
         assignE()
@@ -661,4 +707,10 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: side, height: 150)
     }
+}
+
+
+// MARK: - Tests
+extension HomeVC {
+    
 }
