@@ -74,6 +74,8 @@ class HomeVC: UIViewController {
         funcExists()
         paramE()
         retE()
+        indexE()
+        idError()
     }
     
     func factorialR(){
@@ -583,6 +585,30 @@ class HomeVC: UIViewController {
         }
         """
         let file = File("Type Return", code)
+        files.append(file)
+    }
+    func indexE(){
+        let code =
+        """
+        mapache{
+            var array[5]:Int;
+            var index:Float;
+            index = 4.5;
+
+            array[index] = 0;
+        }
+        """
+        let file = File("Index Error", code)
+        files.append(file)
+    }
+    func idError(){
+        let code =
+        """
+        mapache{
+            x = 1 + 2;
+        }
+        """
+        let file = File("Variable Id Error", code)
         files.append(file)
     }
     
