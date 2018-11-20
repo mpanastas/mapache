@@ -127,6 +127,7 @@ class Wizard{
         currentFunction = globalFunc
         
         functions.removeAll()
+        globalJumps.removeAll()
         jumps.removeAll()
         types.removeAll()
         operands.removeAll()

@@ -127,6 +127,8 @@ class EditorVC: UIViewController {
     @IBAction private func runCode(_ sender: Any) {
         cleanResults()
         
+        editorTextView.resignFirstResponder()
+        
         Wizard.shared.runCode(input: editorTextView.text, vc: self)
         
         
