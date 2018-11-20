@@ -237,8 +237,10 @@ class HomeVC: UIViewController {
                             temp = a[j];
                             a[j] = a[j+1];
                             a[j+1] = temp;
+                            j = j+1;
                         }
                     }
+                    i = i+1;
                 }
             }
 
