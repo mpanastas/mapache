@@ -9,7 +9,9 @@
 import Foundation
 import Antlr4
 
-class MapacheWalker: MapacheBaseListener{
+
+
+class MapacheWalker: MapacheBaseListener {
     
     
     let wizard = Wizard.shared

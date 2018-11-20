@@ -12,14 +12,23 @@ import SwiftyJSON
 
 class HomeVC: UIViewController {
     
+    
     // MARK: IBOutlets
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     
+    // MARK: - Constants
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    
+    
+    
     // MARK: - Variables
     
     var files: [File] = []
+    var filterFiles = [File]()
     
     var selectedFile: File?
     var selectedIndex: Int?
@@ -27,12 +36,28 @@ class HomeVC: UIViewController {
     var customFilesCode: [String] = []
     var customFilesTitle: [String] = []
     
+    var searchBarIsEmpty : Bool {
+        get {
+            return searchController.searchBar.text?.isEmpty ?? true
+        }
+    }
+    
+    var searching : Bool {
+        get {
+            return searchController.isActive && !searchBarIsEmpty
+        }
+    }
+    
+    
+    
     // MARK: Override
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavBar()
+        
+        setupSearch()
         
         loadFiles()
     }
@@ -77,6 +102,27 @@ class HomeVC: UIViewController {
         }
     }
     
+    // MARK: - Search functions
+    func setupSearch() {
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Type here to search..."
+        searchController.searchBar.barStyle = .blackTranslucent
+        
+        navigationItem.searchController = searchController
+        
+        searchController.searchBar.delegate = self
+        searchController.definesPresentationContext = true
+    }
+    
+    func filterFiles(with searchText: String){
+        filterFiles = files.filter({ (file) -> Bool in
+            return file.title.lowercased().contains(searchText.lowercased())
+        })
+        collectionView.reloadData()
+    }
+    
 }
 
 // MARK: - EditorDelegate
@@ -102,12 +148,59 @@ extension HomeVC: EditorDelegate {
     }
 }
 
+// MARK: - UISearchResultsUpdating Delegate
+extension HomeVC: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterFiles(with: searchController.searchBar.text!)
+        
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension HomeVC: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+       
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("textDidChange")
+        //searching = searchBar.text != ""
+        //tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchController.searchBar.text = nil
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.searchBar.text = nil
+        searchBar.resignFirstResponder()
+    }
+}
+
 extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if searching {
+            return filterFiles.count
+        }
         return files.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if searching {
+            let file = filterFiles[indexPath.row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileCell", for: indexPath) as! FileCell
+            cell.setupCell(with: file)
+            return cell
+        }
+        
         if indexPath.row == 0  {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "createFileCell", for: indexPath)
         }
@@ -123,11 +216,19 @@ extension HomeVC: UICollectionViewDataSource {
 
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row > 0  {
-            selectedIndex = indexPath.row-1
-            selectedFile = files[selectedIndex!]
+        if searching {
+            
+                selectedIndex = indexPath.row
+                selectedFile = filterFiles[selectedIndex!]
+            
+            performSegue(withIdentifier: "openEditor", sender: self)
+        } else {
+            if indexPath.row > 0  {
+                selectedIndex = indexPath.row-1
+                selectedFile = files[selectedIndex!]
+            }
+            performSegue(withIdentifier: "openEditor", sender: self)
         }
-        performSegue(withIdentifier: "openEditor", sender: self)
     }
 }
 

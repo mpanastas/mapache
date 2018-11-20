@@ -1064,5 +1064,7 @@ extension Wizard {
     
     func visitTerminal(_ node: TerminalNode) { }
     
-    func visitErrorNode(_ node: ErrorNode) { }
+    func visitErrorNode(_ node: ErrorNode) {
+        print("Visit error node")
+    }
 }
