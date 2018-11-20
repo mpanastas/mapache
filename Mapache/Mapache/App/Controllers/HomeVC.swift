@@ -392,7 +392,7 @@ class HomeVC: UIViewController {
             print(ans);
 
             func sub(a:Int, b:Int)->Int{
-                return b-a;
+                return a-b;
             }
             print(sub(1,2));
         }
