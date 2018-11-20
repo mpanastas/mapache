@@ -61,26 +61,15 @@ struct Memory {
     // MARK: - Custom functions
     
     mutating func save(_ value: Any, in address: Address) {
-        #warning ("TODO: Check if append is okay")
         switch address {
         case ..<floatStartAddress:
-            let index = address - intStartAddress
-            if index >= ints.count {
-                ints.append(value as? Int)
-            } else {
-                ints[address - intStartAddress] = value as? Int
-            }
+            ints[address - intStartAddress] = value as? Int
         case ..<charStartAddress:
             floats[address - floatStartAddress] = value as? Float
         case ..<boolStartAddress:
             chars[address - charStartAddress] = value as? Character
         case ..<stringStartAddress:
-            let index = address - boolStartAddress
-            if index >= bools.count {
-                bools.append(value as? Bool)
-            } else {
-                bools[address - boolStartAddress] = value as? Bool
-            }
+            bools[address - boolStartAddress] = value as? Bool
         default:
             strings[address - stringStartAddress] = value as? String
         }
@@ -149,6 +138,15 @@ struct Memory {
     mutating func save(string: String?) -> Address {
         strings.append(string)
         return stringStartAddress + strings.count - 1
+    }
+    
+    mutating func allocateArrays(){
+        for _ in 1...1000 {
+            ints.append(nil)
+            floats.append(nil)
+            bools.append(nil)
+            chars.append(nil)
+        }
     }
 
     
