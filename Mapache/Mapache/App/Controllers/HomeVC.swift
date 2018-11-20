@@ -118,18 +118,22 @@ class HomeVC: UIViewController {
     func fiboR(){
         let code =
         """
-        mapache {
-            func fibonacci(n:Int) -> Void {
+        mapache{
+            func fibonacciR(n: Int) -> Int {
                 var ans:Int;
-                if (n > 1) {
-                    ans = fibonacci(n-1) + fibonacci(n-2);
-                } else {
-                    ans = n;
+                if (n == 0) {
+                    ans= 0;
+                } else{
+                    if (n == 1) {
+                        ans= 1;
+                    } else {
+                        ans =  fibonacciR(n-1) + fibonacciR(n-2);
+                    }
                 }
                 return ans;
             }
-        
-        fibonacci(5);
+
+            print(fibonacciR(5));
         }
         """
         let file = File("Fibonacci Recursive", code)
