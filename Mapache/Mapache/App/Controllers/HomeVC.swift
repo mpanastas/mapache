@@ -61,6 +61,7 @@ class HomeVC: UIViewController {
         fibo()
         bubblesort()
         search()
+        order()
     }
     
     func factorialR(){
@@ -215,28 +216,28 @@ class HomeVC: UIViewController {
             func sort() -> Void {
                 var i:Int;
                 i = 1;
-                    while( i != tam) {
-                        var j:int;
-                        j = 0;
-                        while(j < tam) {
-                            if (a[j] > a[j+1]) {
-                                var temp:int;
-                                temp = a[j];
-                                a[j] = a[j+1];
-                                a[j+1] = temp;
-                                }
-                            }
+                while( i != tam) {
+                    var j:int;
+                    j = 0;
+                    while(j < tam) {
+                        if (a[j] > a[j+1]) {
+                            var temp:int;
+                            temp = a[j];
+                            a[j] = a[j+1];
+                            a[j+1] = temp;
                         }
-                 }
+                    }
+                }
+            }
 
             func printA() -> Void {
                 var cont:Int;
                 cont = 0;
-                    while(cont < tam) {
-                        print(a[cont]);
-                        cont = cont + 1;
-                        }
+                while(cont < tam) {
+                    print(a[cont]);
+                    cont = cont + 1;
                 }
+            }
         
             print("Arreglo Original");
             printA();
@@ -354,6 +355,30 @@ class HomeVC: UIViewController {
         let file = File("Types", code)
         files.append(file)
     }
+    
+    func order(){
+        let code =
+        """
+        mapache{
+            func sum(a:Int, b:Int) -> Int{
+                return a+b;
+            }
+
+            var ans:Int;
+            ans = sum(1,2);
+            print(ans);
+            print(sub(1,2));
+
+            func sub(a:Int, b:Int)->Int{
+                return b-a;
+            }
+        }
+        """
+        let file = File("Order", code)
+        files.append(file)
+    }
+    
+    
 }
 
 extension HomeVC: UICollectionViewDataSource {
