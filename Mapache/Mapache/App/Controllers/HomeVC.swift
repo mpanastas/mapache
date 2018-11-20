@@ -280,17 +280,18 @@ class HomeVC: UIViewController {
             var i:Int;
             i = 0;
 
-            func search(key:Int) -> Void {
+            func search(key:Int) -> Bool {
+                var found:Bool;
+                found = false;
                 while (i < tam) {
                     if (a[i] == key) {
-                        print("found value in array");
-                    }else{
-                    print("value not found in array");
+                        found = true;
                     }
                     i= i+1;
                 }
+                return found;
             }
-            search(2);
+            print(search(2));
         }
         """
         let file = File("Search", code)
