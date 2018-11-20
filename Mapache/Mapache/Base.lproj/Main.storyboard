@@ -141,6 +141,7 @@
                                             <constraint firstItem="bgv-w4-LWq" firstAttribute="top" secondItem="QuF-rJ-fAA" secondAttribute="top" constant="15" id="pkX-8A-LUD"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="fileColor" destination="Mby-4A-Nfn" id="L9M-EF-q0S"/>
                                             <outlet property="nameLbl" destination="aDQ-lE-ZMk" id="Je4-fz-qGC"/>
                                         </connections>
                                     </collectionViewCell>
