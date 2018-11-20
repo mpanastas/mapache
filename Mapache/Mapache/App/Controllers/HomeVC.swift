@@ -168,7 +168,7 @@ class HomeVC: UIViewController {
             fibonacci(5);
         }
         """
-        let file = File("Void Return", code, .success)
+        let file = File("Void Return", code, .error)
         files.append(file)
     }
     
