@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol EditorDelegate {
+    func saveFile(_ newFile: File)
+    func updateFile(_ file: File, at index: Int)
+}
+
 class EditorVC: UIViewController {
 
     
@@ -30,7 +35,10 @@ class EditorVC: UIViewController {
     @IBOutlet weak var consoleTextViewBottom: NSLayoutConstraint!
     
     // MARK: - Variables
+    var delegate: EditorDelegate?
+    
     var file: File?
+    var fileIndex: Int?
     
     var isHorizontalRegular: Bool {
         get {
@@ -49,6 +57,7 @@ class EditorVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Add keyboard observer
         let notifier = NotificationCenter.default
         notifier.addObserver(self,
                              selector: #selector(keyboardWillShow),
@@ -63,8 +72,23 @@ class EditorVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        // Remove keyboard observer
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
+        
+        // Call delegate
+        if let delegate = delegate {
+            if let file = file {
+                if file.fileType == .new {
+                    self.file!.code = editorTextView.text
+                    delegate.updateFile(self.file!, at: fileIndex!)
+                }
+            } else {
+                self.file = File("Untitled", editorTextView.text, .new)
+                delegate.saveFile(self.file!)
+            }
+        }
+        
     }
     
     

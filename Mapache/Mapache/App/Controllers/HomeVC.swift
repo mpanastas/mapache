@@ -22,6 +22,7 @@ class HomeVC: UIViewController {
     var files: [File] = []
     
     var selectedFile: File?
+    var selectedIndex: Int?
     
     var customFilesCode: [String] = []
     var customFilesTitle: [String] = []
@@ -33,18 +34,19 @@ class HomeVC: UIViewController {
         
         setupNavBar()
         
-        loadFiles()()
+        loadFiles()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "openEditor" {
             let editorVC = segue.destination as! EditorVC
+            editorVC.delegate = self
             editorVC.file = selectedFile
+            editorVC.fileIndex = selectedIndex
             selectedFile = nil
+            selectedIndex = nil
         }
     }
-    
-    
     
     // MARK: - Setup functions
     
@@ -57,6 +59,8 @@ class HomeVC: UIViewController {
         loadCustomFiles()
         loadSuccessTests()
         loadCompileErrorTests()
+        
+        collectionView.reloadData()
     }
     
     func loadCustomFiles() {
@@ -73,7 +77,10 @@ class HomeVC: UIViewController {
         }
     }
     
-    
+}
+
+// MARK: - EditorDelegate
+extension HomeVC: EditorDelegate {
     func saveFile(_ newFile: File) {
         customFilesCode.insert(newFile.code, at: 0)
         customFilesTitle.insert(newFile.title, at: 0)
@@ -86,15 +93,71 @@ class HomeVC: UIViewController {
     
     func updateFile(_ file: File, at index: Int) {
         customFilesCode[index] = file.code
-        customFilesTitle[index] = file.name
+        customFilesTitle[index] = file.title
         let defaults = UserDefaults.standard
         defaults.set(customFilesCode, forKey: "customFilesCode")
         defaults.set(customFilesTitle, forKey: "customFilesTitle")
         
         loadFiles()
     }
+}
+
+extension HomeVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return files.count + 1
+    }
     
-    // MARK: Tests functions
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row == 0  {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "createFileCell", for: indexPath)
+        }
+        
+        let file = files[indexPath.row - 1]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileCell", for: indexPath) as! FileCell
+        cell.setupCell(with: file)
+        return cell
+    }
+    
+    
+}
+
+extension HomeVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row > 0  {
+            selectedIndex = indexPath.row-1
+            selectedFile = files[selectedIndex!]
+        }
+        performSegue(withIdentifier: "openEditor", sender: self)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension HomeVC: UICollectionViewDelegateFlowLayout {
+    
+    /// Sets the size of the cell
+    ///
+    /// - Parameters:
+    ///   - collectionView: collectionView asking for the cell size
+    ///   - collectionViewLayout: collectionViewLayout of the collectionView
+    ///   - indexPath: indexPath asking for the cell size
+    /// - Returns: the CGSize of the cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // Compact Regular == iPhone.portrait
+        let isCompactRegular = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
+        
+        let viewWidth = view.frame.width
+        
+        // Width is equal to viewWidth/4 on iPhone and to viewWidth/6 for iPad
+        let side: CGFloat = isCompactRegular ? (viewWidth)/3 : viewWidth/6
+        
+        return CGSize(width: side, height: 150)
+    }
+}
+
+
+// MARK: - Tests
+extension HomeVC {
     
     func loadSuccessTests() {
         testExpr()
@@ -654,63 +717,5 @@ class HomeVC: UIViewController {
         let file = File("Variable Id Error", code, .error)
         files.append(file)
     }
-    
-}
-
-extension HomeVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return files.count + 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0  {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: "createFileCell", for: indexPath)
-        }
-        
-        let file = files[indexPath.row - 1]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileCell", for: indexPath) as! FileCell
-        cell.setupCell(with: file)
-        return cell
-    }
-    
-    
-}
-
-extension HomeVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row > 0  {
-            selectedFile = files[indexPath.row - 1]
-        }
-        performSegue(withIdentifier: "openEditor", sender: self)
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension HomeVC: UICollectionViewDelegateFlowLayout {
-    
-    /// Sets the size of the cell
-    ///
-    /// - Parameters:
-    ///   - collectionView: collectionView asking for the cell size
-    ///   - collectionViewLayout: collectionViewLayout of the collectionView
-    ///   - indexPath: indexPath asking for the cell size
-    /// - Returns: the CGSize of the cell
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        // Compact Regular == iPhone.portrait
-        let isCompactRegular = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
-        
-        let viewWidth = view.frame.width
-        
-        // Width is equal to viewWidth/4 on iPhone and to viewWidth/6 for iPad
-        let side: CGFloat = isCompactRegular ? (viewWidth)/3 : viewWidth/6
-        
-        return CGSize(width: side, height: 150)
-    }
-}
-
-
-// MARK: - Tests
-extension HomeVC {
     
 }
