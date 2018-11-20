@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fX2-p8-yuQ">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad11_0rounded" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -10,16 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--HomeVC-->
+        <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeVC" customModule="Mapache" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="760"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gor-yW-pD3">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1194" height="760"/>
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="bE0-Pa-j04">
                                     <size key="itemSize" width="125" height="150"/>
@@ -90,7 +90,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fileCell" id="QuF-rJ-fAA" customClass="FileCell" customModule="Mapache" customModuleProvider="target">
-                                        <rect key="frame" x="125" y="0.0" width="125" height="150"/>
+                                        <rect key="frame" x="133.5" y="0.0" width="125" height="150"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="150"/>
@@ -161,10 +161,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="20p-7f-VcZ"/>
+                    <navigationItem key="navigationItem" title="Home" id="20p-7f-VcZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="KkJ-7P-at9">
+                            <connections>
+                                <segue destination="dyJ-FU-lQB" kind="show" identifier="openEditor" id="WOQ-WC-W5y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="gor-yW-pD3" id="T5M-Ww-ugr"/>
-                        <segue destination="dyJ-FU-lQB" kind="show" identifier="openEditor" id="SMO-20-BfK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -176,11 +181,11 @@
             <objects>
                 <viewController id="dyJ-FU-lQB" customClass="EditorVC" customModule="Mapache" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f77-sm-DM8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="760"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZoU-yo-JuA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="403"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZoU-yo-JuA">
+                                <rect key="frame" x="0.0" y="0.0" width="895.5" height="760"/>
                                 <string key="text">mapache {
 var ej:int;  var ej2: int;
 
@@ -205,15 +210,27 @@ hi();
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="COMPILE ERROR" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iTn-on-cHe">
-                                <rect key="frame" x="0.0" y="403" width="375" height="200"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iTn-on-cHe">
+                                <rect key="frame" x="895.5" y="0.0" width="298.5" height="760"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="298.5" id="6ej-Na-2X7"/>
                                     <constraint firstAttribute="height" constant="200" id="mev-pE-XO7"/>
                                 </constraints>
                                 <color key="textColor" red="1" green="0.33725490196078434" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="6ej-Na-2X7"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="6ej-Na-2X7"/>
+                                        <exclude reference="mev-pE-XO7"/>
+                                    </mask>
+                                </variation>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.16470588235294117" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -223,10 +240,30 @@ hi();
                             <constraint firstItem="iTn-on-cHe" firstAttribute="leading" secondItem="4R2-dN-jcf" secondAttribute="leading" id="Ib0-la-43S"/>
                             <constraint firstItem="ZoU-yo-JuA" firstAttribute="trailing" secondItem="4R2-dN-jcf" secondAttribute="trailing" id="Mal-8d-oe2"/>
                             <constraint firstItem="ZoU-yo-JuA" firstAttribute="bottom" secondItem="iTn-on-cHe" secondAttribute="top" id="O54-J5-czv"/>
+                            <constraint firstItem="iTn-on-cHe" firstAttribute="top" secondItem="4R2-dN-jcf" secondAttribute="top" id="T7E-mU-Q2e"/>
+                            <constraint firstItem="iTn-on-cHe" firstAttribute="leading" secondItem="ZoU-yo-JuA" secondAttribute="trailing" id="ZLt-gi-Mdb"/>
+                            <constraint firstItem="ZoU-yo-JuA" firstAttribute="bottom" secondItem="f77-sm-DM8" secondAttribute="bottom" id="gZ7-hE-WOa"/>
                             <constraint firstItem="ZoU-yo-JuA" firstAttribute="leading" secondItem="4R2-dN-jcf" secondAttribute="leading" id="jhx-qE-rCN"/>
-                            <constraint firstAttribute="bottom" secondItem="iTn-on-cHe" secondAttribute="bottom" id="xSI-fQ-qlt"/>
+                            <constraint firstItem="iTn-on-cHe" firstAttribute="bottom" secondItem="f77-sm-DM8" secondAttribute="bottom" id="xSI-fQ-qlt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4R2-dN-jcf"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gZ7-hE-WOa"/>
+                                <exclude reference="T7E-mU-Q2e"/>
+                                <exclude reference="ZLt-gi-Mdb"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="Mal-8d-oe2"/>
+                                <exclude reference="O54-J5-czv"/>
+                                <include reference="gZ7-hE-WOa"/>
+                                <exclude reference="Ib0-la-43S"/>
+                                <include reference="T7E-mU-Q2e"/>
+                                <include reference="ZLt-gi-Mdb"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="N6v-YA-S8P">
                         <barButtonItem key="rightBarButtonItem" systemItem="play" id="1qa-Be-uCj">
@@ -237,14 +274,16 @@ hi();
                     </navigationItem>
                     <connections>
                         <outlet property="consoleTextView" destination="iTn-on-cHe" id="sg2-2S-p9j"/>
+                        <outlet property="consoleTextViewBottom" destination="xSI-fQ-qlt" id="qFU-Ph-sQJ"/>
                         <outlet property="consoleTextViewHeight" destination="mev-pE-XO7" id="dez-jH-EV8"/>
                         <outlet property="editorBottom" destination="O54-J5-czv" id="HIW-Xo-vDZ"/>
                         <outlet property="editorTextView" destination="ZoU-yo-JuA" id="qp4-u1-Yy5"/>
+                        <outlet property="editorTextViewBottom" destination="gZ7-hE-WOa" id="uvu-HO-4P5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K3P-M2-rkq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3024.8000000000002" y="-9.4452773613193415"/>
+            <point key="canvasLocation" x="3024.6231155778896" y="-10.071942446043167"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AkO-8u-yXe">
@@ -252,7 +291,7 @@ hi();
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fX2-p8-yuQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="iMq-Am-Tqe">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="24" width="1194" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

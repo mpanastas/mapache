@@ -25,8 +25,18 @@ class EditorVC: UIViewController {
     
     @IBOutlet weak var editorBottom: NSLayoutConstraint!
     
+    @IBOutlet weak var editorTextViewBottom: NSLayoutConstraint!
+    
+    @IBOutlet weak var consoleTextViewBottom: NSLayoutConstraint!
+    
     // MARK: - Variables
     var file: File?
+    
+    var isHorizontalRegular: Bool {
+        get {
+            return traitCollection.horizontalSizeClass == .regular
+        }
+    }
     
     // MARK: - Override
     
@@ -91,7 +101,27 @@ class EditorVC: UIViewController {
         let rawAnimationCurve = notif.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
         let animationCurve = UIView.AnimationOptions.init(rawValue: rawAnimationCurve)
         
-        editorBottom.constant = hidding ? consoleTextView.frame.height : view.bounds.maxY - convertedKeyboardEndFrame.minY
+        
+        if isHorizontalRegular {
+            // Update bottom constraint of editor and console
+            editorTextViewBottom.constant = hidding ? 0 : -(view.bounds.maxY - convertedKeyboardEndFrame.minY)
+            consoleTextViewBottom.constant = hidding ? 0 : -(view.bounds.maxY - convertedKeyboardEndFrame.minY)
+            self.view.layoutIfNeeded()
+        } else {
+            if !hidding {
+                // Hide console
+                UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7,
+                               initialSpringVelocity: 7.0, options: .curveEaseIn,
+                               animations: {
+                                self.consoleTextViewHeight.constant = 0
+                                
+                                self.view.layoutIfNeeded()
+                },completion: nil)
+            }
+            editorBottom.constant = hidding ? 0 : -(view.bounds.maxY - convertedKeyboardEndFrame.minY)
+        }
+        
+        
         
         UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, animationCurve], animations: {
             self.view.layoutIfNeeded()
@@ -127,18 +157,18 @@ class EditorVC: UIViewController {
     @IBAction private func runCode(_ sender: Any) {
         cleanResults()
         
-        editorTextView.resignFirstResponder()
-        
         Wizard.shared.runCode(input: editorTextView.text, vc: self)
-        
-        
-        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 7.0, options: .curveEaseIn,
-                       animations: {
-                        self.consoleTextViewHeight.constant = 250
-                        
-                        self.view.layoutIfNeeded()
-        },completion: nil)
+        if !isHorizontalRegular {
+            editorTextView.resignFirstResponder()
+            
+            UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 7.0, options: .curveEaseIn,
+                           animations: {
+                            self.consoleTextViewHeight.constant = 250
+                            
+                            self.view.layoutIfNeeded()
+            },completion: nil)
+        }
         
         // add loading to consoletextview
     }

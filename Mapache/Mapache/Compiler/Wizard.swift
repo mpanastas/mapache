@@ -407,6 +407,7 @@ extension Wizard {
     
     func exitMapache(_ ctx: MapacheParser.MapacheContext) {
         if stop { return }
+        
         if let globalJump = globalJumps.pop() {
             fillGoTo(globalJump, with: quadsCount)
         }
@@ -417,9 +418,6 @@ extension Wizard {
     
     func enterProgram(_ ctx: MapacheParser.ProgramContext) {
         if stop { return }
-//        globalJumps.push(quadsCount)
-//        addQuad(.GoTo, nil, nil, nil)
-        
     }
     
     func exitProgram(_ ctx: MapacheParser.ProgramContext) {
@@ -448,7 +446,7 @@ extension Wizard {
         // Checar cubo semantico
         let assignType = getResultType(idType, resultType, .Assign)
         if assignType == .Error {
-            compileError("Cant assign this type of expression to variable")
+            compileError("Can't assign expression of type '\(resultType)' to variable'")
         } else {
             addQuad(.Assign, resultVal, nil, idVal)
         }
@@ -481,8 +479,6 @@ extension Wizard {
                 return
             }
         }
-        
-        // if parent == EstatutoContext && returnType != Void
         
         // PN2 Llamada
         // Generate action ERA size (Activation Record Expansion -NEW -size)
@@ -541,7 +537,6 @@ extension Wizard {
         // Validate that variable does not exists
         let varName = getText(from: ctx.ID()!)
         if (functions[currentFunction]?.variables.keys.contains(varName))! {
-            // Var already exists
             compileError("Variable '\(varName)' already exists")
             return
         }
@@ -557,7 +552,7 @@ extension Wizard {
             for _ in 1..<arrSize {
                 _ = isGlobal ? globalMemory.save(varType) : localMemory.save(varType)
             }
-            #warning ("TODO: Check if address is going to be negative or positive")
+            
             let variable = Variable(varType, varAddress, arrSize)
             functions[currentFunction]?.variables[varName] = variable
         } else {
@@ -574,10 +569,10 @@ extension Wizard {
         globalJumps.push(quadsCount)
         addQuad(.GoTo, nil, nil, nil)
         
-        
+        let funcName = getText(from: ctx.ID().first!)
         if let parent = ctx.parent as? MapacheParser.EstatutoContext {
             if (parent.parent as? MapacheParser.BloquefuncContext) != nil {
-                compileError("Can't declare function inside another function")
+                compileError("Can't declare function '\(funcName)' inside another function")
             }
         }
         
@@ -586,10 +581,8 @@ extension Wizard {
         resetLocalMemory()
         
         // Insert func name intro the dirFuncTable, verify semantics
-        let funcName = getText(from: ctx.ID().first!)
-        
         if functions.keys.contains(funcName) {
-            compileError("Function already exists")
+            compileError("Function '\(funcName)' already exists")
             return
         }
         
@@ -627,7 +620,6 @@ extension Wizard {
             let virtualAddress = localMemory.save(paramType)
             functions[funcName]?.variables[paramId] = Variable(paramType, virtualAddress, paramIndex: i)
             
-            
             // At the same time into the parameterTable (to create the function's signature)
             functions[funcName]?.paramsSecuence.append(paramType)
         }
@@ -648,15 +640,7 @@ extension Wizard {
     
     func exitBloque(_ ctx: MapacheParser.BloqueContext) { }
     
-    func enterBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
-        if stop { return }
-        
-//        // PN6 Funcion
-//        // Insert into dirFunc table the current quadruple counter (cont). To establish where the procedure starts
-//        let funcCtx = ctx.parent as! MapacheParser.FuncionContext
-//        let funcName = getText(from: funcCtx.ID().first!)
-//        functions[funcName]?.add = quadsCount
-    }
+    func enterBloquefunc(_ ctx: MapacheParser.BloquefuncContext) { }
     
     func exitBloquefunc(_ ctx: MapacheParser.BloquefuncContext) {
         if stop { return }
@@ -664,12 +648,13 @@ extension Wizard {
         // PN? Funcion
         // Check if function has return
         let funcCtx = ctx.parent as! MapacheParser.FuncionContext
+        let funcName = getText(from: funcCtx.ID().first!)
         let funcType = getReturnType(from: funcCtx)
         
         if ctx.RETURN() == nil {
             // Function must be Void
             if funcType != .Void {
-                compileError("Function needs return")
+                compileError("Function '\(funcName)' needs return")
             }
         } else {
             // Function must not be Void
@@ -681,31 +666,14 @@ extension Wizard {
                     // Create Return Quad
                     addQuad(.Return, operVal, nil, nil)
                 } else {
-                    compileError("Return type must be same type as function return type")
+                    compileError("Return type must be same type as function '\(funcName)' return type")
                 }
                 
             } else {
-                compileError("Function is Void, can't have a return")
+                compileError("Function '\(funcName)' is Void, can't have a return")
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     func enterEstatuto(_ ctx: MapacheParser.EstatutoContext) {
         if currentFunction == globalFunc {
@@ -753,9 +721,7 @@ extension Wizard {
         
     }
     
-    func enterTermino(_ ctx: MapacheParser.TerminoContext) {
-        
-    }
+    func enterTermino(_ ctx: MapacheParser.TerminoContext) {}
     
     func exitTermino(_ ctx: MapacheParser.TerminoContext) {
         if stop { return }
@@ -825,7 +791,7 @@ extension Wizard {
         
         let resultType = types.top()!
         if resultType != .Int {
-            compileError("Array index not an integer")
+            compileError("Can't access array '\(id)'. Index needs to be an Int")
             return
         }
         
@@ -868,14 +834,12 @@ extension Wizard {
     
     func enterCicloFor(_ ctx: MapacheParser.CicloForContext) {
         if stop { return }
-        
         #warning ("TODO: ")
         // PN1 For
     }
     
     func exitCicloFor(_ ctx: MapacheParser.CicloForContext) {
         if stop { return }
-        
         #warning ("TODO: ")
         // PN4 For
     }
@@ -962,8 +926,7 @@ extension Wizard {
     func enterCondicionLista(_ ctx: MapacheParser.CondicionListaContext) {
         if stop { return }
         
-        // PN1 If
-        // PN2 While
+        // PN1 If PN2 While
         let expType = types.pop()
         if (expType != .Bool) {
             compileError("Type-mismatch")
@@ -971,7 +934,6 @@ extension Wizard {
             let result = operands.pop()
             jumps.push(quadsCount)
             addQuad(.GoToFalse, result, nil, nil)
-            
         }
     }
     
@@ -1002,7 +964,7 @@ extension Wizard {
         
         let paramType = getParamType(from: funcName, paramNum: argNum)
         if argType != paramType {
-            compileError("Argument does not match parameter type")
+            compileError("Argument does not match parameter type from func '\(funcName)'. Argument is type '\(argType)' and it must be '\(paramType)'")
         }
         
         // Generate action Parameter, argument, argument#k
@@ -1031,7 +993,6 @@ extension Wizard {
     
     func enterForRango(_ ctx: MapacheParser.ForRangoContext) {
         if stop { return }
-        
         #warning ("TODO: ")
         // PN2 For
     }
@@ -1040,7 +1001,6 @@ extension Wizard {
     
     func enterForListo(_ ctx: MapacheParser.ForListoContext) {
         if stop { return }
-        
         #warning ("TODO: ")
         // PN3 For
     }
@@ -1051,13 +1011,7 @@ extension Wizard {
         if stop { return }
         
         let parent = ctx.parent as! MapacheParser.ExpresionContext
-        let oper: Op
-        
-        if parent.AND() != nil {
-            oper = .And
-        } else {
-            oper = .Or
-        }
+        let oper: Op = parent.AND() != nil ? .And : .Or
         
         operators.push(oper)
     }
@@ -1085,13 +1039,7 @@ extension Wizard {
         if stop { return }
         
         let parent = ctx.parent as! MapacheParser.ExpContext
-        let oper: Op
-        
-        if parent.PLUS() != nil {
-            oper = .Sum
-        } else {
-            oper = .Sub
-        }
+        let oper: Op = parent.PLUS() != nil ? .Sum : .Sub
         
         operators.push(oper)
     }
@@ -1100,13 +1048,7 @@ extension Wizard {
         if stop { return }
         
         let parent = ctx.parent as! MapacheParser.TerminoContext
-        let oper: Op
-        
-        if parent.MULTIPLY() != nil {
-            oper = .Mult
-        } else {
-            oper = .Div
-        }
+        let oper: Op = parent.MULTIPLY() != nil ? .Mult : .Div
         
         operators.push(oper)
     }
