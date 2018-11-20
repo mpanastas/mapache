@@ -61,6 +61,7 @@ class HomeVC: UIViewController {
         fibo()
         bubblesort()
         search()
+        wOrder()
         order()
     }
     
@@ -356,7 +357,7 @@ class HomeVC: UIViewController {
         files.append(file)
     }
     
-    func order(){
+    func wOrder(){
         let code =
         """
         mapache{
@@ -372,6 +373,28 @@ class HomeVC: UIViewController {
             func sub(a:Int, b:Int)->Int{
                 return b-a;
             }
+        }
+        """
+        let file = File("Wrong Order", code)
+        files.append(file)
+    }
+    
+    func order(){
+        let code =
+        """
+        mapache{
+            func sum(a:Int, b:Int) -> Int{
+                return a+b;
+            }
+
+            var ans:Int;
+            ans = sum(1,2);
+            print(ans);
+
+            func sub(a:Int, b:Int)->Int{
+                return b-a;
+            }
+            print(sub(1,2));
         }
         """
         let file = File("Order", code)
